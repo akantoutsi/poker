@@ -1,0 +1,73 @@
+.Table {
+    height: 600px;
+    background-color: #006400;
+    border-radius: 250px;
+    margin-left: 15%;
+    margin-right: 15%;
+
+    /* border: 20px solid #006400; */
+
+    border: 20px solid;
+    /* border-color: linear-gradient(#565855, #71a656); */
+    /* border-image: linear-gradient(to left, #565855 0%, #71a656 100%) 30 30 round;
+    border-image-slice: 1; */
+
+    position: relative;
+}
+
+.player-2 {
+    border: 5px solid black;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    width: 80px;
+    height: 80px;
+    z-index: 3;
+    position: absolute;
+    left: 5%;
+    top: 15%;
+}
+
+.player-1 {
+    border: 5px solid black;
+    border-radius: 50%;
+    text-align: center;
+    display: inline-block;
+    padding: 5px 5px 5px 5px;
+    width: 80px;
+    height: 80px;
+    z-index: 3;
+    position: absolute;
+    left: 5%;
+    bottom: 15%;
+}
+
+.player-4 {
+    border: 5px solid black;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    width: 80px;
+    height: 80px;
+    z-index: 3;
+    position: absolute;
+    right: 5%;
+    bottom: 15%;
+}
+
+.player-3 {
+    border: 5px solid black;
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    width: 80px;
+    height: 80px;
+    z-index: 3;
+    position: absolute;
+    right: 5%;
+    top: 15%;
+}
+

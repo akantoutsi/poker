@@ -14,8 +14,7 @@ const Card = props => {
     // }
 
     return (
-        <div> 
-            Card
+        <div style={{display: 'inline-block'}} className='center'> 
             <div className="playingCards [fourColours|faceImages|simpleCards|inText|rotateHand]">
                 <ul className="deck">
                     {/* {allCards} */}

@@ -1,5 +1,6 @@
 import React    from 'react';
 import Table    from './components/Table/Table';
+import Card     from './components/Card/Card';
 // import logo     from './logo.svg';
 // import BestCard from './components/BestCard/BestCard';
 
@@ -8,6 +9,7 @@ import './App.css';
 function App() {
   return (
     <div>
+      <Card />
       <Table />
     </div>
     

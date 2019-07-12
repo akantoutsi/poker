@@ -1,4 +1,5 @@
 import React from 'react';
+import Card  from '../Card/Card';
 
 import './Table.css';
 
@@ -33,7 +34,9 @@ const Table = props => {
                 <div className='center'>Seat Open / Player 3</div>
             </div>
 
-            <div className='Table'></div>
+            <div className='Table'>
+                <Card />
+            </div>
 
             <div className='player-info-1'>
                 <div>Player 1</div>

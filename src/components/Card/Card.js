@@ -30,7 +30,24 @@ const Card = props => {
                     <li>
                         <div className="card back">*</div>
                     </li>
-                
+                    <li>
+                        <div className="card back">*</div>
+                    </li>
+                    <li>
+                        <div className="card back">*</div>
+                    </li>
+                    <li>
+                        <div className="card back">*</div>
+                    </li>
+                    <li>
+                        <div className="card back">*</div>
+                    </li>
+                    <li>
+                        <div className="card back">*</div>
+                    </li>
+                    <li>
+                        <div className="card back">*</div>
+                    </li>
                 </ul>
                 <div className="clear"></div>
 

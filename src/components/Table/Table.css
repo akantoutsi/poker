@@ -41,6 +41,7 @@ input {
     padding: 3px;
     border: 1px solid grey;
     margin: 0 0 0 270px;
+    border-radius: 4px;
 }
 
 .player-2 {
@@ -75,6 +76,7 @@ input {
     padding: 3px;
     border: 1px solid grey;
     margin: 10px 0 0 320px;
+    border-radius: 4px;
 }
 
 .player-4 {
@@ -96,6 +98,7 @@ input {
     padding: 3px;
     border: 1px solid grey;
     margin: 10px 0 0 830px;
+    border-radius: 4px;
 }
 
 .player-3 {
@@ -117,4 +120,5 @@ input {
     padding: 3px;
     border: 1px solid grey;
     margin: 0 0 0 980px;
+    border-radius: 4px;
 }

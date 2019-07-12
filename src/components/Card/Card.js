@@ -20,7 +20,7 @@ const Card = props => {
                 <ul className="deck">
                     {/* {allCards} */}
                     <li>
-                        <div class="card back">*</div>
+                        <div className="card back">*</div>
                     </li>
                     <li>
                         <div className="card back">*</div>

@@ -1,9 +1,11 @@
 const initialState = {
-    seq: null,
-    cards: [],
-    cash: 0,
-    isActive: 0,
-    pot: 0
+    // cards: [],
+    // seq: null,
+    // cash: 0,
+    // isActive: 0,
+    // pot: 0,
+    // smallBlindId: null,
+    // bigBlindId: null
 };
 
 const playerReducer = (state = initialState, action) => {

@@ -55,20 +55,21 @@ const initialState = {
         { suit: 'diams',   value: '3'  },
         { suit: 'diams',   value: '2'  }
     ],
-    playersCards: [],
+    players: [],
     boardCards: [],
     round: 0,
     dealerId: 0,
-    activeNumOfPlayers: 4,
+    numOfPlayers: 4,
     smallBlind: 2
 };
 
 const tableReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
+
             return {
                 ...state,
-                playersCards: state.playersCards.concat(action.payload),
+                players: state.players.concat(action.payload),
                 round: 1
             }
 

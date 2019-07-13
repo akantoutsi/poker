@@ -4,20 +4,21 @@ import Card  from '../Card/Card';
 import './Player.css';
 
 const Player = props => {
+    console.log(props);
     return (
         <div className='Player'>
             <div className='player-info'>
-                <div>Player 2</div>
+                <div>Player {props.seq + 1}</div>
                 <hr />
                 <div>
-                    $ 1.200
+                    {(props.cash > 0) ? '$' + props.cash : 0}
                     <input type='number' min='0' step='0.1' />
                     <button>Ok</button> 
                 </div>
             </div>
 
             <div className='player'>
-                <div className='center'>Seat Open / Player 2</div>
+                <div className='center'>{(props.seq > 0) ? 'Player ' + props.seq : 'Seat Open'}</div>
             </div>
 
             {

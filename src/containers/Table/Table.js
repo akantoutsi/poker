@@ -61,8 +61,18 @@ class Table extends Component {
         let playerCards = [];
         let boardCards  = [];
         let j = 0;
-        for (let i=0; i<this.props.tbl.activeNumOfPlayers; i++) {
-            playerCards.push({cards: cards.slice(i+j, i+j+2)});
+
+        for (let i=0; i<this.props.tbl.numOfPlayers; i++) {
+            playerCards.push({
+                cards: cards.slice(i+j, i+j+2),
+                seq: i,
+                cash: 0,
+                isActive: 1,
+                pot: 0,
+                dealerId: actionTypes.DEALER_ID,
+                smallBlindId: null,
+                bigBlindId: null
+            });
             j += 1;
         }
 
@@ -105,7 +115,7 @@ class Table extends Component {
                 </div> */}
 
                 <div className='Table'>
-                    <Players players={this.props.tbl.playersCards}/>
+                    <Players players={this.props.tbl.players}/>
                     <Board cards={this.props.tbl.boardCards}/>
                 </div>
 

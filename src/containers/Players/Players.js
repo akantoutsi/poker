@@ -21,7 +21,7 @@ class Players extends Component {
 
                     return (
                         <div key={index}>
-                            <Player player={player} seq={index} smallBlindId={smallBlindId} bigBlindId={bigBlindId} />
+                            <Player player={player} seq={index} smallBlind={smallBlindId === index} bigBlind={bigBlindId === index} />
                         </div>
                     );
                 })

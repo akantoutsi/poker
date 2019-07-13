@@ -10,13 +10,21 @@ class Board extends Component {
         return (
             <div className='Board'> 
             {
-                this.props.brd.map((card, index) => {
+                this.props.cards.map((card, index) => {
                     return (
                         <div key={index}>
                             <Card value={card.value} suit={card.suit} />
                         </div>
                     );
                 })
+
+                // this.props.brd.map((card, index) => {
+                //     return (
+                //         <div key={index}>
+                //             <Card value={card.value} suit={card.suit} />
+                //         </div>
+                //     );
+                // })
             }
             </div>
         );

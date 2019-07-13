@@ -59,15 +59,19 @@ class Table extends Component {
         this.shuffleCards(cards);
 
         let playerCards = [];
+        let boardCards  = [];
         let j = 0;
         for (let i=0; i<this.props.tbl.activeNumOfPlayers; i++) {
             playerCards.push({cards: cards.slice(i+j, i+j+2)});
             j += 1;
         }
 
-        // kathe fora pou vgainei nikitis na kanw to round 0 - d xerw pou tha xreiastei afto
+        boardCards = cards.slice(j*2, (j*2)+5);
+
+        // kathe fora pou vgainei nikitis na kanw to round 0 - de xerw pou tha xreiastei afto
         if (this.props.tbl.round === 0) {
             this.props.storePlayersCards(playerCards);
+            this.props.storeBoardCards(boardCards);
         }
 
         return (
@@ -101,8 +105,8 @@ class Table extends Component {
                 </div> */}
 
                 <div className='Table'>
-                    <Players players={this.props.tbl.players}/>
-                    <Board />
+                    <Players players={this.props.tbl.playersCards}/>
+                    <Board cards={this.props.tbl.boardCards}/>
                 </div>
 
                 {/* <div className='player-info-1'>
@@ -145,7 +149,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        storePlayersCards: (playersCards) => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards})
+        storePlayersCards: (playersCards) => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
+        storeBoardCards  : (boardCards)   => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards})
     };
 }
 

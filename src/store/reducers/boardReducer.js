@@ -1,11 +1,5 @@
 const initialState = {
-    cards: [                
-        { suit: 'spades', value: '2' },
-        { suit: 'clubs',  value: '10'},
-        { suit: 'diams',  value: '7' },
-        { suit: 'spades', value: '7' },
-        { suit: 'hearts', value: 'A' }
-    ]
+    cards: []              
 };
 
 const boardReducer = (state = initialState, action) => {

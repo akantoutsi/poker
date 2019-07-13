@@ -8,17 +8,17 @@ const Player = props => {
     return (
         <div className='Player'>
             <div className='player-info'>
-                <div>Player {props.seq + 1}</div>
+                <div>Player {props.player.seq + 1}</div>
                 <hr />
                 <div>
-                    {(props.cash > 0) ? '$' + props.cash : 0}
+                    {(props.cash > 0) ? '$' + props.player.cash : 0}
                     <input type='number' min='0' step='0.1' />
                     <button>Ok</button> 
                 </div>
             </div>
 
             <div className='player'>
-                <div className='center'>{(props.seq > 0) ? 'Player ' + props.seq : 'Seat Open'}</div>
+                <div className='center'>{(props.player.seq > 0) ? 'Player ' + props.player.seq : 'Seat Open'}</div>
             </div>
 
             {

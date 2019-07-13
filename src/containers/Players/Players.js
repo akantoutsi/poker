@@ -7,21 +7,15 @@ import './Players.css';
 
 class Players extends Component {
     render() { 
+        console.log(this.props);
         return (
             <div className='Players'> 
             {
                 this.props.players.map((player, index) => {
-                    let smallBlindId = (player.dealerId + 1 > this.props.players.length) 
-                                     ? player.dealerId - this.props.players.length     
-                                     : player.dealerId + 1;
-   
-                    let bigBlindId  = (player.dealerId + 2 > this.props.players.length) 
-                                    ? player.dealerId - this.props.players.length + 1 
-                                    : player.dealerId + 2;
 
                     return (
                         <div key={index}>
-                            <Player player={player} seq={index} smallBlind={smallBlindId === index} bigBlind={bigBlindId === index} />
+                            <Player player={player} />
                         </div>
                     );
                 })

@@ -2,8 +2,8 @@ import * as actionTypes from '../actionTypes';
 
 const initialState = {
     initCards: [
-        { suit: 'hearts',  value: 'K'  },
         { suit: 'hearts',  value: 'A'  },
+        { suit: 'hearts',  value: 'K'  },
         { suit: 'hearts',  value: 'Q'  },
         { suit: 'hearts',  value: 'J'  },
         { suit: 'hearts',  value: '10' },
@@ -58,9 +58,8 @@ const initialState = {
     players: [],
     boardCards: [],
     round: 0,
-    dealerId: 0,
-    numOfPlayers: 4,
-    smallBlind: 2
+    dealerId: actionTypes.DEALER_ID,
+    numOfPlayers: actionTypes.NUM_OF_PLAYERS
 };
 
 const tableReducer = (state = initialState, action) => {

@@ -62,16 +62,24 @@ class Table extends Component {
         let boardCards  = [];
         let j = 0;
 
-        for (let i=0; i<this.props.tbl.numOfPlayers; i++) {
+        for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
+            let smallBlindId = (actionTypes.DEALER_ID + 1 > actionTypes.NUM_OF_PLAYERS.length) 
+                             ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length     
+                             :  actionTypes.DEALER_ID + 1;
+
+            let bigBlindId  = (actionTypes.DEALER_ID + 2 > actionTypes.NUM_OF_PLAYERS.length) 
+                            ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length + 1 
+                            :  actionTypes.DEALER_ID + 2;
+
             playerCards.push({
                 cards: cards.slice(i+j, i+j+2),
                 seq: i,
                 cash: 0,
                 isActive: 1,
                 pot: 0,
-                dealerId: actionTypes.DEALER_ID,
-                smallBlindId: null,
-                bigBlindId: null
+                smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
+                isSmallBlind: smallBlindId === i,
+                isBigBlind: bigBlindId === i
             });
             j += 1;
         }

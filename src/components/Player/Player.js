@@ -5,7 +5,7 @@ import './Player.css';
 
 const Player = props => {
     return (
-        <div>
+        <div className='Player'>
             <div className='player-info'>
                 <div>Player 2</div>
                 <hr />
@@ -23,7 +23,7 @@ const Player = props => {
             {
                 props.player.cards.map((card, index) => {
                     return (
-                        <div key={index}>
+                        <div className="playingCards" key={index}>
                             <Card value={card.value} suit={card.suit} />
                         </div>
                     );

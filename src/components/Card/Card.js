@@ -23,12 +23,9 @@ const Card = props => {
     // }
 
     return (
-        // <div className="playingCards [fourColours|faceImages|simpleCards|inText|rotateHand]">
-        <div className="playingCards">
-            <div className={cardClass.join(' ')}>
-                <span className="rank">{props.value}</span>
-                <span className="suit">{String.fromCharCode(cardUnicode)}</span>
-            </div>
+        <div className={cardClass.join(' ')}>
+            <span className="rank">{props.value}</span>
+            <span className="suit">{String.fromCharCode(cardUnicode)}</span>
         </div>
 
         // <div>
@@ -67,13 +64,6 @@ const Card = props => {
         //             </li>
         //         </ul>
         //         <div className="clear"></div>
-
-        //         {/* <strong>
-        //             <span className="card rank-a clubs">
-        //                 <span className="rank">A</span>
-        //                 <span className="suit">&clubs;</span>
-        //             </span>
-        //         </strong> */}
         //     </div>
         // </div>
     );

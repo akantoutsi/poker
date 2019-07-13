@@ -12,7 +12,7 @@ class Board extends Component {
             {
                 this.props.cards.map((card, index) => {
                     return (
-                        <div key={index}>
+                        <div className="playingCards" key={index}>
                             <Card value={card.value} suit={card.suit} />
                         </div>
                     );

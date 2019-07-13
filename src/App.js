@@ -1,6 +1,5 @@
 import React    from 'react';
-import Table    from './components/Table/Table';
-import Card     from './components/Card/Card';
+import Table    from './containers/Table/Table';
 // import logo     from './logo.svg';
 // import BestCard from './components/BestCard/BestCard';
 

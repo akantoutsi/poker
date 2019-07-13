@@ -8,29 +8,39 @@ class BestCard extends Component {
         this.state = {
             tmp: 
             [
-                { suit: 'club',    value: 'J' },
-                { suit: 'diamond', value: 'A' },
-                { suit: 'heart',   value: 'Q' },
-                { suit: 'spade',   value: '5' },
-                { suit: 'club',    value: 'K' },
-                { suit: 'diamond', value: 'A' },
-                { suit: 'heart',   value: 'K' },
-                { suit: 'spade',   value: '6' },
-                { suit: 'club',    value: 'A' },
-                { suit: 'diamond', value: '6' },
-                { suit: 'heart',   value: '4' },
-                { suit: 'spade',   value: '2' },
-                { suit: 'club',    value: '10'},
-                { suit: 'diamond', value: '7' },
-                { suit: 'heart',   value: '1' },
-                { suit: 'spade',   value: '7' },
-                { suit: 'club',    value: 'Q' },
-                { suit: 'heart',   value: '8' },
-                { suit: 'spade',   value: 'A' }
+                { suit: 'clubs',  value: 'J' },
+                { suit: 'diams',  value: 'A' },
+                { suit: 'hearts', value: 'Q' },
+                { suit: 'spades', value: '5' },
+                { suit: 'clubs',  value: 'K' },
+                { suit: 'diams',  value: 'A' },
+                { suit: 'heart',  value: 'K' },
+                { suit: 'spades', value: '6' },
+                { suit: 'clubs',  value: 'A' },
+                { suit: 'diams',  value: '6' },
+                { suit: 'hearts', value: '4' },
+                { suit: 'spades', value: '2' },
+                { suit: 'clubs',  value: '10'},
+                { suit: 'diams',  value: '7' },
+                { suit: 'hearts', value: 'A' },
+                { suit: 'spades', value: '7' },
+                { suit: 'clubs',  value: 'Q' },
+                { suit: 'hearts', value: '8' },
+                { suit: 'spades', value: 'A' }
             ]
         }
     };
     
+    shuffleCards = arr => {
+        for (let i = 0; i < arr.length; i++) {
+          const rnd = Math.random() * i | 0;
+          const tmp = arr[i];
+          arr[i]    = arr[rnd];
+          arr[rnd]  = tmp;
+        }
+        return arr;
+    };
+
     getRank = (obj, property) => {
         let rank = 0;
         

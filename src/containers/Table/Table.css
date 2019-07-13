@@ -1,0 +1,14 @@
+.gen {
+    margin-top: 10px;
+}
+
+.Table {
+    height: 600px;
+    background-color: #006400;
+    border-radius: 250px;
+    margin-left: 15%;
+    margin-right: 15%;
+    border: 20px solid;
+    position: relative;
+}
+

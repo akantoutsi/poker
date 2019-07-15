@@ -74,7 +74,7 @@ class Table extends Component {
             playerCards.push({
                 cards: cards.slice(i+j, i+j+2),
                 seq: i,
-                cash: 0,
+                cash: Math.floor(Math.random() * 100) + 1,
                 isActive: 1,
                 pot: 0,
                 smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
@@ -88,8 +88,8 @@ class Table extends Component {
 
         // kathe fora pou vgainei nikitis na kanw to round 0 - de xerw pou tha xreiastei afto
         if (this.props.tbl.round === 0) {
-            this.props.storePlayersCards(playerCards);
             this.props.storeBoardCards(boardCards);
+            this.props.storePlayersCards(playerCards);
         }
 
         return (
@@ -123,8 +123,10 @@ class Table extends Component {
                 </div> */}
 
                 <div className='Table'>
-                    <Players players={this.props.tbl.players}/>
-                    <Board cards={this.props.tbl.boardCards}/>
+                    {/* <Players players={this.props.tbl.players} clicked={(playerId, playerPot) => this.props.updatePlayerPot(playerId, playerPot)} />
+                    <Board cards={this.props.tbl.boardCards} /> */}
+                    <Players />
+                    <Board />
                 </div>
 
                 {/* <div className='player-info-1'>
@@ -162,13 +164,15 @@ class Table extends Component {
 const mapStateToProps = state => {
     return {
         tbl: state.table
+        // brd: state.board,
+        // plr: state.players
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        storePlayersCards: (playersCards) => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
-        storeBoardCards  : (boardCards)   => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards})
+        storeBoardCards  : (boardCards)   => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        storePlayersCards: (playersCards) => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards})
     };
 }
 

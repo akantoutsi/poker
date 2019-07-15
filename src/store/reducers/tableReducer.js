@@ -55,7 +55,7 @@ const initialState = {
         { suit: 'diams',   value: '3'  },
         { suit: 'diams',   value: '2'  }
     ],
-    players: [],
+    // players: [],
     boardCards: [],
     round: 0,
     dealerId: actionTypes.DEALER_ID,
@@ -64,20 +64,40 @@ const initialState = {
 
 const tableReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.STORE_PLAYERS_CARDS:
+        // case actionTypes.STORE_PLAYERS_CARDS:
+        //     return {
+        //         ...state,
+        //         players: state.players.concat(action.payload),
+        //         round: 1
+        //     }
 
-            return {
-                ...state,
-                players: state.players.concat(action.payload),
-                round: 1
-            }
+        // case actionTypes.STORE_BOARD_CARDS:
+        //     return {
+        //         ...state,
+        //         boardCards: state.boardCards.concat(action.payload),
+        //         round: 1
+        //     }
 
-        case actionTypes.STORE_BOARD_CARDS:
-            return {
-                ...state,
-                boardCards: state.boardCards.concat(action.payload),
-                round: 1
-            }
+        // case actionTypes.STORE_PLAYER_POT:
+        //     console.log(action.payload);
+        //     return {
+        //         ...state,
+        //         players: {
+        //             ...state.players.splice(0, state.players[action.payload.playerId], state.players[action.payload.playerId].pot = 5 , state.players[action.payload.playerId+1])
+        //         }
+        //     }
+
+            // return {
+            //     ...state,
+            //     players: {
+            //         ...state.players,
+            //         player: {
+            //             ...state.players[action.payload.playerId],
+            //             pot: state.players[action.payload.playerId].pot   + action.payload.playerPot,
+            //             cash: state.players[action.payload.playerId].cash - action.payload.playerPot
+            //         }
+            //     }
+        //     }
     }
 
     return state;

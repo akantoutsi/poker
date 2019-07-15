@@ -4,16 +4,18 @@ import Card  from '../Card/Card';
 import './Player.css';
 
 const Player = props => {
-    console.log(props);
-    return (
+    // console.log(props);
+    return (     
         <div className='Player'>
             <div className='player-info'>
                 <div>Player {props.player.seq + 1}</div>
                 <hr />
                 <div>
-                    {(props.cash > 0) ? '$' + props.player.cash : 0}
-                    <input type='number' min='0' step='0.1' />
-                    <button>Ok</button> 
+                    Cash: {'$' + ( parseInt(props.player.cash) - (!isNaN(parseInt(props.player.pot)) ? parseInt(props.player.pot) : 0) )}
+                    <br />
+                    Pot: {(parseInt(props.player.pot) > 0) ? '$' + parseInt(props.player.pot) : 0}
+                    <input type='number' min='0' step='0.1' onChange={(event) => props.changed(props.player.seq, event.target.value)} />
+                    {/* <button onClick={(event) => props.clicked(props.player.seq, event.target.value)}>Ok</button>  */}
                 </div>
             </div>
 

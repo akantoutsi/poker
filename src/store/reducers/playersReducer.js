@@ -17,7 +17,7 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.STORE_PLAYER_POT:
             const players = [...state.players];
             let   player  = players.find(pl => pl.seq === action.payload.playerId);
-            player.pot    = parseInt(action.payload.playerPot);
+            player.pot    = parseFloat(action.payload.playerPot).toFixed(2);
 
             updateObjectInArray(players, player);
 

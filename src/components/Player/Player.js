@@ -11,10 +11,16 @@ const Player = props => {
                 <div>Player {props.player.seq + 1}</div>
                 <hr />
                 <div>
-                    Cash: {'$' + ( parseInt(props.player.cash) - (!isNaN(parseInt(props.player.pot)) ? parseInt(props.player.pot) : 0) )}
+                    Cash: {'$' + ( parseFloat(props.player.cash).toFixed(2) - (!isNaN(parseFloat(props.player.pot).toFixed(2)) ? parseFloat(props.player.pot).toFixed(2) : 0) )}
                     <br />
-                    Pot: {(parseInt(props.player.pot) > 0) ? '$' + parseInt(props.player.pot) : 0}
-                    <input type='number' min='0' step='0.1' onChange={(event) => props.changed(props.player.seq, event.target.value)} />
+                    Pot: {(parseFloat(props.player.pot).toFixed(2) > 0) ? '$' + parseFloat(props.player.pot).toFixed(2) : 0}
+
+                    {/* <input  type='number' 
+                            min={0} 
+                            max={props.player.cash} 
+                            step={0.01}
+                            onChange={(event) => props.changed(props.player.seq, event.target.value)} /> */}
+                    
                     {/* <button onClick={(event) => props.clicked(props.player.seq, event.target.value)}>Ok</button>  */}
                 </div>
             </div>

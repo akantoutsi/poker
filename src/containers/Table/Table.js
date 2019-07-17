@@ -93,7 +93,7 @@ class Table extends Component {
         }
 
         return (
-            <div className='gen'>
+            <div className='window-class'>
                 {/* <div className='player-info-2'>
                     <div>Player 2</div>
                     <hr />
@@ -123,8 +123,6 @@ class Table extends Component {
                 </div> */}
 
                 <div className='Table'>
-                    {/* <Players players={this.props.tbl.players} clicked={(playerId, playerPot) => this.props.updatePlayerPot(playerId, playerPot)} />
-                    <Board cards={this.props.tbl.boardCards} /> */}
                     <Players />
                     <Board />
                 </div>

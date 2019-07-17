@@ -1,6 +1,9 @@
-.Player {
-    display: flex;
-    flex-direction: row;
+.update-pot-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 0 solid transparent;
+    cursor: pointer;
 }
 
 hr {
@@ -21,89 +24,51 @@ input {
     transform: translate(-50%, -50%);
 }
 
-.player-info-2 {
-    display: inline-block;
-    padding: 3px;
-    border: 1px solid grey;
-    margin: 0 0 0 270px;
-    border-radius: 4px;
+.center-player-info {
+    display: 'inline-block';
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
-.player-2 {
+.center-player-info-cards {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+}
+
+.player-info {
+    padding: 3px;
     border: 5px solid black;
-    display: inline-block;
     border-radius: 50%;
-    padding: 5px 0 5px 5px;
-    width: 150px;
-    height: 150px;
+    width: 30%;
+    height: 80%;
     z-index: 3;
     position: absolute;
-    left: 5%;
-    top: 10%;
 }
 
-.player-1 {
-    border: 5px solid black;
-    border-radius: 50%;
-    text-align: center;
-    display: inline-block;
-    padding: 5px 0 5px 5px;
-    width: 150px;
-    height: 150px;
-    z-index: 3;
-    position: absolute;
-    left: 8%;
-    bottom: 15%;
+#player-1 { 
+    top: calc(100%);
+    left: calc(100% - 150px);
 }
 
-.player-info-1 {
-    display: inline-block;
-    padding: 3px;
-    border: 1px solid grey;
-    margin: 10px 0 0 320px;
-    border-radius: 4px;
+#player-2 { 
+    top: calc(100%);
+    right: calc(100% - 150px);
 }
 
-.player-4 {
-    border: 5px solid black;
-    display: inline-block;
-    border-radius: 50%;
-    text-align: center;
-    padding: 5px 5px 5px 0;
-    width: 150px;
-    height: 150px;
-    z-index: 3;
-    position: absolute;
-    right: 8%;
-    bottom: 15%;
+#player-3 { 
+    bottom: calc(100% - 10%);
+    right: calc(100% - 110px);
 }
 
-.player-info-4 {
-    display: inline-block;
-    padding: 3px;
-    border: 1px solid grey;
-    margin: 10px 0 0 830px;
-    border-radius: 4px;
-}
-
-.player-3 {
-    border: 5px solid black;
-    display: inline-block;
-    border-radius: 50%;
-    text-align: center;
-    padding: 5px 5px 5px 0;
-    width: 150px;
-    height: 150px;
-    z-index: 3;
-    position: absolute;
-    right: 5%;
-    top: 12%;
-}
-
-.player-info-3 {
-    display: inline-block;
-    padding: 3px;
-    border: 1px solid grey;
-    margin: 0 0 0 980px;
-    border-radius: 4px;
+#player-4 { 
+    bottom: calc(100% - 10%);
+    left: calc(100% - 110px);
 }

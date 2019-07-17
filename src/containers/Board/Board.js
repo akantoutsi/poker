@@ -7,6 +7,8 @@ import './Board.css';
 // mipws functional component?
 class Board extends Component {
     render() { 
+        const allCards = <div className="card back">*</div>;
+
         return (
             <div className='Board'> 
                 {
@@ -18,6 +20,11 @@ class Board extends Component {
                         );
                     })
                 }
+
+                <div className="playingCards all-cards">
+                    {allCards}
+                    <div className="clear"></div>
+                </div>
             </div>
         );
     }

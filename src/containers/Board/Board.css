@@ -7,3 +7,7 @@
     display: flex;
     flex-direction: row;
 }
+
+.all-cards {
+    margin-left: 2em;
+}

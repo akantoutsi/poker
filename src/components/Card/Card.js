@@ -12,60 +12,11 @@ const Card = props => {
                       (props.suit === 'clubs')  ? 'U+2663' : 
                       (props.suit === 'hearts') ? 'U+2665' : 'U+2666';
 
-    // const allCards = Array(52);
-
-    // for (let i=0; i<52; i++) {
-    //     allCards[i] = (
-    //         <li>
-    //             <div className="card back">*</div>
-    //         </li>
-    //     );
-    // }
-
     return (
         <div className={cardClass.join(' ')}>
             <span className="rank">{props.value}</span>
             <span className="suit">{String.fromCharCode(cardUnicode)}</span>
         </div>
-
-        // <div>
-        //     <div className="playingCards [fourColours|faceImages|simpleCards|inText|rotateHand]">
-        //         <ul className="deck">
-        //             {/* {allCards} */}
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //             <li>
-        //                 <div className="card back">*</div>
-        //             </li>
-        //         </ul>
-        //         <div className="clear"></div>
-        //     </div>
-        // </div>
     );
 }
 

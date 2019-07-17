@@ -55,8 +55,6 @@ const initialState = {
         { suit: 'diams',   value: '3'  },
         { suit: 'diams',   value: '2'  }
     ],
-    // players: [],
-    boardCards: [],
     round: 0,
     dealerId: actionTypes.DEALER_ID,
     numOfPlayers: actionTypes.NUM_OF_PLAYERS

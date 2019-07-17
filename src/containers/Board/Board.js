@@ -4,7 +4,6 @@ import Card                 from '../../components/Card/Card';
 
 import './Board.css';
 
-// mipws functional component?
 class Board extends Component {
     render() { 
         const allCards = <div className="card back">*</div>;

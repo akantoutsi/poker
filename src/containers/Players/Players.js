@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect }          from 'react-redux'; 
 import Player               from '../../components/Player/Player';
-import _                    from 'lodash';
 import * as actionTypes     from '../../store/actionTypes';
 
 import './Players.css';
 
 class Players extends Component {
     render() { 
-        console.log(this.props.plr.players);
         return (
-            <div className='Players'> 
+            <div> 
             {
                 this.props.plr.players.map((player, index) => {
                     return (
                         <div key={index}>
-                            <Player player={player} changed={(playerId, playerPot) => this.props.updatePlayerPot(playerId, playerPot)} />
+                            <Player player={player} 
+                                    incrementPot={(playerId) => this.props.incrementPot(playerId)} 
+                                    decrementPot={(playerId) => this.props.decrementPot(playerId)} />
                         </div>
                     );
                 })
@@ -33,7 +33,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updatePlayerPot: (playerId, playerPot) => dispatch({type: actionTypes.STORE_PLAYER_POT, payload: {playerId: playerId, playerPot: playerPot}})
+        incrementPot: (playerId) => dispatch({type: actionTypes.INCREMENT_PLAYER_POT, payload: playerId}),
+        decrementPot: (playerId) => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload: playerId})
     };
 }
 

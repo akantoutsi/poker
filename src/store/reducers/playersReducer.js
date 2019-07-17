@@ -6,6 +6,9 @@ const initialState = {
 };
 
 const playersReducer = (state = initialState, action) => {
+    let players;
+    let player;
+
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
             return {
@@ -14,10 +17,10 @@ const playersReducer = (state = initialState, action) => {
                 // round: 1
             }
 
-        case actionTypes.STORE_PLAYER_POT:
-            const players = [...state.players];
-            let   player  = players.find(pl => pl.seq === action.payload.playerId);
-            player.pot    = parseFloat(action.payload.playerPot).toFixed(2);
+        case actionTypes.INCREMENT_PLAYER_POT:
+            players = [...state.players];
+            player  = players.find(pl => pl.seq === action.payload);
+            player.pot   += 1; 
 
             updateObjectInArray(players, player);
 
@@ -25,6 +28,18 @@ const playersReducer = (state = initialState, action) => {
                 ...state.players,
                 players
             }
+
+        case actionTypes.DECREMENT_PLAYER_POT:
+            players = [...state.players];
+            player  = players.find(pl => pl.seq === action.payload);
+            player.pot   -= 1; 
+
+            updateObjectInArray(players, player);
+
+            return {
+                ...state.players,
+                players
+            }    
     }
 
     return state;

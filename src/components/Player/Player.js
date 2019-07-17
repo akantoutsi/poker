@@ -16,9 +16,10 @@ const Player = props => {
                 <br />
                 Pot: {(parseFloat(props.player.pot).toFixed(2) > 0) ? '$' + parseFloat(props.player.pot).toFixed(2) : 0}
 
-                <button className='update-pot-btn' onClick={props.incrementPot}>+</button> 
+                <button className='update-pot-btn' onClick={() => props.incrementPot(props.player.seq)}>+</button> 
                 
                 <NumericInput
+                    value={props.player.pot}
                     style={false}
                     precision={2}
                     size={props.player.cash.toString().length}
@@ -28,7 +29,7 @@ const Player = props => {
                     readOnly
                 />
                 
-                <button className='update-pot-btn' onClick={props.decrementPot}>-</button>
+                <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
             </div>
 
             <div className='center-player-info-cards'>

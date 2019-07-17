@@ -106,8 +106,6 @@ class Table extends Component {
 const mapStateToProps = state => {
     return {
         tbl: state.table
-        // brd: state.board,
-        // plr: state.players
     };
 }
 

@@ -1,6 +1,6 @@
 .update-pot-btn {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: 0 solid transparent;
     cursor: pointer;
@@ -10,7 +10,7 @@ hr {
     border: 1px solid grey;
 }
 
-input {
+.input-pot {
     width: 80px;
     margin: 8px;
 }

@@ -20,9 +20,13 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.INCREMENT_PLAYER_POT:
             players = [...state.players];
             player  = players.find(pl => pl.seq === action.payload);
-            player.pot   += 1; 
 
-            updateObjectInArray(players, player);
+            if ((player.pot + 1) <= (player.maxPot + player.minPot)) {
+                player.pot  += 1; 
+                player.cash -= 1;
+
+                updateObjectInArray(players, player);
+            }
 
             return {
                 ...state.players,
@@ -32,14 +36,18 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.DECREMENT_PLAYER_POT:
             players = [...state.players];
             player  = players.find(pl => pl.seq === action.payload);
-            player.pot   -= 1; 
 
-            updateObjectInArray(players, player);
+            if (player.pot - 1 >= 0) {
+                player.pot  -= 1; 
+                player.cash += 1;
+
+                updateObjectInArray(players, player);
+            }
 
             return {
                 ...state.players,
                 players
-            }    
+            }
     }
 
     return state;

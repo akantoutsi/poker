@@ -21,7 +21,6 @@ const playersReducer = (state = initialState, action) => {
             players = [...state.players];
             player  = players.find(pl => pl.seq === action.payload);
 
-            // if ((player.pot + 1) <= (player.maxPot + player.minPot)) {
             if ((player.pot + 1) <= (player.maxPot + player.potNotLessThan)) {
                 player.pot  += 1; 
                 player.cash -= 1;

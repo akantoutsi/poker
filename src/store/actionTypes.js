@@ -7,3 +7,4 @@ export const STORE_BOARD_CARDS    = 'STORE_BOARD_CARDS';
 export const INCREMENT_PLAYER_POT = 'INCREMENT_PLAYER_POT';
 export const DECREMENT_PLAYER_POT = 'DECREMENT_PLAYER_POT';
 export const SET_CURRENT_POT      = 'SET_CURRENT_POT';
+export const DEAL_CARDS           = 'DEAL_CARDS';

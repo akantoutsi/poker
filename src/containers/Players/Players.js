@@ -30,7 +30,7 @@ const mapStateToProps = state => {
     return {
         plr: state.players
     };
-}
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -38,6 +38,6 @@ const mapDispatchToProps = dispatch => {
         decrementPot:     (playerId) => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload: playerId}),
         updateCurrentPot: ()         => dispatch({type: actionTypes.SET_CURRENT_POT})
     };
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Players);

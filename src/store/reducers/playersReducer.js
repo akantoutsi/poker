@@ -2,7 +2,8 @@ import * as actionTypes        from '../actionTypes';
 import { updateObjectInArray } from '../utils';
 
 const initialState = {
-    players: []
+    players: [],
+    nextPlayer: 0
 };
 
 const playersReducer = (state = initialState, action) => {
@@ -14,7 +15,6 @@ const playersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 players: state.players.concat(action.payload)
-                // round: 1
             }
 
         case actionTypes.INCREMENT_PLAYER_POT:

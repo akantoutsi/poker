@@ -103,7 +103,9 @@ class Board extends Component {
                     })
                 }
 
-                <div className="playingCards all-cards" onClick={() => {this.props.storeBoardCards(boardCards); this.props.storePlayersCards(playerCards);}}>
+                <div className="playingCards all-cards" 
+                    onClick={() => this.props.brd.round < 1 ? (this.props.storeBoardCards(boardCards), this.props.storePlayersCards(playerCards)) : null}>
+                    
                     {allCards}
                     <div className="clear"></div>
                 </div>

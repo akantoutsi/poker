@@ -13,20 +13,22 @@ const Player = props => {
                 <strong>Player {props.player.seq + 1}</strong>
                 <hr />
 
-                Cash: {'€' + (props.player.cash)}
-                Pot: {'€' + props.player.pot}
+                Cash: {'€' + (props.player.cash)} - Pot: {'€' + props.player.pot}
                 <br />
 
-                <button className='update-pot-btn' onClick={() => props.incrementPot(props.player.seq)}>+</button> 
-                
-                <NumericInput
-                    value={props.player.pot}
-                    style={false}
-                    className='input-pot'
-                    readOnly
-                />
-                
-                <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
+                <div className='pot-btns'>
+                    <button className='update-pot-btn' onClick={() => props.incrementPot(props.player.seq)}>+</button> 
+                    
+                    <NumericInput
+                        value={props.player.pot}
+                        style={false}
+                        className='input-pot'
+                        readOnly
+                    />
+                    
+                    <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
+                    <button className='next-btn' onClick={() => props.updateCurrentPot(props.player.seq)}><i className='fa fa-arrow-right'></i></button> 
+                </div>
             </div>
 
             <div className='center-player-info-cards'>

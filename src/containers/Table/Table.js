@@ -71,12 +71,16 @@ class Table extends Component {
                             ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length + 1 
                             :  actionTypes.DEALER_ID + 2;
 
+            let cash = Math.floor(Math.random() * 100) + 1;                            
+
             playerCards.push({
                 cards: cards.slice(i+j, i+j+2),
                 seq: i,
-                cash: Math.floor(Math.random() * 100) + 1,
+                cash: cash,
                 isActive: 1,
                 pot: 0,
+                potNotLessThan: 0,
+                maxPot: cash,
                 smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
                 isSmallBlind: smallBlindId === i,
                 isBigBlind: bigBlindId === i

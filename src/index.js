@@ -8,6 +8,7 @@ import tableReducer                     from './store/reducers/tableReducer';
 import playersReducer                   from './store/reducers/playersReducer';
 import boardReducer                     from './store/reducers/boardReducer';
 
+import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './index.css';
 
 const rootReducer = combineReducers({

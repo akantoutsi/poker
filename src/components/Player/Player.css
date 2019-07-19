@@ -6,6 +6,23 @@
     cursor: pointer;
 }
 
+.pot-btns {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.next-btn {
+    width: auto;
+    font-size: 2.5rem;
+    border-radius: 20%;
+    border: 0 solid transparent;
+    color: #6B8E23;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
 hr {
     border: 1px solid grey;
 }
@@ -48,7 +65,7 @@ hr {
     border: 5px solid black;
     border-radius: 50%;
     width: 30%;
-    height: 80%;
+    height: 85%;
     z-index: 3;
     position: absolute;
 }

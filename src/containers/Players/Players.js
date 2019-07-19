@@ -16,7 +16,7 @@ class Players extends Component {
                             <Player player={player} 
                                     incrementPot    ={(playerId) => this.props.incrementPot(playerId)} 
                                     decrementPot    ={(playerId) => this.props.decrementPot(playerId)} 
-                                    updateCurrentPot={(playerId) => this.props.updateCurrentPot(playerId)} />
+                                    updateCurrentPot={()         => this.props.updateCurrentPot()} />
                         </div>
                     );
                 })
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => {
     return {
         incrementPot:     (playerId) => dispatch({type: actionTypes.INCREMENT_PLAYER_POT, payload: playerId}),
         decrementPot:     (playerId) => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload: playerId}),
-        updateCurrentPot: (playerId) => dispatch({type: actionTypes.SET_CURRENT_POT,      payload: playerId})
+        updateCurrentPot: ()         => dispatch({type: actionTypes.SET_CURRENT_POT})
     };
 }
 

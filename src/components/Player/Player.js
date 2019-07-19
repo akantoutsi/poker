@@ -27,7 +27,7 @@ const Player = props => {
                     />
                     
                     <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
-                    <button className='next-btn' onClick={() => props.updateCurrentPot(props.player.seq)}><i className='fa fa-arrow-right'></i></button> 
+                    <button className='next-btn' onClick={props.updateCurrentPot}><i className='fa fa-arrow-right'></i></button> 
                 </div>
             </div>
 

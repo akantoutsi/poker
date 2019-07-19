@@ -38,7 +38,6 @@ const playersReducer = (state = initialState, action) => {
             players = [...state.players];
             player  = players.find(pl => pl.seq === action.payload);
 
-            console.log(player.potNotLessThan);
             if (player.pot - 1 >= player.potNotLessThan) {
                 player.pot  -= 1; 
                 player.cash += 1;
@@ -53,19 +52,19 @@ const playersReducer = (state = initialState, action) => {
 
         case actionTypes.SET_CURRENT_POT:
             players = [...state.players];
-            
-            const updatedPlayers = [];
-            
-            players.map(pl => {
-                pl.potNotLessThan = pl.pot;
-                updateObjectInArray(updatedPlayers, pl);
-            });
 
-            console.log(updatedPlayers);
+            let currentPot = players.reduce((max, elem) => {
+                max = (elem.pot > max) ? elem.pot : max;   
+                return max;
+            }, players[0].pot);
+                        
+            players.map(pl => {
+                pl.potNotLessThan = currentPot;
+            });
 
             return {
                 ...state.players,
-                updatedPlayers
+                players
             }
     }
 

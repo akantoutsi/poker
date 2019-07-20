@@ -64,28 +64,33 @@ class Board extends Component {
         let j = 0;
 
         for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
-            let smallBlindId = (actionTypes.DEALER_ID + 1 > actionTypes.NUM_OF_PLAYERS.length) 
-                             ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length     
-                             :  actionTypes.DEALER_ID + 1;
+            let smallBlindId  = (actionTypes.DEALER_ID + 1 > actionTypes.NUM_OF_PLAYERS.length) 
+                              ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length     
+                              :  actionTypes.DEALER_ID + 1;
 
-            let bigBlindId  = (actionTypes.DEALER_ID + 2 > actionTypes.NUM_OF_PLAYERS.length) 
-                            ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length + 1 
-                            :  actionTypes.DEALER_ID + 2;
+            let bigBlindId    = (actionTypes.DEALER_ID + 2 > actionTypes.NUM_OF_PLAYERS.length) 
+                              ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length + 1 
+                              :  actionTypes.DEALER_ID + 2;
+
+            let firstPlayerId = (bigBlindId + 1 > actionTypes.NUM_OF_PLAYERS.length)
+                              ?  bigBlindId - actionTypes.NUM_OF_PLAYERS.length + 1 
+                              :  bigBlindId + 1;
 
             let cash = Math.floor(Math.random() * 100) + 1;                            
 
             playerCards.push({
-                cards: cards.slice(i+j, i+j+2),
-                seq: i,
-                cash: cash,
-                isActive: 1,
-                nextPlayer: (i === 0) ? 1 : 0,
-                pot: 0,
-                potNotLessThan: 0,
-                maxPot: cash,
+                cards           : cards.slice(i+j, i+j+2),
+                seq             : i,
+                cash            : cash,
+                isActive        : 1,
+                nextPlayer      : (i === 0) ? 1 : 0,
+                pot             : 0,
+                potNotLessThan  : 0,
+                maxPot          : cash,
                 smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
-                isSmallBlind: smallBlindId === i,
-                isBigBlind: bigBlindId === i
+                isSmallBlind    : smallBlindId === i,
+                isBigBlind      : bigBlindId === i,
+                firstPlayerId   : firstPlayerId
             });
             j += 1;
         }
@@ -98,14 +103,20 @@ class Board extends Component {
                     this.props.brd.cards.map((card, index) => {
                         return (
                             <div className="playingCards" key={index}>
-                                <Card value={card.value} suit={card.suit} />
+                                <div className="card back">*</div>
+
+                                {/* to katotthi prepei na anoigei stadiaka ana sinthikes - pws? 
+                                kai antistoixa oi kartes twn paiktwn
+                                kai na einai mono tou current anoixtes */}
+                                {/* <Card value={card.value} suit={card.suit} /> */}
                             </div>
                         );
                     })
                 }
 
                 <div className="playingCards all-cards" 
-                    onClick={() => this.props.brd.round === 0 ? (this.props.storeBoardCards(boardCards), this.props.storePlayersCards(playerCards)) : null}>
+                    onClick={() => this.props.brd.round === 0 ? (this.props.storeBoardCards(boardCards), 
+                                                                 this.props.storePlayersCards(playerCards)) : null}>
                     
                     {allCards}
                     <div className="clear"></div>
@@ -123,7 +134,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards  : (boardCards)   => dispatch({type: actionTypes.STORE_BOARD_CARDS, payload: boardCards}),
+        storeBoardCards  : (boardCards)   => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
         storePlayersCards: (playersCards) => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards})
     };
 };

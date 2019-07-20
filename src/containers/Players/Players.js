@@ -7,7 +7,6 @@ import './Players.css';
 
 class Players extends Component {
     render() { 
-        console.log(this.props.plr.players);
         return (
             <div> 
             {
@@ -15,7 +14,8 @@ class Players extends Component {
                     return (
                         <div key={index}>
                             <Player player={player} 
-                                    nextPlayer      ={(player.nextPlayer === 1) ? player.seq : null}
+                                    nextPlayer      ={player.firstPlayerId ? player.firstPlayerId : ( (player.nextPlayer === 1) ? player.seq : null )}
+                                    // nextPlayer      ={(player.nextPlayer === 1) ? player.seq : null}
                                     incrementPot    ={(playerId) => this.props.incrementPot(playerId)} 
                                     decrementPot    ={(playerId) => this.props.decrementPot(playerId)} 
                                     exitGame        ={(playerId) => this.props.exitGame(playerId)}

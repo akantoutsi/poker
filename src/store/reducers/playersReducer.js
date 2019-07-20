@@ -13,9 +13,20 @@ const playersReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
+            players = action.payload;
+
+            const smallBlindPlayer = players.find(pl => pl.isSmallBlind);
+            smallBlindPlayer.pot   = actionTypes.SMALL_BLIND_AMOUNT;
+
+            const bigBlindPlayer = players.find(pl => pl.isBigBlind);
+            bigBlindPlayer.pot   = actionTypes.SMALL_BLIND_AMOUNT * 2;
+
+            updateObjectInArray(players, smallBlindPlayer);
+            updateObjectInArray(players, bigBlindPlayer);
+
             return {
                 ...state,
-                players: state.players.concat(action.payload)
+                players
             }
 
         case actionTypes.INCREMENT_PLAYER_POT:
@@ -51,17 +62,17 @@ const playersReducer = (state = initialState, action) => {
             }
         
         case actionTypes.EXIT_GAME:
-            players       = [...state.players];
-            currentPlayer = players.find(pl => pl.seq === action.payload);
-            otherPlayers  = players.slice(currentPlayer.seq + 1, players.length);
-            player        = otherPlayers.find(elem => elem.isActive);
-            
-            // edw na tsekarw ean prepei na rixw filla kate - ean to pot olws einai apodekto kai ekleise o kiklos
+            players                  = [...state.players];
+            currentPlayer            = players.find(pl => pl.seq === action.payload);
+            otherPlayers             = players.slice(currentPlayer.seq + 1, players.length);
+            player                   = otherPlayers.find(elem => elem.isActive);
+            currentPlayer.nextPlayer = 0;
+            currentPlayer.isActive   = 0;
+
+            // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
             if (player) {
-                player.nextPlayer        = 1;
-                currentPlayer.nextPlayer = 0;
-                currentPlayer.isActive   = 0;
-    
+                player.nextPlayer = 1;
+        
                 updateObjectInArray(players, player);
             }
 

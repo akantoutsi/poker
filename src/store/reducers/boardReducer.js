@@ -69,6 +69,7 @@ const boardReducer = (state = initialState, action) => {
                 cards: state.cards.concat(action.payload),
                 round: 1
             }
+
     }
 
     return state;

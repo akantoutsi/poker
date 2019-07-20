@@ -61,6 +61,7 @@ class Board extends Component {
 
         let playerCards = [];
         let boardCards  = [];
+        let firstPlayerId = null;
         let j = 0;
 
         for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
@@ -72,7 +73,7 @@ class Board extends Component {
                               ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length + 1 
                               :  actionTypes.DEALER_ID + 2;
 
-            let firstPlayerId = (bigBlindId + 1 > actionTypes.NUM_OF_PLAYERS.length)
+            firstPlayerId     = (bigBlindId + 1 > actionTypes.NUM_OF_PLAYERS.length)
                               ?  bigBlindId - actionTypes.NUM_OF_PLAYERS.length + 1 
                               :  bigBlindId + 1;
 
@@ -89,8 +90,7 @@ class Board extends Component {
                 maxPot          : cash,
                 smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
                 isSmallBlind    : smallBlindId === i,
-                isBigBlind      : bigBlindId === i,
-                firstPlayerId   : firstPlayerId
+                isBigBlind      : bigBlindId === i
             });
             j += 1;
         }
@@ -116,7 +116,8 @@ class Board extends Component {
 
                 <div className="playingCards all-cards" 
                     onClick={() => this.props.brd.round === 0 ? (this.props.storeBoardCards(boardCards), 
-                                                                 this.props.storePlayersCards(playerCards)) : null}>
+                                                                 this.props.storePlayersCards(playerCards),
+                                                                 this.props.setFirstPlayer(firstPlayerId)) : null}>
                     
                     {allCards}
                     <div className="clear"></div>
@@ -134,8 +135,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards  : (boardCards)   => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
-        storePlayersCards: (playersCards) => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards})
+        storeBoardCards  : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
+        setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId})
     };
 };
 

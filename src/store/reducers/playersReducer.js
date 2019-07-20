@@ -7,7 +7,7 @@ const initialState = {
 
 const playersReducer = (state = initialState, action) => {
     let players;
-    let otherPlayers;
+    let restPlayers;
     let player;
     let currentPlayer;
 
@@ -60,21 +60,25 @@ const playersReducer = (state = initialState, action) => {
                 ...state.players,
                 players
             }
-        
+
         case actionTypes.EXIT_GAME:
             players                  = [...state.players];
             currentPlayer            = players.find(pl => pl.seq === action.payload);
-            otherPlayers             = players.slice(currentPlayer.seq + 1, players.length);
-            player                   = otherPlayers.find(elem => elem.isActive);
+            restPlayers              = players.slice(currentPlayer.seq + 1, players.length);
+            player                   = restPlayers.find(elem => elem.isActive);
             currentPlayer.nextPlayer = 0;
             currentPlayer.isActive   = 0;
 
             // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
-            if (player) {
+            if (restPlayers.length > 0) {
                 player.nextPlayer = 1;
         
-                updateObjectInArray(players, player);
+            } else {
+                player = players.find(elem => elem.isActive);
+                player.nextPlayer = 1;
             }
+
+            updateObjectInArray(players, player);
 
             return {
                 ...state.players,
@@ -99,23 +103,28 @@ const playersReducer = (state = initialState, action) => {
             }
 
         case actionTypes.SET_NEXT_PLAYER:
-            players       = [...state.players];
-            currentPlayer = players.find(pl => pl.seq === action.payload);
-            otherPlayers  = players.slice(currentPlayer.seq + 1, players.length);
-            player        = otherPlayers.find(elem => elem.isActive);
-
-            // edw na tsekarw ean prepei na rixw filla kate - ean to pot olws einai apodekto kai ekleise o kiklos
-            if (player) {
-                player.nextPlayer        = 1;
-                currentPlayer.nextPlayer = 0;
-
+                players       = [...state.players];
+                currentPlayer = players.find(pl => pl.seq === action.payload);
+                restPlayers   = players.slice(currentPlayer.seq + 1, players.length);
+        
+                // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
+                if (restPlayers.length > 0) {
+                    player                   = restPlayers.find(elem => elem.isActive);
+                    player.nextPlayer        = 1;
+                    currentPlayer.nextPlayer = 0;
+    
+                } else {
+                    player                   = players.find(elem => elem.isActive);
+                    player.nextPlayer        = 1;
+                    currentPlayer.nextPlayer = 0;
+                }
+    
                 updateObjectInArray(players, player);
-            }
 
-            return {
-                ...state.players,
-                players
-            }
+                return {
+                    ...state.players,
+                    players
+                }
     }
 
     return state;

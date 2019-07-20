@@ -25,11 +25,11 @@ const Player = props => {
                 
                 <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
                 
-                <button className='exit-btn' onClick={() => {props.exitGame(props.player.seq)}}>
+                <button className='exit-btn' onClick={() => {props.resetFirstPlayer(); props.exitGame(props.player.seq)}}>
                     <i className='fa fa-close'></i>
                 </button> 
 
-                <button className='next-btn' onClick={() => {props.updateCurrentPot(); props.setNextPlayer(props.player.seq);}}>
+                <button className='next-btn' onClick={() => {props.resetFirstPlayer(); props.updateCurrentPot(); props.setNextPlayer(props.player.seq);}}>
                     <i className='fa fa-arrow-right'></i>
                 </button> 
             </div>

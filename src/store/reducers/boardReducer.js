@@ -58,6 +58,7 @@ const initialState = {
     round: 0,
     dealerId: actionTypes.DEALER_ID,
     numOfPlayers: actionTypes.NUM_OF_PLAYERS,
+    firstPlayerId: null,
     cards: []
 };
 
@@ -70,6 +71,17 @@ const boardReducer = (state = initialState, action) => {
                 round: 1
             }
 
+        case actionTypes.SET_FIRST_PLAYER:
+            return {
+                ...state,
+                firstPlayerId: action.payload
+            }
+
+        case actionTypes.RESET_FIRST_PLAYER:
+            return {
+                ...state,
+                firstPlayerId: null
+            }
     }
 
     return state;

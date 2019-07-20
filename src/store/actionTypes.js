@@ -10,6 +10,7 @@ export const DECREMENT_PLAYER_POT = 'DECREMENT_PLAYER_POT';
 export const SET_CURRENT_POT      = 'SET_CURRENT_POT';
 export const DEAL_CARDS           = 'DEAL_CARDS';
 export const SET_NEXT_PLAYER      = 'SET_NEXT_PLAYER';
+export const RESET_FIRST_PLAYER   = 'RESET_FIRST_PLAYER';
 export const EXIT_GAME            = 'EXIT_GAME';
 
 

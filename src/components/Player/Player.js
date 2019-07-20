@@ -5,30 +5,47 @@ import NumericInput from 'react-numeric-input';
 import './Player.css';
 
 const Player = props => {
-    let playerId = props.player.seq + 1;
+    const playerId = props.player.seq + 1;
+    let classes    = [''];
+    classes.push((props.player.isActive === 0) ? 'inactive-player' : null);
+
+    let nextPlayerBtns = null;
+
+    if (props.nextPlayer === props.player.seq) {
+        nextPlayerBtns = (
+            <div className='pot-btns'>
+                <button className='update-pot-btn' onClick={() => props.incrementPot(props.player.seq)}>+</button> 
+                        
+                <NumericInput
+                    value={props.player.pot}
+                    style={false}
+                    className='input-pot'
+                    readOnly
+                />
+                
+                <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
+                
+                <button className='exit-btn' onClick={() => {props.exitGame(props.player.seq)}}>
+                    <i className='fa fa-close'></i>
+                </button> 
+
+                <button className='next-btn' onClick={() => {props.updateCurrentPot(); props.setNextPlayer(props.player.seq);}}>
+                    <i className='fa fa-arrow-right'></i>
+                </button> 
+            </div>
+        );
+    }
     
     return ( 
         <div id={'player-' + playerId} className='player-info'>   
             <div className='center-player-info'> 
-                <strong>Player {props.player.seq + 1}</strong>
+                <strong className={classes.join(' ')}>Player {props.player.seq + 1}</strong>
                 <hr />
-
-                Cash: {'€' + (props.player.cash)} - Pot: {'€' + props.player.pot}
-                <br />
-
-                <div className='pot-btns'>
-                    <button className='update-pot-btn' onClick={() => props.incrementPot(props.player.seq)}>+</button> 
-                    
-                    <NumericInput
-                        value={props.player.pot}
-                        style={false}
-                        className='input-pot'
-                        readOnly
-                    />
-                    
-                    <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
-                    <button className='next-btn' onClick={props.updateCurrentPot}><i className='fa fa-arrow-right'></i></button> 
+                <div className={classes.join(' ')}>
+                    Cash: {'€' + (props.player.cash)} - Pot: {'€' + props.player.pot}
                 </div>
+                <br />
+                {nextPlayerBtns}
             </div>
 
             <div className='center-player-info-cards'>
@@ -36,8 +53,10 @@ const Player = props => {
                     props.player.cards.map((card, index) => {
                         return (
                             <div key={index}>
-                                <div className="playingCards">
+                                <div className='playingCards'>
                                     <Card value={card.value} suit={card.suit} />
+                                    {/* girismenes */}
+                                    {/* <div className="card back">*</div> */}
                                 </div>
                             </div>
                         );

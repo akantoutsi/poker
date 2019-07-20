@@ -79,6 +79,7 @@ class Board extends Component {
                 seq: i,
                 cash: cash,
                 isActive: 1,
+                nextPlayer: (i === 0) ? 1 : 0,
                 pot: 0,
                 potNotLessThan: 0,
                 maxPot: cash,
@@ -104,7 +105,7 @@ class Board extends Component {
                 }
 
                 <div className="playingCards all-cards" 
-                    onClick={() => this.props.brd.round < 1 ? (this.props.storeBoardCards(boardCards), this.props.storePlayersCards(playerCards)) : null}>
+                    onClick={() => this.props.brd.round === 0 ? (this.props.storeBoardCards(boardCards), this.props.storePlayersCards(playerCards)) : null}>
                     
                     {allCards}
                     <div className="clear"></div>

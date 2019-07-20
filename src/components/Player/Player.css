@@ -23,6 +23,17 @@
     margin-left: 15px;
 }
 
+.exit-btn {
+    width: auto;
+    font-size: 2.5rem;
+    border-radius: 20%;
+    border: 0 solid transparent;
+    color: #7F0000;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
 hr {
     border: 1px solid grey;
 }
@@ -68,6 +79,10 @@ hr {
     height: 85%;
     z-index: 3;
     position: absolute;
+}
+
+.inactive-player {
+    text-decoration: line-through;
 }
 
 #player-1 { 

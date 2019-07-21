@@ -95,19 +95,16 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.isActive   = 0;
 
             // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
-            playerId = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
-
             if (restPlayers.length > 1) {
-                player = restPlayers[playerId];
+                playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                player            = restPlayers[playerId];
                 player.nextPlayer = 1;
-        
+
+                updateObjectInArray(players, player);
+                        
             } else {
                 alert('only one left');
-                player            = restPlayers[0];
-                player.nextPlayer = 1;
             }
-
-            updateObjectInArray(players, player);
 
             return {
                 ...state.players,
@@ -176,18 +173,16 @@ const playersReducer = (state = initialState, action) => {
                 restPlayers   = players.filter(elem => elem.isActive);
         
                 if (restPlayers.length > 1) {
-                    playerId                 = (currentPlayer.seq < players.length - 1) ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                    playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                     player                   = restPlayers[playerId];
                     player.nextPlayer        = 1;
                     currentPlayer.nextPlayer = 0;
+
+                    updateObjectInArray(players, player);
                 
                 } else {
                     alert('only one left aaaaa');
-                    player            = restPlayers[0];
-                    player.nextPlayer = 1;
                 }
-    
-                updateObjectInArray(players, player);
 
                 return {
                     ...state.players,

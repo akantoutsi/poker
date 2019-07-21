@@ -77,12 +77,13 @@ class Board extends Component {
                               ?  bigBlindId - actionTypes.NUM_OF_PLAYERS.length + 1 
                               :  bigBlindId + 1;
 
-            let cash = Math.floor(Math.random() * 10) + 1;                            
+            let cash = Math.floor(Math.random() * (10 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
 
             playerCards.push({
                 cards           : cards.slice(i+j, i+j+2),
                 seq             : i,
-                cash            : cash,
+                cash            : (smallBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT : 
+                                    (bigBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT*2 : cash,
                 isActive        : 1,
                 nextPlayer      : (i === 0) ? 1 : 0,
                 pot             : 0,

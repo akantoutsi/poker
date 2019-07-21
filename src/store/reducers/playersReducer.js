@@ -10,6 +10,7 @@ const playersReducer = (state = initialState, action) => {
     let restPlayers;
     let player;
     let currentPlayer;
+    let playerId;
 
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
@@ -88,17 +89,21 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.EXIT_GAME:
             players                  = [...state.players];
             currentPlayer            = players.find(pl => pl.seq === action.payload);
-            restPlayers              = players.slice(currentPlayer.seq + 1, players.length);
+            restPlayers              = players.filter(elem => elem.isActive);
             player                   = restPlayers.find(elem => elem.isActive);
             currentPlayer.nextPlayer = 0;
             currentPlayer.isActive   = 0;
 
             // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
-            if (restPlayers.length > 0) {
+            playerId = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+
+            if (restPlayers.length > 1) {
+                player = restPlayers[playerId];
                 player.nextPlayer = 1;
         
             } else {
-                player = players.find(elem => elem.isActive);
+                alert('only one left');
+                player            = restPlayers[0];
                 player.nextPlayer = 1;
             }
 
@@ -168,18 +173,22 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.SET_NEXT_PLAYER:
                 players       = [...state.players];
                 currentPlayer = players.find(pl => pl.seq === action.payload);
-                restPlayers   = players.slice(currentPlayer.seq + 1, players.length);
+                // restPlayers   = players.slice(currentPlayer.seq + 1, players.length);
+
+                restPlayers   = players.filter(elem => elem.isActive);
         
-                // edw na tsekarw ean prepei na rixw filla katw - ean to pot olwn einai apodekto kai ekleise o kiklos
-                if (restPlayers.length > 0) {
-                    player                   = restPlayers.find(elem => elem.isActive);
+                if (restPlayers.length > 1) {
+                    // console.log(playerId, restPlayers[playerId]);
+                    // playerId                 = (currentPlayer.seq < restPlayers.length - 1) ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                    playerId                 = (currentPlayer.seq < players.length - 1) ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                    player                   = restPlayers[playerId];
                     player.nextPlayer        = 1;
                     currentPlayer.nextPlayer = 0;
-    
+                
                 } else {
-                    player                   = players.find(elem => elem.isActive);
-                    player.nextPlayer        = 1;
-                    currentPlayer.nextPlayer = 0;
+                    alert('only one left aaaaa');
+                    player            = restPlayers[0];
+                    player.nextPlayer = 1;
                 }
     
                 updateObjectInArray(players, player);

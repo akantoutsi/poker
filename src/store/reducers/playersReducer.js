@@ -170,7 +170,7 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.SET_NEXT_PLAYER:
                 players       = [...state.players];
                 currentPlayer = players.find(pl => pl.seq === action.payload);
-                restPlayers   = players.filter(elem => elem.isActive);
+                restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0 );
         
                 if (restPlayers.length > 1) {
                     playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;

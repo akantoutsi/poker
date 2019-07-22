@@ -181,6 +181,7 @@ const playersReducer = (state = initialState, action) => {
                     updateObjectInArray(players, player);
                 
                 } else {
+                    currentPlayer.nextPlayer = 0;
                     alert('only one left aaaaa');
                 }
 

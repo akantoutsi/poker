@@ -2,6 +2,7 @@ import * as actionTypes        from '../actionTypes';
 import { updateObjectInArray } from '../utils';
 
 const initialState = {
+    canUpdateTablePot: 1,
     players: []
 };
 
@@ -11,6 +12,7 @@ const playersReducer = (state = initialState, action) => {
     let player;
     let currentPlayer;
     let playerId;
+    let canUpdateTablePot;
 
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
@@ -58,12 +60,16 @@ const playersReducer = (state = initialState, action) => {
 
             player.previousPot = player.pot;
             player.maxPot      = player.cash;
+            canUpdateTablePot  = state.canUpdateTablePot; 
+            canUpdateTablePot  = 1; 
 
             updateObjectInArray(players, player);
 
             return {
                 ...state.players,
-                players
+                players,
+                ...state.canUpdateTablePot, 
+                canUpdateTablePot
             }
 
         case actionTypes.DECREMENT_PLAYER_POT:
@@ -77,13 +83,18 @@ const playersReducer = (state = initialState, action) => {
 
                     if (player.pot >= player.potNotLessThan || player.cash === 0) {
                         updateObjectInArray(players, player);
+
+                        canUpdateTablePot = state.canUpdateTablePot;
+                        canUpdateTablePot = 1; 
                     }
                 }
             }
 
             return {
                 ...state.players,
-                players
+                players,
+                ...state.canUpdateTablePot,
+                canUpdateTablePot
             }
 
         case actionTypes.EXIT_GAME:
@@ -101,6 +112,9 @@ const playersReducer = (state = initialState, action) => {
                 player.nextPlayer = 1;
 
                 updateObjectInArray(players, player);
+
+                canUpdateTablePot = state.canUpdateTablePot; 
+                canUpdateTablePot = 0; 
                         
             } else {
                 alert('only one left');
@@ -108,10 +122,12 @@ const playersReducer = (state = initialState, action) => {
 
             return {
                 ...state.players,
-                players
+                players,
+                ...state.canUpdateTablePot,
+                canUpdateTablePot
             }
 
-        case actionTypes.UPDATE_PLAYER_POT:            
+        case actionTypes.UPDATE_PLAYER_POT:   
             players = [...state.players];
             player  = players.find(pl => pl.seq === action.payload.playerId);
 
@@ -120,30 +136,41 @@ const playersReducer = (state = initialState, action) => {
                 player.maxPot      = player.cash;
 
                 updateObjectInArray(players, player);
-            
-            } else {
-                if (player.cash > 0 && player.pot <= player.potNotLessThan) {
-                    if (player.cash >= player.potNotLessThan) {
-                        player.pot  = player.potNotLessThan;
-                        player.cash = player.cash - (player.potNotLessThan - player.previousPot);
 
-                    } else {
-                        if (Math.abs(player.potNotLessThan - player.pot) <= player.cash) {
-                            player.pot   = player.potNotLessThan;
-                            player.cash -= Math.abs(player.potNotLessThan - player.previousPot); 
-                        
-                        } else {
-                            player.pot  = player.pot + player.cash;
-                            player.cash = 0;
-                        }
-                    }
+                canUpdateTablePot = state.canUpdateTablePot; 
+                canUpdateTablePot = 1;
+
+                return {
+                    ...state.players,
+                    players,
+                    ...state.canUpdateTablePot,
+                    canUpdateTablePot
                 }
+            } 
 
-                player.previousPot = player.pot;
-                player.maxPot      = player.cash;
+            // else {
+            //     if (player.cash > 0 && player.pot <= player.potNotLessThan) {
+            //         if (player.cash >= player.potNotLessThan) {
+            //             player.pot  = player.potNotLessThan;
+            //             player.cash = player.cash - (player.potNotLessThan - player.previousPot);
 
-                updateObjectInArray(players, player);
-            }
+            //         } else {
+            //             if (Math.abs(player.potNotLessThan - player.pot) <= player.cash) {
+            //                 player.pot   = player.potNotLessThan;
+            //                 player.cash -= Math.abs(player.potNotLessThan - player.previousPot); 
+                        
+            //             } else {
+            //                 player.pot  = player.pot + player.cash;
+            //                 player.cash = 0;
+            //             }
+            //         }
+            //     }
+
+            //     player.previousPot = player.pot;
+            //     player.maxPot      = player.cash;
+
+            //     updateObjectInArray(players, player);
+            // }
 
             return {
                 ...state.players,
@@ -153,14 +180,16 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.SET_CURRENT_POT:
             players = [...state.players];
 
-            const currentPot = players.reduce((max, elem) => {
-                max = (elem.pot > max) ? elem.pot : max;   
-                return max;
-            }, 0);
-                        
-            players.map(pl => {
-                pl.potNotLessThan = currentPot;
-            });    
+            if (state.canUpdateTablePot === 1) { 
+                const currentPot = players.reduce((max, elem) => {
+                    max = (elem.pot > max) ? elem.pot : max;   
+                    return max;
+                }, 0);
+                            
+                players.map(pl => {
+                    pl.potNotLessThan = currentPot;
+                });    
+            }
 
             return {
                 ...state.players,
@@ -172,18 +201,20 @@ const playersReducer = (state = initialState, action) => {
                 currentPlayer = players.find(pl => pl.seq === action.payload);
                 restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0 );
         
-                if (restPlayers.length > 1) {
-                    playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
-                    player                   = restPlayers[playerId];
-                    player.nextPlayer        = 1;
-                    currentPlayer.nextPlayer = 0;
+                if (currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) { 
+                    if (restPlayers.length > 1) {
+                        playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                        player                   = restPlayers[playerId];
+                        player.nextPlayer        = 1;
+                        currentPlayer.nextPlayer = 0;
 
-                    updateObjectInArray(players, player);
-                
-                } else {
-                    currentPlayer.nextPlayer = 0;
-                    alert('only one left aaaaa');
-                }
+                        updateObjectInArray(players, player);
+                    
+                    } else {
+                        currentPlayer.nextPlayer = 0;
+                        alert('only one left aaaaa');
+                    }
+                } 
 
                 return {
                     ...state.players,

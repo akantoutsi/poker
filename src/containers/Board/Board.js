@@ -59,7 +59,7 @@ class Board extends Component {
         cards = _.orderBy(cards, ['suit', 'rank'], ['asc', 'desc']);
         this.shuffleCards(cards);
 
-        let playerCards = [];
+        let player = [];
         let boardCards  = [];
         let firstPlayerId = null;
         let j = 0;
@@ -79,13 +79,13 @@ class Board extends Component {
 
             let cash = Math.floor(Math.random() * (10 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
 
-            playerCards.push({
+            player.push({
                 cards           : cards.slice(i+j, i+j+2),
                 seq             : i,
                 cash            : (smallBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT : 
                                     (bigBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT*2 : cash,
                 isActive        : 1,
-                nextPlayer      : (i === 0) ? 1 : 0,
+                nextPlayer      : (i === bigBlindId + 1) ? 1 : 0, 
                 pot             : 0,
                 potNotLessThan  : 0,
                 maxPot          : cash,
@@ -119,7 +119,7 @@ class Board extends Component {
 
                 <div className="playingCards all-cards" 
                     onClick={() => this.props.brd.round === 0 ? (this.props.storeBoardCards(boardCards), 
-                                                                 this.props.storePlayersCards(playerCards),
+                                                                 this.props.storePlayersCards(player),
                                                                  this.props.setFirstPlayer(firstPlayerId),
                                                                  this.props.updateCurrentPot()) : null}>
                     

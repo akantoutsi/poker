@@ -106,7 +106,7 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.isActive   = 0;
 
             // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
-            if (restPlayers.length > 1) {
+            if (restPlayers.length > 2) {
                 playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                 player            = restPlayers[playerId];
                 player.nextPlayer = 1;
@@ -202,7 +202,7 @@ const playersReducer = (state = initialState, action) => {
                 restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0 );
         
                 if (currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) { 
-                    if (restPlayers.length > 1) {
+                    if (restPlayers.length > 2) {
                         playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                         player                   = restPlayers[playerId];
                         player.nextPlayer        = 1;

@@ -36,17 +36,14 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.INCREMENT_PLAYER_POT:
             players = [...state.players];
             player  = players.find(pl => pl.seq === action.payload);
-            console.log('a');
 
             if (player.cash > 0 && player.pot >= player.potNotLessThan && player.pot + 1 <= player.maxPot + player.previousPot) {
-                console.log('b');
                 player.pot       += 1; 
                 player.cash      -= 1;
                 player.changedPot = 1;
             }
 
             if (player.cash > 0 && player.pot <= player.potNotLessThan) {
-                console.log('c');
                 if (player.cash >= player.potNotLessThan) {
                     player.pot  = player.potNotLessThan;
                     player.cash = player.cash - (player.potNotLessThan - player.previousPot);
@@ -131,7 +128,7 @@ const playersReducer = (state = initialState, action) => {
             } 
 
             if (restPlayers.length === 1) {
-                alert('only one left');
+                alert('exit - vres nikiti');
             }
 
             return {
@@ -161,32 +158,32 @@ const playersReducer = (state = initialState, action) => {
             }
 
         case actionTypes.SET_NEXT_PLAYER:
-                players       = [...state.players];
-                currentPlayer = players.find(pl => pl.seq === action.payload);
-                restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0);
-        
-                if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
-                    if (restPlayers.length >= 2) {
-                        playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
-                        player                   = restPlayers[playerId];
-                        player.nextPlayer        = 1;
-                        currentPlayer.nextPlayer = 0;
+            players       = [...state.players];
+            currentPlayer = players.find(pl => pl.seq === action.payload);
+            restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0);
+    
+            if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
+                if (restPlayers.length >= 2) {
+                    playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                    player                   = restPlayers[playerId];
+                    player.nextPlayer        = 1;
+                    currentPlayer.nextPlayer = 0;
 
-                        currentPlayer.changedPot = 0;
-                        updateObjectInArray(players, player);
-                    
-                    } 
-                    
-                    if (restPlayers.length === 1) {
-                        currentPlayer.nextPlayer = 0;
-                        alert('only one left aaaaa');
-                    }
+                    currentPlayer.changedPot = 0;
+                    updateObjectInArray(players, player);
+                    alert('next - check ean exoun oloi iso pot - ean nai rixe filla katw');
                 } 
-
-                return {
-                    ...state.players,
-                    players
+                
+                if (restPlayers.length === 1) {
+                    currentPlayer.nextPlayer = 0;
+                    alert('next - vres nikiti');
                 }
+            } 
+
+            return {
+                ...state.players,
+                players
+            }
     }
 
     return state;

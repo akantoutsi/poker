@@ -36,13 +36,17 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.INCREMENT_PLAYER_POT:
             players = [...state.players];
             player  = players.find(pl => pl.seq === action.payload);
+            console.log('a');
 
             if (player.cash > 0 && player.pot >= player.potNotLessThan && player.pot + 1 <= player.maxPot + player.previousPot) {
-                player.pot  += 1; 
-                player.cash -= 1;
+                console.log('b');
+                player.pot       += 1; 
+                player.cash      -= 1;
+                player.changedPot = 1;
             }
 
             if (player.cash > 0 && player.pot <= player.potNotLessThan) {
+                console.log('c');
                 if (player.cash >= player.potNotLessThan) {
                     player.pot  = player.potNotLessThan;
                     player.cash = player.cash - (player.potNotLessThan - player.previousPot);
@@ -113,20 +117,20 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.isActive   = 0;
 
             // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
-            if (restPlayers.length > 2) {
+            if (restPlayers.length >= 2) {
                 playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                 player            = restPlayers[playerId];
                 player.nextPlayer = 1;
 
-                // alert('check winner - EXIT_GAME');
-
+                player.changedPot  = 0;
+                
                 updateObjectInArray(players, player);
 
                 canUpdateTablePot = state.canUpdateTablePot; 
                 canUpdateTablePot = 0; 
-                player.changedPot = 0;
-                        
-            } else {
+            } 
+
+            if (restPlayers.length === 2) {
                 alert('only one left');
             }
 
@@ -215,7 +219,7 @@ const playersReducer = (state = initialState, action) => {
                 restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0 );
         
                 if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
-                    if (restPlayers.length > 2) {
+                    if (restPlayers.length >= 2) {
                         playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                         player                   = restPlayers[playerId];
                         player.nextPlayer        = 1;
@@ -225,7 +229,9 @@ const playersReducer = (state = initialState, action) => {
                         currentPlayer.changedPot = 0;
                         updateObjectInArray(players, player);
                     
-                    } else {
+                    } 
+                    
+                    if (restPlayers.length === 1) {
                         // ean exw dio energa me cash > 0 mpainei enw den prepei
                         currentPlayer.nextPlayer = 0;
                         alert('only one left aaaaa');

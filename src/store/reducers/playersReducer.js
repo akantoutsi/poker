@@ -111,18 +111,18 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.EXIT_GAME:
             players                  = [...state.players];
             currentPlayer            = players.find(pl => pl.seq === action.payload);
-            restPlayers              = players.filter(elem => elem.isActive);
+            restPlayers              = players.filter(elem => (elem.isActive && elem.cash > 0));
             player                   = restPlayers.find(elem => elem.isActive);
             currentPlayer.nextPlayer = 0;
             currentPlayer.isActive   = 0;
 
-            // edw na tsekarw ean prepei na rixw filla katw - ean to pot olws einai apodekto kai ekleise o kiklos
+            // edw na tsekarw ean prepei na rixw filla katw - ean to pot olwn einai apodekto kai ekleise o kiklos
             if (restPlayers.length >= 2) {
                 playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                 player            = restPlayers[playerId];
                 player.nextPlayer = 1;
 
-                player.changedPot  = 0;
+                player.changedPot = 0;
                 
                 updateObjectInArray(players, player);
 
@@ -130,7 +130,7 @@ const playersReducer = (state = initialState, action) => {
                 canUpdateTablePot = 0; 
             } 
 
-            if (restPlayers.length === 2) {
+            if (restPlayers.length === 1) {
                 alert('only one left');
             }
 
@@ -141,62 +141,9 @@ const playersReducer = (state = initialState, action) => {
                 canUpdateTablePot
             }
 
-        // nomizw pws de xreiazetai
-        // case actionTypes.UPDATE_PLAYER_POT:   
-        //     players = [...state.players];
-        //     player  = players.find(pl => pl.seq === action.payload.playerId);
-
-        //     if (player.pot >= player.potNotLessThan || player.cash === 0) {
-        //         player.previousPot = player.pot;
-        //         player.maxPot      = player.cash;
-
-        //         updateObjectInArray(players, player);
-
-        //         canUpdateTablePot = state.canUpdateTablePot; 
-        //         canUpdateTablePot = 1;
-        //         // player.changedPot = 1;
-
-        //         return {
-        //             ...state.players,
-        //             players,
-        //             ...state.canUpdateTablePot,
-        //             canUpdateTablePot
-        //         }
-        //     } 
-
-            // else {
-            //     if (player.cash > 0 && player.pot <= player.potNotLessThan) {
-            //         if (player.cash >= player.potNotLessThan) {
-            //             player.pot  = player.potNotLessThan;
-            //             player.cash = player.cash - (player.potNotLessThan - player.previousPot);
-
-            //         } else {
-            //             if (Math.abs(player.potNotLessThan - player.pot) <= player.cash) {
-            //                 player.pot   = player.potNotLessThan;
-            //                 player.cash -= Math.abs(player.potNotLessThan - player.previousPot); 
-                        
-            //             } else {
-            //                 player.pot  = player.pot + player.cash;
-            //                 player.cash = 0;
-            //             }
-            //         }
-            //     }
-
-            //     player.previousPot = player.pot;
-            //     player.maxPot      = player.cash;
-
-            //     updateObjectInArray(players, player);
-            // }
-
-            // return {
-            //     ...state.players,
-            //     players
-            // }
-
         case actionTypes.SET_CURRENT_POT:
             players = [...state.players];
 
-            // isws na elegxw ta previousPot
             if (state.canUpdateTablePot === 1) { 
                 const currentPot = players.reduce((max, elem) => {
                     max = (elem.pot > max) ? elem.pot : max;   
@@ -216,7 +163,7 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.SET_NEXT_PLAYER:
                 players       = [...state.players];
                 currentPlayer = players.find(pl => pl.seq === action.payload);
-                restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0 );
+                restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0);
         
                 if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
                     if (restPlayers.length >= 2) {
@@ -225,14 +172,12 @@ const playersReducer = (state = initialState, action) => {
                         player.nextPlayer        = 1;
                         currentPlayer.nextPlayer = 0;
 
-                        // alert('check winner - SET_NEXT_PLAYER');
                         currentPlayer.changedPot = 0;
                         updateObjectInArray(players, player);
                     
                     } 
                     
                     if (restPlayers.length === 1) {
-                        // ean exw dio energa me cash > 0 mpainei enw den prepei
                         currentPlayer.nextPlayer = 0;
                         alert('only one left aaaaa');
                     }

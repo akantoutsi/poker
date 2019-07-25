@@ -9,4 +9,8 @@ export const updateObjectInArray = (array, obj) => {
             ...obj.item
         }
     })
-  }
+}
+
+export const checkToOpenCards = () => {
+    
+}

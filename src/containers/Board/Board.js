@@ -89,6 +89,7 @@ class Board extends Component {
                 pot             : 0,
                 potNotLessThan  : 0,
                 maxPot          : cash,
+                changedPot      : 0,
                 smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
                 isSmallBlind    : smallBlindId === i,
                 isBigBlind      : bigBlindId === i,

@@ -18,11 +18,11 @@ export const findMaxPot = (arr, property) => {
     }, 0);
 }
 
-export const checkToOpenCards = (arr, property) => {
-    const currentPot = this.findMaxPot(arr, 'pot');
+export const allHaveSamePot = (arr, property) => {
+    const currentPot = findMaxPot(arr, property);
 
     return arr.reduce((acc, elem) => {
-        acc = (elem[property] === currentPot) ? 1 : 0;
+        acc += (elem[property] === currentPot) ? 1 : 0;
         return acc;
     }, 0);
 }

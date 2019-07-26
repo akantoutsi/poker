@@ -83,7 +83,6 @@ const boardReducer = (state = initialState, action) => {
                 firstPlayerId: null
             }
     }
-
     return state;
 }
 

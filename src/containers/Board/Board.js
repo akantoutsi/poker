@@ -53,9 +53,10 @@ class Board extends Component {
     render() { 
         const allCards = <div className="card back">*</div>;
         
-        let cards  = [];
+        let cards = [];
         cards = _.cloneDeep(this.props.brd.initCards);
         cards.map(elem => elem.rank = this.getRank(elem, 'value'));
+        cards.map(elem => elem.isVisible = false);
         cards = _.orderBy(cards, ['suit', 'rank'], ['asc', 'desc']);
         this.shuffleCards(cards);
 
@@ -107,12 +108,13 @@ class Board extends Component {
                     this.props.brd.cards.map((card, index) => {
                         return (
                             <div className="playingCards" key={index}>
-                                <div className="card back">*</div>
-
-                                {/* to katotthi prepei na anoigei stadiaka ana sinthikes - pws? 
-                                kai antistoixa oi kartes twn paiktwn
-                                kai na einai mono tou current anoixtes */}
-                                {/* <Card value={card.value} suit={card.suit} /> */}
+                                {console.log(this.props.openBoardCards)}
+                                {   
+                                    (!this.props.openBoardCards)
+                                    // (!card.visible)
+                                    ? <div className="card back">*</div>
+                                    : <Card value={card.value} suit={card.suit} />
+                                }
                             </div>
                         );
                     })
@@ -134,7 +136,8 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        brd: state.board
+        brd: state.board,
+        openBoardCards: state.players.openBoardCards
     };
 };
 

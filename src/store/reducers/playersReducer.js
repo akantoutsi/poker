@@ -1,8 +1,10 @@
-import * as actionTypes                                      from '../actionTypes';
-import { updateObjectInArray, findMaxPot, checkToOpenCards } from '../utils';
+import * as actionTypes                                    from '../actionTypes';
+import { updateObjectInArray, findMaxPot, allHaveSamePot } from '../utils';
 
 const initialState = {
     canUpdateTablePot: 1,
+    openBoardCards: 0,
+    alreadyOpenedCards: 0,
     players: []
 };
 
@@ -14,6 +16,8 @@ const playersReducer = (state = initialState, action) => {
     let playerId;
     let canUpdateTablePot;
     let changedPot = 0;
+    let openBoardCards = 0;
+    let alreadyOpenedCards = 0;
 
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
@@ -30,7 +34,7 @@ const playersReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                players
+                players: state.players.concat(players)
             }
 
         case actionTypes.INCREMENT_PLAYER_POT:
@@ -69,10 +73,9 @@ const playersReducer = (state = initialState, action) => {
             updateObjectInArray(players, player);
 
             return {
-                ...state.players,
-                players,
-                ...state.canUpdateTablePot, 
-                canUpdateTablePot
+                ...state,
+                players: players,
+                canUpdateTablePot: canUpdateTablePot
             }
 
         case actionTypes.DECREMENT_PLAYER_POT:
@@ -99,27 +102,32 @@ const playersReducer = (state = initialState, action) => {
             }
 
             return {
-                ...state.players,
-                players,
-                ...state.canUpdateTablePot,
-                canUpdateTablePot
+                ...state,
+                players: players,
+                canUpdateTablePot: canUpdateTablePot
             }
 
         case actionTypes.EXIT_GAME:
             players                  = [...state.players];
             currentPlayer            = players.find(pl => pl.seq === action.payload);
-            restPlayers              = players.filter(elem => (elem.isActive && elem.cash > 0));
-            player                   = restPlayers.find(elem => elem.isActive);
             currentPlayer.nextPlayer = 0;
             currentPlayer.isActive   = 0;
+            restPlayers              = players.filter(elem => elem.isActive && elem.cash > 0);
+            alreadyOpenedCards       = state.alreadyOpenedCards;
 
             if (restPlayers.length >= 2) {
-                playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
-                player            = restPlayers[playerId];
-                player.nextPlayer = 1;
-                player.changedPot = 0;
+                playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                player                   = restPlayers[playerId];
+                player.nextPlayer        = 1;
+                player.changedPot        = 0;
                 
                 updateObjectInArray(players, player);
+
+                if (allHaveSamePot(restPlayers, 'pot') === restPlayers.length && !alreadyOpenedCards) {
+                    alert('exit - rixe filla katw');
+                    openBoardCards     = 1;
+                    alreadyOpenedCards = 1;
+                }
 
                 canUpdateTablePot = state.canUpdateTablePot; 
                 canUpdateTablePot = 0; 
@@ -130,10 +138,11 @@ const playersReducer = (state = initialState, action) => {
             }
 
             return {
-                ...state.players,
-                players,
-                ...state.canUpdateTablePot,
-                canUpdateTablePot
+                ...state,
+                players: players,
+                canUpdateTablePot: canUpdateTablePot,
+                openBoardCards: openBoardCards,
+                alreadyOpenedCards: alreadyOpenedCards
             }
 
         case actionTypes.SET_CURRENT_POT:
@@ -148,25 +157,31 @@ const playersReducer = (state = initialState, action) => {
             }
 
             return {
-                ...state.players,
-                players
+                ...state,
+                players: players
             }
 
         case actionTypes.SET_NEXT_PLAYER:
-            players       = [...state.players];
-            currentPlayer = players.find(pl => pl.seq === action.payload);
-            restPlayers   = players.filter(elem => elem.isActive && elem.cash > 0);
-    
+            players            = [...state.players];
+            currentPlayer      = players.find(pl => pl.seq === action.payload);
+            restPlayers        = players.filter(elem => elem.isActive && elem.cash > 0);
+            openBoardCards     = state.openBoardCards;
+            alreadyOpenedCards = 0;
+
             if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
                 if (restPlayers.length >= 2) {
                     playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                     player                   = restPlayers[playerId];
                     player.nextPlayer        = 1;
                     currentPlayer.nextPlayer = 0;
-
                     currentPlayer.changedPot = 0;
+
                     updateObjectInArray(players, player);
-                    alert('next - check ean exoun oloi iso pot - ean nai rixe filla katw');
+                    
+                    if (allHaveSamePot(restPlayers, 'pot') === restPlayers.length) {
+                        alert('rixe filla katw');
+                        openBoardCards = 1;
+                    }
                 } 
                 
                 if (restPlayers.length === 1) {
@@ -176,8 +191,10 @@ const playersReducer = (state = initialState, action) => {
             } 
 
             return {
-                ...state.players,
-                players
+                ...state,
+                players: players,
+                openBoardCards: openBoardCards,
+                alreadyOpenedCards: alreadyOpenedCards
             }
     }
     return state;

@@ -1,5 +1,5 @@
-import * as actionTypes        from '../actionTypes';
-import { updateObjectInArray } from '../utils';
+import * as actionTypes                                      from '../actionTypes';
+import { updateObjectInArray, findMaxPot, checkToOpenCards } from '../utils';
 
 const initialState = {
     canUpdateTablePot: 1,
@@ -113,12 +113,10 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.nextPlayer = 0;
             currentPlayer.isActive   = 0;
 
-            // edw na tsekarw ean prepei na rixw filla katw - ean to pot olwn einai apodekto kai ekleise o kiklos
             if (restPlayers.length >= 2) {
                 playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                 player            = restPlayers[playerId];
                 player.nextPlayer = 1;
-
                 player.changedPot = 0;
                 
                 updateObjectInArray(players, player);
@@ -141,12 +139,9 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.SET_CURRENT_POT:
             players = [...state.players];
 
-            if (state.canUpdateTablePot === 1) { 
-                const currentPot = players.reduce((max, elem) => {
-                    max = (elem.pot > max) ? elem.pot : max;   
-                    return max;
-                }, 0);
-                            
+            if (state.canUpdateTablePot === 1) {            
+                const currentPot = findMaxPot(players, 'pot');
+
                 players.map(pl => {
                     pl.potNotLessThan = currentPot;
                 });    
@@ -185,7 +180,6 @@ const playersReducer = (state = initialState, action) => {
                 players
             }
     }
-
     return state;
 }
 

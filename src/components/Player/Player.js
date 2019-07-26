@@ -32,7 +32,7 @@ const Player = props => {
                 <button className='next-btn' onClick={() => {props.resetFirstPlayer(); 
                                                              props.updateCurrentPot(); 
                                                              props.setNextPlayer(props.player.seq);
-                                                             }}>                                                         
+                                                            }}>                                                         
                     <strong>Next</strong>
                 </button> 
             </div>

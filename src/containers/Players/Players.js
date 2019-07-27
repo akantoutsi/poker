@@ -20,9 +20,9 @@ class Players extends Component {
                                                     : ( (player.nextPlayer === 1) ? player.seq : null )}
                                     incrementPot    ={(playerId)            => this.props.incrementPot(playerId)} 
                                     decrementPot    ={(playerId)            => this.props.decrementPot(playerId)} 
-                                    exitGame        ={(playerId)            => this.props.exitGame(playerId)}
-                                    updateCurrentPot={()                    => this.props.updateCurrentPot()} 
+                                    exitGame        ={(playerId)            => this.props.exitGame(playerId)} 
                                     setNextPlayer   ={(playerId)            => this.props.setNextPlayer(playerId)}
+                                    updateCurrentPot={()                    => this.props.updateCurrentPot()}
                                     resetFirstPlayer={()                    => this.props.resetFirstPlayer()} />
                         </div>
                     );
@@ -42,12 +42,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        incrementPot    : (playerId)            => dispatch({type: actionTypes.INCREMENT_PLAYER_POT, payload: playerId}),
-        decrementPot    : (playerId)            => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload: playerId}),
-        exitGame        : (playerId)            => dispatch({type: actionTypes.EXIT_GAME,            payload: playerId}),
-        updateCurrentPot: ()                    => dispatch({type: actionTypes.SET_CURRENT_POT}),
-        setNextPlayer   : (playerId)            => dispatch({type: actionTypes.SET_NEXT_PLAYER,      payload: playerId}),
-        resetFirstPlayer: ()                    => dispatch({type: actionTypes.RESET_FIRST_PLAYER})
+        incrementPot    : (playerId) => dispatch({type: actionTypes.INCREMENT_PLAYER_POT, payload: playerId}),
+        decrementPot    : (playerId) => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload: playerId}),
+        exitGame        : (playerId) => dispatch({type: actionTypes.EXIT_GAME,            payload: playerId}),
+        updateCurrentPot: ()         => dispatch({type: actionTypes.SET_CURRENT_POT}),
+        setNextPlayer   : (playerId) => dispatch({type: actionTypes.SET_NEXT_PLAYER,      payload: playerId}),
+        resetFirstPlayer: ()         => dispatch({type: actionTypes.RESET_FIRST_PLAYER})
     };
 };
 

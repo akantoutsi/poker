@@ -4,7 +4,6 @@ import Card                 from '../../components/Card/Card';
 import _                    from 'lodash';
 import * as actionTypes     from '../../store/actionTypes';
 
-
 import './Board.css';
 
 class Board extends Component {
@@ -101,6 +100,12 @@ class Board extends Component {
         }
 
         boardCards = cards.slice(j*2, (j*2)+5);
+        
+        if (this.props.shouldOpenBoardCards) {
+            this.props.openBoardCards();
+            // de nomizw oti prepei na to kalw edw katefthean gt paraleipei tin periptosi pou patiseiexit kai sta kapakia exit
+            this.props.resetOpenCardsFlag();
+        }
 
         return (
             <div className='Board'> 
@@ -108,10 +113,8 @@ class Board extends Component {
                     this.props.brd.cards.map((card, index) => {
                         return (
                             <div className="playingCards" key={index}>
-                                {console.log(this.props.openBoardCards)}
                                 {   
-                                    (!this.props.openBoardCards)
-                                    // (!card.visible)
+                                    (!card.isVisible)
                                     ? <div className="card back">*</div>
                                     : <Card value={card.value} suit={card.suit} />
                                 }
@@ -137,16 +140,18 @@ class Board extends Component {
 const mapStateToProps = state => {
     return {
         brd: state.board,
-        openBoardCards: state.players.openBoardCards
+        shouldOpenBoardCards: state.players.openBoardCards
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards  : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
-        storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
-        setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
-        updateCurrentPot : ()              => dispatch({type: actionTypes.SET_CURRENT_POT})
+        storeBoardCards   : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        storePlayersCards : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
+        setFirstPlayer    : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
+        updateCurrentPot  : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
+        openBoardCards    : ()              => dispatch({type: actionTypes.OPEN_CARDS}),
+        resetOpenCardsFlag: ()              => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAG}),
     };
 };
 

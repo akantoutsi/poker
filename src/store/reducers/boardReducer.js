@@ -1,4 +1,6 @@
-import * as actionTypes from '../actionTypes';
+import * as actionTypes                     from '../actionTypes';
+import { cardsToOpen, updateObjectInArray } from '../utils';
+import _ from 'lodash';
 
 const initialState = {
     initCards: [
@@ -63,6 +65,9 @@ const initialState = {
 };
 
 const boardReducer = (state = initialState, action) => {
+    let cards        = [];
+    let updatedCards = [];
+
     switch (action.type) {
         case actionTypes.STORE_BOARD_CARDS:
             return {
@@ -82,7 +87,17 @@ const boardReducer = (state = initialState, action) => {
                 ...state,
                 firstPlayerId: null
             }
+
+        case actionTypes.OPEN_CARDS:
+            cards        = [...state.cards];
+            updatedCards = cardsToOpen(cards, 'isVisible');
+            
+            return {
+                ...state,
+                cards: updatedCards
+            }
     }
+    
     return state;
 }
 

@@ -15,8 +15,8 @@ const playersReducer = (state = initialState, action) => {
     let currentPlayer;
     let playerId;
     let canUpdateTablePot;
-    let changedPot = 0;
-    let openBoardCards = 0;
+    let changedPot         = 0;
+    let openBoardCards     = 0;
     let alreadyOpenedCards = 0;
 
     switch (action.type) {
@@ -196,7 +196,14 @@ const playersReducer = (state = initialState, action) => {
                 openBoardCards: openBoardCards,
                 alreadyOpenedCards: alreadyOpenedCards
             }
+
+        case actionTypes.RESET_OPEN_CARDS_FLAG:
+            return {
+                ...state,
+                openBoardCards: 0
+            }
     }
+    
     return state;
 }
 

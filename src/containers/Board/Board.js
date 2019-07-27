@@ -102,9 +102,13 @@ class Board extends Component {
         boardCards = cards.slice(j*2, (j*2)+5);
         
         if (this.props.shouldOpenBoardCards) {
-            this.props.openBoardCards();
-            // de nomizw oti prepei na to kalw edw katefthean gt paraleipei tin periptosi pou patiseiexit kai sta kapakia exit
-            this.props.resetOpenCardsFlag();
+            this.props.openAllBoardCards(0);
+            this.props.resetOpenCardsFlags();
+        }
+
+        if (this.props.shouldOpenAllBoardCards) {
+            this.props.openAllBoardCards(1);
+            this.props.resetOpenCardsFlags();
         }
 
         return (
@@ -140,18 +144,19 @@ class Board extends Component {
 const mapStateToProps = state => {
     return {
         brd: state.board,
-        shouldOpenBoardCards: state.players.openBoardCards
+        shouldOpenBoardCards: state.players.openBoardCards,
+        shouldOpenAllBoardCards: state.players.openAllBoardCards
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards   : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
-        storePlayersCards : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
-        setFirstPlayer    : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
-        updateCurrentPot  : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
-        openBoardCards    : ()              => dispatch({type: actionTypes.OPEN_CARDS}),
-        resetOpenCardsFlag: ()              => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAG}),
+        storeBoardCards    : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        storePlayersCards  : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
+        setFirstPlayer     : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
+        updateCurrentPot   : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
+        openAllBoardCards  : (openAll)       => dispatch({type: actionTypes.OPEN_CARDS,          payload: openAll}),
+        resetOpenCardsFlags: ()              => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
     };
 };
 

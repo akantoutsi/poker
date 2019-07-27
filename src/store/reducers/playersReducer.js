@@ -4,6 +4,7 @@ import { updateObjectInArray, findMaxPot, allHaveSamePot } from '../utils';
 const initialState = {
     canUpdateTablePot: 1,
     openBoardCards: 0,
+    openAllBoardCards: 0,
     alreadyOpenedCards: 0,
     players: []
 };
@@ -17,6 +18,7 @@ const playersReducer = (state = initialState, action) => {
     let canUpdateTablePot;
     let changedPot         = 0;
     let openBoardCards     = 0;
+    let openAllBoardCards  = 0;
     let alreadyOpenedCards = 0;
 
     switch (action.type) {
@@ -114,6 +116,8 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.isActive   = 0;
             restPlayers              = players.filter(elem => elem.isActive && elem.cash > 0);
             alreadyOpenedCards       = state.alreadyOpenedCards;
+            openBoardCards           = state.openBoardCards;
+            openAllBoardCards        = state.openAllBoardCards;
 
             if (restPlayers.length >= 2) {
                 playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
@@ -135,6 +139,7 @@ const playersReducer = (state = initialState, action) => {
 
             if (restPlayers.length === 1) {
                 alert('exit - vres nikiti');
+                openAllBoardCards = 1;
             }
 
             return {
@@ -142,6 +147,7 @@ const playersReducer = (state = initialState, action) => {
                 players: players,
                 canUpdateTablePot: canUpdateTablePot,
                 openBoardCards: openBoardCards,
+                openAllBoardCards: openAllBoardCards,
                 alreadyOpenedCards: alreadyOpenedCards
             }
 
@@ -166,6 +172,8 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer      = players.find(pl => pl.seq === action.payload);
             restPlayers        = players.filter(elem => elem.isActive && elem.cash > 0);
             openBoardCards     = state.openBoardCards;
+            openAllBoardCards  = state.openAllBoardCards;
+            alreadyOpenedCards = state.alreadyOpenedCards;
             alreadyOpenedCards = 0;
 
             if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
@@ -178,15 +186,23 @@ const playersReducer = (state = initialState, action) => {
 
                     updateObjectInArray(players, player);
                     
-                    if (allHaveSamePot(restPlayers, 'pot') === restPlayers.length) {
+                    if (allHaveSamePot(restPlayers, 'pot') === restPlayers.length && !alreadyOpenedCards) {
                         alert('rixe filla katw');
-                        openBoardCards = 1;
+                        openBoardCards     = 1;
+                        alreadyOpenedCards = 1;
                     }
                 } 
                 
                 if (restPlayers.length === 1) {
-                    currentPlayer.nextPlayer = 0;
-                    alert('next - vres nikiti');
+                    if (currentPlayer.cash === 0 && currentPlayer.potNotLessThan === restPlayers[0].pot) {
+                        currentPlayer.nextPlayer = 0;
+                        alert('next - vres nikiti');
+                        openAllBoardCards = 1;
+                    
+                    } else {
+                        currentPlayer.nextPlayer  = 0;
+                        restPlayers[0].nextPlayer = 1;
+                    }
                 }
             } 
 
@@ -194,13 +210,15 @@ const playersReducer = (state = initialState, action) => {
                 ...state,
                 players: players,
                 openBoardCards: openBoardCards,
+                openAllBoardCards: openAllBoardCards,
                 alreadyOpenedCards: alreadyOpenedCards
             }
 
-        case actionTypes.RESET_OPEN_CARDS_FLAG:
+        case actionTypes.RESET_OPEN_CARDS_FLAGS:
             return {
                 ...state,
-                openBoardCards: 0
+                openBoardCards: 0,
+                openAllBoardCards: 0
             }
     }
     

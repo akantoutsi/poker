@@ -90,7 +90,7 @@ const boardReducer = (state = initialState, action) => {
 
         case actionTypes.OPEN_CARDS:
             cards        = [...state.cards];
-            updatedCards = cardsToOpen(cards, 'isVisible');
+            updatedCards = cardsToOpen(cards, 'isVisible', action.payload);
             
             return {
                 ...state,

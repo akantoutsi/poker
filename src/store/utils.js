@@ -36,45 +36,52 @@ export const checkIfCardsLeftToToOpen = (arr, property) => {
     }, 0);
 }
 
-export const cardsToOpen = (arr, property) => {
+export const cardsToOpen = (arr, property, openAllFlag) => {
     const cardsLeft     = checkIfCardsLeftToToOpen(arr, property);
     let   howManyToOpen = 0;
     let   fromIndex     = 0;
     let   slicedArr     = [];
     let   retArr        = [];
 
-    switch (cardsLeft) {
-        case arr.length:
-            howManyToOpen = 3;
-            fromIndex     = 0;
-            break;
+    if (!openAllFlag) {
+        switch (cardsLeft) {
+            case arr.length:
+                howManyToOpen = 3;
+                fromIndex     = 0;
+                break;
 
-        case 2:
-            howManyToOpen = 1;
-            fromIndex     = 3;  
-            break;
+            case 2:
+                howManyToOpen = 1;
+                fromIndex     = 3;  
+                break;
 
-        case 1:
-            howManyToOpen = 1;
-            fromIndex     = 4;
-            break;
+            case 1:
+                howManyToOpen = 1;
+                fromIndex     = 4;
+                break;
+        }
 
-        default:
-            howManyToOpen = 0;
-            fromIndex     = -1;
-            break;
-    }
-
-    slicedArr = arr.slice(fromIndex, fromIndex + howManyToOpen);
-    retArr    = slicedArr.map(e => ({...e, isVisible: true}));
-
-    if (howManyToOpen === 3) {
-        const [first, second, third] = retArr; 
-        arr.splice(fromIndex, howManyToOpen, first, second, third);
+        slicedArr = arr.slice(fromIndex, fromIndex + howManyToOpen);
+        retArr    = slicedArr.map(e => ({...e, isVisible: true}));
+    
+        if (howManyToOpen === 3) {
+            const [first, second, third] = retArr; 
+            arr.splice(fromIndex, howManyToOpen, first, second, third);
+    
+        } else {
+            const [first] = retArr; 
+            arr.splice(fromIndex, howManyToOpen, first);
+        }
 
     } else {
-        const [first] = retArr; 
-        arr.splice(fromIndex, howManyToOpen, first);
+        howManyToOpen = arr.length;
+        fromIndex     = 0;
+
+        slicedArr = arr.slice();
+        retArr    = slicedArr.map(e => ({...e, isVisible: true}));
+
+        const [first, second, third, fourth, fifth] = retArr;
+        arr.splice(fromIndex, howManyToOpen, first, second, third, fourth, fifth); 
     }
 
     return arr;

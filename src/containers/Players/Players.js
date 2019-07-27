@@ -18,12 +18,12 @@ class Players extends Component {
                                     nextPlayer      ={(this.props.firstPlayerId !== null) 
                                                     ? this.props.firstPlayerId 
                                                     : ( (player.nextPlayer === 1) ? player.seq : null )}
-                                    incrementPot    ={(playerId)            => this.props.incrementPot(playerId)} 
-                                    decrementPot    ={(playerId)            => this.props.decrementPot(playerId)} 
-                                    exitGame        ={(playerId)            => this.props.exitGame(playerId)} 
-                                    setNextPlayer   ={(playerId)            => this.props.setNextPlayer(playerId)}
-                                    updateCurrentPot={()                    => this.props.updateCurrentPot()}
-                                    resetFirstPlayer={()                    => this.props.resetFirstPlayer()} />
+                                    incrementPot    ={(playerId) => this.props.incrementPot(playerId)} 
+                                    decrementPot    ={(playerId) => this.props.decrementPot(playerId)} 
+                                    exitGame        ={(playerId) => this.props.exitGame(playerId)} 
+                                    setNextPlayer   ={(playerId) => this.props.setNextPlayer(playerId)}
+                                    updateCurrentPot={()         => this.props.updateCurrentPot()}
+                                    resetFirstPlayer={()         => this.props.resetFirstPlayer()} />
                         </div>
                     );
                 })

@@ -67,8 +67,6 @@ const playersReducer = (state = initialState, action) => {
                 }
             }
 
-            player.previousPot = player.pot;
-            player.maxPot      = player.cash;
             canUpdateTablePot  = state.canUpdateTablePot; 
             canUpdateTablePot  = 1; 
             player.changedPot  = 1;
@@ -119,15 +117,14 @@ const playersReducer = (state = initialState, action) => {
             alreadyOpenedCards       = state.alreadyOpenedCards;
             openBoardCards           = state.openBoardCards;
             openAllBoardCards        = state.openAllBoardCards;
+            currentPlayer.previousPot = currentPlayer.previousPot;
+            currentPlayer.maxPot      = currentPlayer.maxPot;
 
             if (restPlayers.length >= 2) {
                 playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                 player                   = restPlayers[playerId];
                 player.nextPlayer        = 1;
                 player.changedPot        = 0;
-
-                player.previousPot = player.previousPot;
-                player.maxPot      = player.maxPot;
                 
                 updateObjectInArray(players, player);
                 maxPot = findMaxPot(players, 'pot');
@@ -180,6 +177,8 @@ const playersReducer = (state = initialState, action) => {
             openAllBoardCards  = state.openAllBoardCards;
             alreadyOpenedCards = state.alreadyOpenedCards;
             alreadyOpenedCards = 0;
+            currentPlayer.previousPot = currentPlayer.pot;
+            currentPlayer.maxPot      = currentPlayer.cash;
 
             if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
                 if (restPlayers.length >= 2) {

@@ -7,6 +7,7 @@ import './Players.css';
 
 class Players extends Component {
     render() { 
+        console.log(this.props.plr.players);
         return (
             <div> 
             {

@@ -20,6 +20,7 @@ const playersReducer = (state = initialState, action) => {
     let openBoardCards     = 0;
     let openAllBoardCards  = 0;
     let alreadyOpenedCards = 0;
+    let maxPot             = 0;
 
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
@@ -124,10 +125,14 @@ const playersReducer = (state = initialState, action) => {
                 player                   = restPlayers[playerId];
                 player.nextPlayer        = 1;
                 player.changedPot        = 0;
+
+                player.previousPot = player.previousPot;
+                player.maxPot      = player.maxPot;
                 
                 updateObjectInArray(players, player);
+                maxPot = findMaxPot(players, 'pot');
 
-                if (allHaveSamePot(restPlayers, 'pot') === restPlayers.length && !alreadyOpenedCards) {
+                if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
                     alert('exit - rixe filla katw');
                     openBoardCards     = 1;
                     alreadyOpenedCards = 1;
@@ -154,7 +159,7 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.SET_CURRENT_POT:
             players = [...state.players];
 
-            if (state.canUpdateTablePot === 1) {            
+            if (state.canUpdateTablePot === 1) {   
                 const currentPot = findMaxPot(players, 'pot');
 
                 players.map(pl => {
@@ -185,8 +190,9 @@ const playersReducer = (state = initialState, action) => {
                     currentPlayer.changedPot = 0;
 
                     updateObjectInArray(players, player);
-                    
-                    if (allHaveSamePot(restPlayers, 'pot') === restPlayers.length && !alreadyOpenedCards) {
+                    maxPot = findMaxPot(players, 'pot');
+
+                    if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
                         alert('rixe filla katw');
                         openBoardCards     = 1;
                         alreadyOpenedCards = 1;
@@ -194,7 +200,7 @@ const playersReducer = (state = initialState, action) => {
                 } 
                 
                 if (restPlayers.length === 1) {
-                    if (currentPlayer.cash === 0 && currentPlayer.potNotLessThan === restPlayers[0].pot) {
+                    if (currentPlayer.cash === 0 || (currentPlayer.potNotLessThan === restPlayers[0].pot)) {
                         currentPlayer.nextPlayer = 0;
                         alert('next - vres nikiti');
                         openAllBoardCards = 1;

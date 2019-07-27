@@ -20,9 +20,7 @@ export const findMaxPot = (arr, property) => {
     }, 0);
 }
 
-export const allHaveSamePot = (arr, property) => {
-    const currentPot = findMaxPot(arr, property);
-
+export const allHaveSamePot = (arr, property, currentPot) => {
     return arr.reduce((acc, elem) => {
         acc += (elem[property] === currentPot) ? 1 : 0;
         return acc;

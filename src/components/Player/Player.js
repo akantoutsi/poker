@@ -58,8 +58,6 @@ const Player = props => {
                             <div key={index}>
                                 <div className='playingCards'>
                                     <Card value={card.value} suit={card.suit} />
-                                    {/* girismenes */}
-                                    {/* <div className="card back">*</div> */}
                                 </div>
                             </div>
                         );

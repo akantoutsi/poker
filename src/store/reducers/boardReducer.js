@@ -1,6 +1,6 @@
-import * as actionTypes                     from '../actionTypes';
-import { cardsToOpen, updateObjectInArray } from '../utils';
-import _ from 'lodash';
+import * as actionTypes from '../actionTypes';
+import { cardsToOpen }  from '../utils';
+import _                from 'lodash';
 
 const initialState = {
     initCards: [

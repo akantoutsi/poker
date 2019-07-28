@@ -84,3 +84,10 @@ export const cardsToOpen = (arr, property, openAllFlag) => {
 
     return arr;
 }
+
+export const shouldCheckForWinner = (arr, property) => {
+    return arr.reduce((acc, elem) => {
+        acc += (elem[property] === true) ? 1 : 0;
+        return acc;
+    }, 0);
+}

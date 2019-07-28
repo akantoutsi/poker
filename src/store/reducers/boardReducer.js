@@ -1,6 +1,6 @@
-import * as actionTypes from '../actionTypes';
-import { cardsToOpen }  from '../utils';
-import _                from 'lodash';
+import * as actionTypes                      from '../actionTypes';
+import { cardsToOpen, shouldCheckForWinner } from '../utils';
+import _                                     from 'lodash';
 
 const initialState = {
     initCards: [
@@ -61,12 +61,14 @@ const initialState = {
     dealerId: actionTypes.DEALER_ID,
     numOfPlayers: actionTypes.NUM_OF_PLAYERS,
     firstPlayerId: null,
+    checkForWinner: 0,
     cards: []
 };
 
 const boardReducer = (state = initialState, action) => {
-    let cards        = [];
-    let updatedCards = [];
+    let cards          = [];
+    let updatedCards   = [];
+    let checkForWinner = 0;
 
     switch (action.type) {
         case actionTypes.STORE_BOARD_CARDS:
@@ -95,6 +97,15 @@ const boardReducer = (state = initialState, action) => {
             return {
                 ...state,
                 cards: updatedCards
+            }
+
+        case actionTypes.ALL_BOARD_CARDS_OPEN:
+            cards          = [...state.cards];
+            checkForWinner = shouldCheckForWinner(cards, 'isVisible') === cards.length;
+
+            return {
+                ...state,
+                checkForWinner: checkForWinner
             }
     }
     

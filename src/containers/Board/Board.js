@@ -103,12 +103,17 @@ class Board extends Component {
         
         if (this.props.shouldOpenBoardCards) {
             this.props.openAllBoardCards(0);
+            this.props.areAllBoardCardsOpen();
             this.props.resetOpenCardsFlags();
         }
 
         if (this.props.shouldOpenAllBoardCards) {
             this.props.openAllBoardCards(1);
             this.props.resetOpenCardsFlags();
+        }
+
+        if (this.props.brd.checkForWinner) {
+            alert('all cards open - check for winner');
         }
 
         return (
@@ -151,12 +156,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards    : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
-        storePlayersCards  : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
-        setFirstPlayer     : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
-        updateCurrentPot   : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
-        openAllBoardCards  : (openAll)       => dispatch({type: actionTypes.OPEN_CARDS,          payload: openAll}),
-        resetOpenCardsFlags: ()              => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
+        storeBoardCards     : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        storePlayersCards   : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
+        setFirstPlayer      : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
+        updateCurrentPot    : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
+        openAllBoardCards   : (openAll)       => dispatch({type: actionTypes.OPEN_CARDS,          payload: openAll}),
+        resetOpenCardsFlags : ()              => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
+        areAllBoardCardsOpen: ()              => dispatch({type: actionTypes.ALL_BOARD_CARDS_OPEN})
     };
 };
 

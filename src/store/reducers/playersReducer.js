@@ -138,7 +138,6 @@ const playersReducer = (state = initialState, action) => {
                 }
             } 
 
-            // if (restPlayers.length === 1) {
             if (restPlayers.length <= 1) {
                 alert('exit - vres nikiti');
                 openAllBoardCards = 1;
@@ -206,7 +205,7 @@ const playersReducer = (state = initialState, action) => {
                     openAllBoardCards = 1;
                 }
 
-                if (restPlayers.length === 1 && currentPlayer.cash === 0) {
+                if (restPlayers.length === 1 && currentPlayer.cash >= 0) {
                     if (restPlayers[0].changedPot === 0) {
                         currentPlayer.nextPlayer  = 0;
                         restPlayers[0].nextPlayer = 1;
@@ -218,17 +217,7 @@ const playersReducer = (state = initialState, action) => {
                         openAllBoardCards = 1;
                     }
                 }
-                    
-                    // if (currentPlayer.cash === 0 || (currentPlayer.potNotLessThan === restPlayers[0].pot)) {
-                    //     currentPlayer.nextPlayer = 0;
-                    //     alert('next - vres nikiti');
-                    //     openAllBoardCards = 1;
-                    
-                    // } else {
-                    //     console.log('aaaa');
-                    //     currentPlayer.nextPlayer  = 0;
-                    //     restPlayers[0].nextPlayer = 1;
-                    // }
+
                 canUpdateTablePot = 1;
             } 
 

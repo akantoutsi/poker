@@ -16,7 +16,6 @@ const playersReducer = (state = initialState, action) => {
     let currentPlayer;
     let playerId;
     let canUpdateTablePot;
-    let changedPot         = 0;
     let openBoardCards     = 0;
     let openAllBoardCards  = 0;
     let alreadyOpenedCards = 0;
@@ -132,7 +131,7 @@ const playersReducer = (state = initialState, action) => {
                 maxPot        = findMaxPot(activePlayers, 'pot');
 
                 if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
-                    alert('exit - rixe filla katw');
+                    // alert('exit - rixe filla katw');
                     openBoardCards     = 1;
                     alreadyOpenedCards = 1;
                 }
@@ -159,7 +158,7 @@ const playersReducer = (state = initialState, action) => {
                 const currentPot = findMaxPot(activePlayers, 'pot');
 
                 players.map(pl => {
-                    pl.potNotLessThan = currentPot;
+                    return pl.potNotLessThan = currentPot;
                 });    
             }
 
@@ -193,7 +192,7 @@ const playersReducer = (state = initialState, action) => {
                     maxPot        = findMaxPot(activePlayers, 'pot');
 
                     if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
-                        alert('next - rixe filla katw');
+                        // alert('next - rixe filla katw');
                         openBoardCards     = 1;
                         alreadyOpenedCards = 1;
                     }

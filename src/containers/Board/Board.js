@@ -49,6 +49,12 @@ class Board extends Component {
         }, {});
     }
 
+    sortArray = (arr, property) => {
+        const res = arr.sort((a, b) => a.rank < b.rank ? 1 : -1);
+      
+        return res;
+    }
+
     render() { 
         const allCards = <div className="card back">*</div>;
         
@@ -59,8 +65,8 @@ class Board extends Component {
         cards = _.orderBy(cards, ['suit', 'rank'], ['asc', 'desc']);
         this.shuffleCards(cards);
 
-        let player = [];
-        let boardCards  = [];
+        let player        = [];
+        let boardCards    = [];
         let firstPlayerId = null;
         let j = 0;
 
@@ -112,9 +118,37 @@ class Board extends Component {
             this.props.resetOpenCardsFlags();
         }
 
+        let res = [];
         if (this.props.brd.checkForWinner) {
             alert('all cards open - check for winner');
+
+            let tmp = [
+                { suit: 'hearts',   value: '8',  rank: 8  },
+                { suit: 'diamonds', value: '10', rank: 10  },
+                { suit: 'hearts',   value: 'A',  rank: 14  },
+                { suit: 'hearts',   value: '10',  rank: 10 },
+                { suit: 'club',     value: '9',  rank: 9  },
+                { suit: 'hearts',   value: '5',  rank: 5  },
+                { suit: 'club',     value: 'J',  rank: 11  },
+                { suit: 'hearts',   value: '2',  rank: 2  },
+                { suit: 'club',     value: '5',  rank: 5  }
+            ];
+
+            let cards                  = this.sortArray(tmp, 'rank');  
+            let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
+            let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
+
+            for (let elem in tmpGroupedCardsByValue) { 
+                tmpGroupedCardsByValue[elem].freq = tmpGroupedCardsByValue[elem].length; 
+            }
+
+            let grpCardsByValue = Object.entries(tmpGroupedCardsByValue);
+            this.sortArray(grpCardsByValue, grpCardsByValue[1]);
+
+            this.props.getWinner(grpCardsBySuit, grpCardsByValue);
         }
+
+        console.log(this.props.brd.winner);
 
         return (
             <div className='Board'> 
@@ -156,13 +190,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards     : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
-        storePlayersCards   : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
-        setFirstPlayer      : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
-        updateCurrentPot    : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
-        openAllBoardCards   : (openAll)       => dispatch({type: actionTypes.OPEN_CARDS,          payload: openAll}),
-        resetOpenCardsFlags : ()              => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
-        areAllBoardCardsOpen: ()              => dispatch({type: actionTypes.ALL_BOARD_CARDS_OPEN})
+        storeBoardCards     : (boardCards)                => dispatch({type: actionTypes.STORE_BOARD_CARDS,        payload: boardCards}),
+        storePlayersCards   : (playersCards)              => dispatch({type: actionTypes.STORE_PLAYERS_CARDS,      payload: playersCards}),
+        setFirstPlayer      : (firstPlayerId)             => dispatch({type: actionTypes.SET_FIRST_PLAYER,         payload: firstPlayerId}),
+        updateCurrentPot    : ()                          => dispatch({type: actionTypes.SET_CURRENT_POT}),
+        openAllBoardCards   : (openAll)                   => dispatch({type: actionTypes.OPEN_CARDS,               payload: openAll}),
+        resetOpenCardsFlags : ()                          => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
+        areAllBoardCardsOpen: ()                          => dispatch({type: actionTypes.ALL_BOARD_CARDS_OPEN}),
+        getWinner           : (cardsBySuit, cardsByValue) => dispatch({type: actionTypes.GET_WINNER,               payload: {cardsBySuit: cardsBySuit, cardsByValue: cardsByValue}})
     };
 };
 

@@ -134,17 +134,13 @@ const playersReducer = (state = initialState, action) => {
                 maxPot        = findMaxPot(activePlayers, 'pot');
 
                 if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
-                    // alert('exit - rixe filla katw');
                     openBoardCards     = 1;
                     alreadyOpenedCards = 1;
                 }
             } 
 
             if (restPlayers.length <= 1) {
-                alert('exit - vres nikiti');
-                possibleWinners    = players.filter(elem => elem.isActive);
-                // console.log('ccc');
-                // console.log(possibleWinners);
+                possibleWinners   = players.filter(elem => elem.isActive);
                 openAllBoardCards = 1;
             }
 
@@ -175,7 +171,6 @@ const playersReducer = (state = initialState, action) => {
             }
 
         case actionTypes.SET_NEXT_PLAYER:
-            // console.log('SET_NEXT_PLAYER');
             players                   = [...state.players];
             possibleWinners           = [...state.possibleWinners];
             currentPlayer             = players.find(pl => pl.seq === action.payload);
@@ -201,7 +196,6 @@ const playersReducer = (state = initialState, action) => {
                     maxPot        = findMaxPot(activePlayers, 'pot');
 
                     if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
-                        // alert('next - rixe filla katw');
                         openBoardCards     = 1;
                         alreadyOpenedCards = 1;
                     }
@@ -211,8 +205,6 @@ const playersReducer = (state = initialState, action) => {
                     currentPlayer.nextPlayer = 0;
                     alert('next - vres nikiti');
                     possibleWinners = players.filter(elem => elem.isActive);
-                    // console.log('aaa');
-                    // console.log(possibleWinners);
                     openAllBoardCards = 1;
                 }
 
@@ -221,14 +213,11 @@ const playersReducer = (state = initialState, action) => {
                         currentPlayer.nextPlayer  = 0;
                         restPlayers[0].nextPlayer = 1;
                         restPlayers[0].changedPot = 1;
-                        // console.log('ddd');
                     
                     } else {
                         currentPlayer.nextPlayer = 0;
                         alert('next - vres nikiti');
                         possibleWinners = players.filter(elem => elem.isActive);
-                        // console.log('bbb');
-                        // console.log(possibleWinners);
                         openAllBoardCards = 1;
                     }
                 }

@@ -112,19 +112,6 @@ export const sortArray = (arr, property) => {
     return res;
 }
 
-// export const continuousCards = (arr) => {
-//     let res   = 0;
-//     let index = 0;
-                
-//     arr.filter((elem, index) => { 
-//         if (index < arr.length - 1) { 
-//             res += (elem.rank === arr[index + 1].rank + 1) ? 1 : 0; 
-//         }
-//     }); 
-
-//     return res;
-// }
-
 export const continuousCards = (arr) => {
     let res = [];
     let ind = 0;
@@ -146,35 +133,8 @@ export const continuousCards = (arr) => {
 
 export const sameCardExistsNtimes = (arr, freq) => {
     let res = arr.find(e => e[1].freq === freq);
-    // return (res) ? res[1].slice(0, res.freq) : [];
     return (res) ? res : [];
 }
-
-// export const containsStraight = (arr) => {
-//     let res       = [];
-//     // den vriskei to miden
-//     let firstElem = arr[0];
-
-//     res.push(firstElem[1][0]);
-
-//     for (let i=1; i<arr.length-1; i++) { 
-//         if (res.length < 5) {
-//             if (parseInt(firstElem[0]) === parseInt(arr[i][0]) + 1) { 
-//                 res.push(arr[i][1][0]); 
-              
-//                 firstElem = arr[i];
-            
-//             } else { 
-//                 res       = [];               
-//                 firstElem = arr[i];
-//                 // res.push(firstElem[1][0]);
-//                 res.push(firstElem[1][0]);
-//             } 
-//         }
-//     }
-
-//     return res;
-// }
 
 const containsStraight = (arr) => {
     let res       = [];
@@ -294,7 +254,7 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
 
     if (threeOfKind.length > 0) {
         console.log('k');
-        winCombination = threeOfKind[1].slice(0, threeOfKind.freq);
+        return threeOfKind[1].slice(0, threeOfKind.freq);
     }
 
     // [8] Two Pairs - OK
@@ -303,19 +263,19 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
 
     if (twos.length >= 2) {
         console.log('l');
-        winCombination = twos[0][1].concat(twos[1][1]);
+        return twos[0][1].concat(twos[1][1]);
     }
 
     // [9] Pair - OK
     if (twos.length === 1) {
         console.log('m');
-        winCombination = twos[0][1].slice(0, twos[0][1].freq);
+        return twos[0][1].slice(0, twos[0][1].freq);;
     } 
 
     // [10] High Card - OK
     if (winCombination) {
         console.log('n');
-        winCombination = groupedCardsByValue[0][1].slice(0, groupedCardsByValue[0][1].freq);
+        return groupedCardsByValue[0][1].slice(0, groupedCardsByValue[0][1].freq);
     }
 
     return winCombination;
@@ -326,6 +286,8 @@ export const findWinner = (bySuit, byValues) => {
 
     let res = findCombination(bySuit, byValues);
 
-    return res;
+    // acceptedCombinations.push(res);
+
     // return acceptedCombinations[0];
+    return res;
 }

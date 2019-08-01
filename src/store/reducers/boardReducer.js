@@ -111,7 +111,7 @@ const boardReducer = (state = initialState, action) => {
             }
 
         case actionTypes.GET_WINNER:
-            winner = findWinner(action.payload.cardsBySuit, action.payload.cardsByValue);
+            winner         = findWinner(action.payload.cardsBySuit, action.payload.cardsByValue);
             checkForWinner = 0;
 
             return {

@@ -6,7 +6,8 @@ const initialState = {
     openBoardCards: 0,
     openAllBoardCards: 0,
     alreadyOpenedCards: 0,
-    players: []
+    players: [],
+    possibleWinners: []
 };
 
 const playersReducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ const playersReducer = (state = initialState, action) => {
     let alreadyOpenedCards = 0;
     let maxPot             = 0;
     let activePlayers      = [];
+    let possibleWinners    = [];
 
     switch (action.type) {
         case actionTypes.STORE_PLAYERS_CARDS:
@@ -109,6 +111,7 @@ const playersReducer = (state = initialState, action) => {
 
         case actionTypes.EXIT_GAME:
             players                   = [...state.players];
+            possibleWinners           = [...state.possibleWinners];
             currentPlayer             = players.find(pl => pl.seq === action.payload);
             currentPlayer.nextPlayer  = 0;
             currentPlayer.isActive    = 0;
@@ -139,6 +142,9 @@ const playersReducer = (state = initialState, action) => {
 
             if (restPlayers.length <= 1) {
                 alert('exit - vres nikiti');
+                possibleWinners    = players.filter(elem => elem.isActive);
+                // console.log('ccc');
+                // console.log(possibleWinners);
                 openAllBoardCards = 1;
             }
 
@@ -147,7 +153,8 @@ const playersReducer = (state = initialState, action) => {
                 players: players,
                 openBoardCards: openBoardCards,
                 openAllBoardCards: openAllBoardCards,
-                alreadyOpenedCards: alreadyOpenedCards
+                alreadyOpenedCards: alreadyOpenedCards,
+                possibleWinners: possibleWinners
             }
 
         case actionTypes.SET_CURRENT_POT:
@@ -168,7 +175,9 @@ const playersReducer = (state = initialState, action) => {
             }
 
         case actionTypes.SET_NEXT_PLAYER:
+            // console.log('SET_NEXT_PLAYER');
             players                   = [...state.players];
+            possibleWinners           = [...state.possibleWinners];
             currentPlayer             = players.find(pl => pl.seq === action.payload);
             restPlayers               = players.filter(elem => elem.isActive && elem.cash > 0);
             openBoardCards            = state.openBoardCards;
@@ -201,6 +210,9 @@ const playersReducer = (state = initialState, action) => {
                 if (restPlayers.length === 0) {
                     currentPlayer.nextPlayer = 0;
                     alert('next - vres nikiti');
+                    possibleWinners = players.filter(elem => elem.isActive);
+                    // console.log('aaa');
+                    // console.log(possibleWinners);
                     openAllBoardCards = 1;
                 }
 
@@ -209,10 +221,14 @@ const playersReducer = (state = initialState, action) => {
                         currentPlayer.nextPlayer  = 0;
                         restPlayers[0].nextPlayer = 1;
                         restPlayers[0].changedPot = 1;
+                        // console.log('ddd');
                     
                     } else {
                         currentPlayer.nextPlayer = 0;
                         alert('next - vres nikiti');
+                        possibleWinners = players.filter(elem => elem.isActive);
+                        // console.log('bbb');
+                        // console.log(possibleWinners);
                         openAllBoardCards = 1;
                     }
                 }
@@ -226,7 +242,8 @@ const playersReducer = (state = initialState, action) => {
                 openBoardCards: openBoardCards,
                 openAllBoardCards: openAllBoardCards,
                 alreadyOpenedCards: alreadyOpenedCards,
-                canUpdateTablePot: canUpdateTablePot
+                canUpdateTablePot: canUpdateTablePot,
+                possibleWinners: possibleWinners
             }
 
         case actionTypes.RESET_OPEN_CARDS_FLAGS:

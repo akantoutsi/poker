@@ -55,6 +55,21 @@ class Board extends Component {
         return res;
     }
 
+    formatCards = (cardsToFormat) => {
+        let cards                  = this.sortArray(cardsToFormat, 'rank');  
+        let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
+        let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
+
+        for (let elem in tmpGroupedCardsByValue) { 
+            tmpGroupedCardsByValue[elem].freq = tmpGroupedCardsByValue[elem].length; 
+        }
+
+        let grpCardsByValue = Object.entries(tmpGroupedCardsByValue);
+        this.sortArray(grpCardsByValue, grpCardsByValue[1]);
+
+        this.props.getWinner(grpCardsBySuit, grpCardsByValue);
+    }
+
     render() { 
         const allCards = <div className="card back">*</div>;
         
@@ -86,7 +101,7 @@ class Board extends Component {
             let cash = Math.floor(Math.random() * (10 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
 
             player.push({
-                cards           : cards.slice(i+j, i+j+2),
+                cards           : cards.slice(i+j, i+j+2).map(elem => ({...elem, belongsTo: i})),
                 seq             : i,
                 cash            : (smallBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT : 
                                     (bigBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT*2 : cash,
@@ -105,16 +120,19 @@ class Board extends Component {
             j += 1;
         }
 
-        boardCards = cards.slice(j*2, (j*2)+5);
+        boardCards = cards.slice(j*2, (j*2)+5).map(elem => ({...elem, belongsTo: 'board'}));
         
         if (this.props.shouldOpenBoardCards) {
+            console.log('open next card');
             this.props.openAllBoardCards(0);
             this.props.areAllBoardCardsOpen();
             this.props.resetOpenCardsFlags();
         }
 
         if (this.props.shouldOpenAllBoardCards) {
+            console.log('open all cards');
             this.props.openAllBoardCards(1);
+            this.props.areAllBoardCardsOpen();
             this.props.resetOpenCardsFlags();
         }
 
@@ -122,30 +140,37 @@ class Board extends Component {
         if (this.props.brd.checkForWinner) {
             alert('all cards open - check for winner');
 
-            let tmp = [
-                { suit: 'hearts',   value: '8',  rank: 8  },
-                { suit: 'diamonds', value: '10', rank: 10  },
-                { suit: 'hearts',   value: 'A',  rank: 14  },
-                { suit: 'hearts',   value: '10',  rank: 10 },
-                { suit: 'club',     value: '9',  rank: 9  },
-                { suit: 'hearts',   value: '5',  rank: 5  },
-                { suit: 'club',     value: 'J',  rank: 11  },
-                { suit: 'hearts',   value: '2',  rank: 2  },
-                { suit: 'club',     value: '5',  rank: 5  }
-            ];
+            // console.log(this.props.possibleWinnerCards);
 
-            let cards                  = this.sortArray(tmp, 'rank');  
-            let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
-            let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
+            let cardsToCheck = this.props.possibleWinnerCards.map(elem => elem.cards.concat(this.props.brd.cards));
+            // console.log(cardsToCheck)
 
-            for (let elem in tmpGroupedCardsByValue) { 
-                tmpGroupedCardsByValue[elem].freq = tmpGroupedCardsByValue[elem].length; 
-            }
+            // let tmp = [
+            //     { suit: 'hearts',   value: '8',  rank: 8  },
+            //     { suit: 'diamonds', value: '10', rank: 10 },
+            //     { suit: 'hearts',   value: 'A',  rank: 14 },
+            //     { suit: 'hearts',   value: '10', rank: 10 },
+            //     { suit: 'club',     value: '9',  rank: 9  },
+            //     { suit: 'hearts',   value: '5',  rank: 5  },
+            //     { suit: 'club',     value: 'J',  rank: 11 },
+            //     { suit: 'hearts',   value: '2',  rank: 2  },
+            //     { suit: 'club',     value: '5',  rank: 5  }
+            // ];
 
-            let grpCardsByValue = Object.entries(tmpGroupedCardsByValue);
-            this.sortArray(grpCardsByValue, grpCardsByValue[1]);
+            // let cards                  = this.sortArray(cardsToCheck, 'rank');  
+            // let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
+            // let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
 
-            this.props.getWinner(grpCardsBySuit, grpCardsByValue);
+            // for (let elem in tmpGroupedCardsByValue) { 
+            //     tmpGroupedCardsByValue[elem].freq = tmpGroupedCardsByValue[elem].length; 
+            // }
+
+            // let grpCardsByValue = Object.entries(tmpGroupedCardsByValue);
+            // this.sortArray(grpCardsByValue, grpCardsByValue[1]);
+
+            // this.props.getWinner(grpCardsBySuit, grpCardsByValue);
+
+            cardsToCheck.map(el => this.formatCards(el));
         }
 
         console.log(this.props.brd.winner);
@@ -182,9 +207,10 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        brd: state.board,
-        shouldOpenBoardCards: state.players.openBoardCards,
-        shouldOpenAllBoardCards: state.players.openAllBoardCards
+        brd                    : state.board,
+        shouldOpenBoardCards   : state.players.openBoardCards,
+        shouldOpenAllBoardCards: state.players.openAllBoardCards,
+        possibleWinnerCards    : state.players.possibleWinners
     };
 };
 
@@ -197,7 +223,7 @@ const mapDispatchToProps = dispatch => {
         openAllBoardCards   : (openAll)                   => dispatch({type: actionTypes.OPEN_CARDS,               payload: openAll}),
         resetOpenCardsFlags : ()                          => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
         areAllBoardCardsOpen: ()                          => dispatch({type: actionTypes.ALL_BOARD_CARDS_OPEN}),
-        getWinner           : (cardsBySuit, cardsByValue) => dispatch({type: actionTypes.GET_WINNER,               payload: {cardsBySuit: cardsBySuit, cardsByValue: cardsByValue}})
+        getWinner           : (cardsBySuit, cardsByValue) => dispatch({type: actionTypes.GET_WINNER,               payload: {cardsBySuit: cardsBySuit, cardsByValue: cardsByValue}}),
     };
 };
 

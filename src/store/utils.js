@@ -269,7 +269,7 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
     // [9] Pair - OK
     if (twos.length === 1) {
         console.log('m');
-        return twos[0][1].slice(0, twos[0][1].freq);;
+        return twos[0][1].slice(0, twos[0][1].freq);
     } 
 
     // [10] High Card - OK
@@ -278,7 +278,7 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
         return groupedCardsByValue[0][1].slice(0, groupedCardsByValue[0][1].freq);
     }
 
-    return winCombination;
+    // return winCombination;
 }
 
 export const findWinner = (bySuit, byValues) => {

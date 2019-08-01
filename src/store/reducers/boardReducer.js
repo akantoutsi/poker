@@ -62,15 +62,15 @@ const initialState = {
     numOfPlayers: actionTypes.NUM_OF_PLAYERS,
     firstPlayerId: null,
     checkForWinner: 0,
-    winner: [],
+    winCombinations: [],
     cards: []
 };
 
 const boardReducer = (state = initialState, action) => {
-    let cards          = [];
-    let updatedCards   = [];
-    let checkForWinner = 0;
-    let winner         = [];
+    let cards           = [];
+    let updatedCards    = [];
+    let checkForWinner  = 0;
+    let winCombinations = [];
 
     switch (action.type) {
         case actionTypes.STORE_BOARD_CARDS:
@@ -111,13 +111,14 @@ const boardReducer = (state = initialState, action) => {
             }
 
         case actionTypes.GET_WINNER:
-            winner         = findWinner(action.payload.cardsBySuit, action.payload.cardsByValue);
-            checkForWinner = 0;
+            winCombinations = [...state.winCombinations];
+            winCombinations.push(findWinner(action.payload.cardsBySuit, action.payload.cardsByValue));
+            checkForWinner  = 0;
 
             return {
                 ...state,
                 checkForWinner: checkForWinner,
-                winner: winner
+                winCombinations: winCombinations
             }
     }
     

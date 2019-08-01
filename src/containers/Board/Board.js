@@ -140,40 +140,11 @@ class Board extends Component {
         if (this.props.brd.checkForWinner) {
             alert('all cards open - check for winner');
 
-            // console.log(this.props.possibleWinnerCards);
-
             let cardsToCheck = this.props.possibleWinnerCards.map(elem => elem.cards.concat(this.props.brd.cards));
-            // console.log(cardsToCheck)
-
-            // let tmp = [
-            //     { suit: 'hearts',   value: '8',  rank: 8  },
-            //     { suit: 'diamonds', value: '10', rank: 10 },
-            //     { suit: 'hearts',   value: 'A',  rank: 14 },
-            //     { suit: 'hearts',   value: '10', rank: 10 },
-            //     { suit: 'club',     value: '9',  rank: 9  },
-            //     { suit: 'hearts',   value: '5',  rank: 5  },
-            //     { suit: 'club',     value: 'J',  rank: 11 },
-            //     { suit: 'hearts',   value: '2',  rank: 2  },
-            //     { suit: 'club',     value: '5',  rank: 5  }
-            // ];
-
-            // let cards                  = this.sortArray(cardsToCheck, 'rank');  
-            // let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
-            // let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
-
-            // for (let elem in tmpGroupedCardsByValue) { 
-            //     tmpGroupedCardsByValue[elem].freq = tmpGroupedCardsByValue[elem].length; 
-            // }
-
-            // let grpCardsByValue = Object.entries(tmpGroupedCardsByValue);
-            // this.sortArray(grpCardsByValue, grpCardsByValue[1]);
-
-            // this.props.getWinner(grpCardsBySuit, grpCardsByValue);
-
             cardsToCheck.map(el => this.formatCards(el));
         }
 
-        console.log(this.props.brd.winner);
+        console.log(this.props.brd.winCombinations);
 
         return (
             <div className='Board'> 

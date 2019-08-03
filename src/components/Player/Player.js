@@ -6,7 +6,7 @@ import './Player.css';
 
 const Player = props => {
     const playerId = props.player.seq + 1;
-    let classes    = [''];
+    let classes    = [];
     classes.push((props.player.isActive === 0) ? 'inactive-player' : null);
 
     let nextPlayerBtns = null;
@@ -33,7 +33,7 @@ const Player = props => {
                                                              props.setNextPlayer(props.player.seq);
                                                              props.updateCurrentPot(); 
                                                             }}>                                                         
-                    <strong>Next</strong>
+                    <strong>{`Next`}</strong>
                 </button> 
             </div>
         );
@@ -42,12 +42,12 @@ const Player = props => {
     return ( 
         <div id={'player-' + playerId} className='player-info'>   
             <div className='center-player-info'> 
-                <strong className={classes.join(' ')}>Player {props.player.seq + 1}</strong>
+                <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1}`}</strong>
                 <hr />
                 <div className={classes.join(' ')}>
-                    Cash: {'€' + (props.player.cash)} - Pot: {'€' + props.player.pot}
+                    {`Cash: € ${props.player.cash} - Pot: € ${props.player.pot}`}
                 </div>
-                <br />
+                <br />   
                 {nextPlayerBtns}
             </div>
 

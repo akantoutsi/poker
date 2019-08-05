@@ -40,7 +40,7 @@ hr {
 }
 
 .input-pot {
-    width: 80px;
+    width: 85px;
     margin: 8px;
 }
 
@@ -80,6 +80,10 @@ hr {
     height: 85%;
     z-index: 3;
     position: absolute;
+}
+
+.center-player-btns {
+    padding-top: 100px;
 }
 
 .inactive-player {

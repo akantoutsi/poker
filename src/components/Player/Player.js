@@ -47,7 +47,9 @@ const Player = props => {
                 <div className={classes.join(' ')}>
                     {`Cash: € ${props.player.cash} - Pot: € ${props.player.pot}`}
                 </div>
-                <br />   
+            </div>
+
+            <div className='center-player-info center-player-btns'> 
                 {nextPlayerBtns}
             </div>
 

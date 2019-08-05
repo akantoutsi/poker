@@ -119,7 +119,7 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        brd: state.board // isws kalitera brd.cards
+        brd: state.board
     };
 };
 

@@ -188,7 +188,7 @@ class Board extends Component {
 
         result = this.printWinners(this.props.brd.winCombinations);
 
-        if (result.length > 1) {
+        if (result.length >= 1) {
             winnerIds = this.getWinnerIds(result);
             console.log(winnerIds);
             console.log(result.map(elem => elem[0].typeOfCombination));
@@ -196,14 +196,7 @@ class Board extends Component {
                 result.map(elem => console.log(elem[0].slice(0, elem[0].typeOfCombination)));
             }
 
-        } else {
-            winnerIds = this.getWinnerIds(result);
-            console.log(winnerIds);
-            console.log(result.map(elem => elem[0].typeOfCombination));
-            if (result.length > 0) {
-                result.map(elem => console.log(elem[0].slice(0, elem[0].typeOfCombination)));
-            }
-        }
+        } 
 
         return (
             <div className='Board'> 

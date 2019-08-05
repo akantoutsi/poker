@@ -312,18 +312,10 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
     }
 }
 
-// export const findWinner = (bySuit, byValues) => {
-//     let res = findCombination(bySuit, byValues);
-
-//     return res;
-// }
-
 export const findWinner = (bySuit, byValues) => {
     let res = findCombination(bySuit, byValues);
     let acceptedCombinations = [];
     acceptedCombinations.push(res);
-
-    // console.log(acceptedCombinations);
 
     return acceptedCombinations;
 }

@@ -62,7 +62,6 @@ const initialState = {
     numOfPlayers: actionTypes.NUM_OF_PLAYERS,
     firstPlayerId: null,
     checkForWinner: 0,
-    winner: [],
     winCombinations: [],
     cards: []
 };
@@ -71,7 +70,6 @@ const boardReducer = (state = initialState, action) => {
     let cards           = [];
     let updatedCards    = [];
     let checkForWinner  = 0;
-    let winner          = [];
     let winCombinations = [];
 
     switch (action.type) {
@@ -115,21 +113,14 @@ const boardReducer = (state = initialState, action) => {
         case actionTypes.GET_WINNER:
             winCombinations = [...state.winCombinations];
             checkForWinner  = 0;
-            // winner              = [...state.winner];
 
             let a = findWinner(action.payload.cardsBySuit, action.payload.cardsByValue);
-
             winCombinations.push(a);
 
-            // get the records with minimuum combination number and check if there are more than one - prin kane ta sort asc
-            // winner = winCombinations
-
-            // console.log(winCombinations);
               
             return {
                 ...state,
                 checkForWinner: checkForWinner,
-                // winner: winner,
                 winCombinations: winCombinations
             }
     }

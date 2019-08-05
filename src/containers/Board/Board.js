@@ -56,7 +56,6 @@ class Board extends Component {
     }
 
     formatCards = (cardsToFormat) => {
-        // console.log(cardsToFormat)
         let cards                  = this.sortArray(cardsToFormat, 'rank');  
         let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
         let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
@@ -160,7 +159,6 @@ class Board extends Component {
             j += 1;
         }
 
-        // boardCards = cards.slice(j*2, (j*2)+5).map(elem => ({...elem, belongsTo: 'board'}));
         boardCards = cards.slice(j*2, (j*2)+5);
         
         if (this.props.shouldOpenBoardCards) {

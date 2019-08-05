@@ -12,19 +12,26 @@ const Card = props => {
                       (props.suit === 'clubs')  ? 'U+2663' : 
                       (props.suit === 'hearts') ? 'U+2665' : 'U+2666';
 
-    return (
-        <div className={cardClass.join(' ')}>
-            {/* <strong>
-                <span className={(props.value === '10') ? 'card' : ''}> */}
-                    <span className='rank'>{props.value}</span>
-                    <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
-                {/* </span>
-            </strong> */}
-
-            {/* <span className='rank'>{props.value}</span>
-            <span className='suit'>{String.fromCharCode(cardUnicode)}</span> */}
-        </div>
-    );
+    if (!props.afro) {
+        return (
+            <div className={cardClass.join(' ')}>
+                <span className='rank'>{props.value}</span>
+                <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
+            </div>
+        );
+    
+    } else {
+        return (
+            <div className={cardClass.join(' ')}>
+                <strong>
+                    <span className={`card rank-${props.value.toLowerCase()} ${props.suit}`}>    
+                        <span className='rank'>{props.value}</span>
+                        <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
+                    </span>
+                </strong>
+            </div>
+        );
+    }
 }
 
 export default Card;

@@ -35,14 +35,14 @@ export const checkIfCardsLeftToToOpen = (arr, property) => {
 }
 
 export const cardsToOpen = (arr, property, openAllFlag) => {
-    const cardsLeft     = checkIfCardsLeftToToOpen(arr, property);
+    const cardsClosed   = checkIfCardsLeftToToOpen(arr, property);
     let   howManyToOpen = 0;
     let   fromIndex     = 0;
     let   slicedArr     = [];
     let   retArr        = [];
 
     if (!openAllFlag) {
-        switch (cardsLeft) {
+        switch (cardsClosed) {
             case arr.length:
                 howManyToOpen = 3;
                 fromIndex     = 0;
@@ -161,7 +161,8 @@ const containsStraight = (arr) => {
 }
 
 export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => { 
-    let winCombination = [];
+    let winCombination    = [];
+    let typeOfCombination = 0;
 
     // [1, 2] Royal Flush or Straight Flush - OK
     for (let elem in groupedCardsBySuit) {
@@ -169,8 +170,17 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
         let res         = containsStraight(cardToCheck);
 
         if (res.length === 5) {
-            console.log('a');
-            return res;
+            if (res[0].rank === 14) {
+                typeOfCombination = 1;
+
+            } else {
+                typeOfCombination = 2;
+            }
+
+            winCombination = res;
+            _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+            return winCombination;
         }
     }
 
@@ -179,8 +189,11 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
     fours     = sameCardExistsNtimes(groupedCardsByValue, 4); 
 
     if (fours.length > 0) {
-        console.log('b');
-        return fours[1].slice(0, fours[1].freq);
+        typeOfCombination = 3;
+        winCombination    = fours[1].slice(0, fours[1].freq);
+        _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+        return winCombination;
     }
 
     // [4] Full House - OK
@@ -188,7 +201,6 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
     threes     = sameCardExistsNtimes(groupedCardsByValue, 3);
 
     if (threes.length > 0) {
-        console.log('c');
         let copiedGroupedCardsByValue = _.cloneDeep(groupedCardsByValue);
 
         let index  = copiedGroupedCardsByValue.indexOf(threes);
@@ -196,18 +208,22 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
         let twos = copiedGroupedCardsByValue.find(e => e[1].freq >= 2);
 
         if (twos) {
-            console.log('d');
-            winCombination = threes[1].slice(0, threes[1].freq).concat(twos[1].slice(0, twos[1].freq));
+            typeOfCombination = 4;
+            winCombination    = threes[1].slice(0, threes[1].freq).concat(twos[1].slice(0, twos[1].freq));
+            _.set(winCombination, 'typeOfCombination', typeOfCombination);
 
             return winCombination;
         }
     };
     
-    // [5] Flush
+    // [5] Flush - OK
     for (let elem in groupedCardsBySuit) {
         if (groupedCardsBySuit[elem].length === 5) {
-            console.log('e');
-            return groupedCardsBySuit[elem];
+            typeOfCombination = 5;
+            winCombination    = groupedCardsBySuit[elem];
+            _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+            return winCombination;
         }
     }
 
@@ -219,8 +235,11 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
 
     let possibleStraight = containsStraight(newGrp);
     if (possibleStraight.length === 5) {
-        console.log('h');
-        return possibleStraight;
+        typeOfCombination = 6;
+        winCombination    = possibleStraight;
+        _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+        return winCombination;
     
     }
 
@@ -228,7 +247,6 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
         let twoExists = (possibleStraight.find(el => el.rank === 2)) ? 1 : 0;
 
         if (twoExists) {
-            console.log('i');
             let copiedGrpCardsByValue = _.cloneDeep(newGrp);
         
             let aceExists = copiedGrpCardsByValue.reduce((acc, elem) => { 
@@ -237,13 +255,16 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
             }, 0);
 
             if (aceExists === 1) {
-                console.log('j');
                 let toCheck = copiedGrpCardsByValue.map(elem => (elem.rank === 14) ? {...elem, rank: 1} : elem);
 
                 toCheck.splice(toCheck.length - 1, 1, toCheck.splice(0, 1)[0]);
                 possibleStraight = containsStraight(toCheck);
 
-                return possibleStraight;
+                typeOfCombination = 6;
+                winCombination    = possibleStraight;
+                _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+                return winCombination;
             }
         }
     }
@@ -253,8 +274,11 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
     threeOfKind     = sameCardExistsNtimes(groupedCardsByValue, 3);
 
     if (threeOfKind.length > 0) {
-        console.log('k');
-        return threeOfKind[1].slice(0, threeOfKind.freq);
+        typeOfCombination = 7;
+        winCombination    = threeOfKind[1].slice(0, threeOfKind.freq);
+        _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+        return winCombination;
     }
 
     // [8] Two Pairs - OK
@@ -262,32 +286,44 @@ export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
     twos     = groupedCardsByValue.filter(e => e[1].freq === 2);
 
     if (twos.length >= 2) {
-        console.log('l');
-        return twos[0][1].concat(twos[1][1]);
+        typeOfCombination = 8;
+        winCombination    = twos[0][1].concat(twos[1][1]);
+        _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+        return winCombination;
     }
 
     // [9] Pair - OK
     if (twos.length === 1) {
-        console.log('m');
-        return twos[0][1].slice(0, twos[0][1].freq);
+        typeOfCombination = 9;
+        winCombination    = twos[0][1].slice(0, twos[0][1].freq);
+        _.set(winCombination, 'typeOfCombination', typeOfCombination);
+
+        return winCombination;
     } 
 
     // [10] High Card - OK
     if (winCombination) {
-        console.log('n');
-        return groupedCardsByValue[0][1].slice(0, groupedCardsByValue[0][1].freq);
-    }
+        typeOfCombination = 10;
+        winCombination    = groupedCardsByValue[0][1].slice(0, groupedCardsByValue[0][1].freq);
+        _.set(winCombination, 'typeOfCombination', typeOfCombination);
 
-    // return winCombination;
+        return winCombination;
+    }
 }
 
+// export const findWinner = (bySuit, byValues) => {
+//     let res = findCombination(bySuit, byValues);
+
+//     return res;
+// }
+
 export const findWinner = (bySuit, byValues) => {
-    // let acceptedCombinations = [];
-
     let res = findCombination(bySuit, byValues);
+    let acceptedCombinations = [];
+    acceptedCombinations.push(res);
 
-    // acceptedCombinations.push(res);
+    // console.log(acceptedCombinations);
 
-    // return acceptedCombinations[0];
-    return res;
+    return acceptedCombinations;
 }

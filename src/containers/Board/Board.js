@@ -56,6 +56,7 @@ class Board extends Component {
     }
 
     formatCards = (cardsToFormat) => {
+        // console.log(cardsToFormat)
         let cards                  = this.sortArray(cardsToFormat, 'rank');  
         let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
         let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
@@ -70,7 +71,46 @@ class Board extends Component {
         this.props.getWinner(grpCardsBySuit, grpCardsByValue);
     }
 
+    printWinners = (arr) => {
+        let q = arr.map(elem => {
+            return elem.reduce((acc, el) => {
+                const key = el.typeOfCombination;
+            
+                if (!acc[key]) {
+                    acc[key] = [];
+                }
+        
+                acc[key].push(el);
+        
+                return acc;
+            }, {});
+        });
+          
+        let d = q.map(elem => Object.entries(elem));
+        
+        d.map(elem => elem[0][0] = parseInt(elem[0][0]));
+        
+        let res = d.reduce((acc, el) => { acc[0] = (acc[0] === undefined || el[0][0] < acc[0]) ? el[0][0] : acc[0]; return acc; }, []);
+    
+        let afro = d.filter(elem => elem[0].includes(res[0]));
+        
+        let nana = afro.map(elem => elem[0][1]);
+
+        return nana;
+    }
+
+    getWinnerIds = (arr) => {
+        return arr.map(elem => {
+            return elem[0].reduce((acc, el) => { 
+                acc = (el.belongsTo !== 'board') ? parseInt(el.belongsTo) : 'board';  
+                return acc; 
+            }, -1);
+        });
+    }     
+
     render() { 
+        let result     = [];
+        let winnerIds  = [];
         const allCards = <div className="card back">*</div>;
         
         let cards = [];
@@ -120,7 +160,8 @@ class Board extends Component {
             j += 1;
         }
 
-        boardCards = cards.slice(j*2, (j*2)+5).map(elem => ({...elem, belongsTo: 'board'}));
+        // boardCards = cards.slice(j*2, (j*2)+5).map(elem => ({...elem, belongsTo: 'board'}));
+        boardCards = cards.slice(j*2, (j*2)+5);
         
         if (this.props.shouldOpenBoardCards) {
             console.log('open next card');
@@ -136,15 +177,26 @@ class Board extends Component {
             this.props.resetOpenCardsFlags();
         }
 
-        let res = [];
         if (this.props.brd.checkForWinner) {
             alert('all cards open - check for winner');
+            let updatedBoardCards = this.props.brd.cards.slice();
 
-            let cardsToCheck = this.props.possibleWinnerCards.map(elem => elem.cards.concat(this.props.brd.cards));
+            let cardsToCheck = this.props.possibleWinnerCards.map(elem => {
+                return elem.cards.concat(updatedBoardCards.map(el => ({...el, belongsTo: elem.cards[0].belongsTo})));
+            });
+
             cardsToCheck.map(el => this.formatCards(el));
         }
 
-        console.log(this.props.brd.winCombinations);
+        result = this.printWinners(this.props.brd.winCombinations);
+
+        if (result.length > 1) {
+
+
+        } else {
+            winnerIds = this.getWinnerIds(result);
+            console.log(winnerIds);
+        }
 
         return (
             <div className='Board'> 

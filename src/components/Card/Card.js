@@ -14,8 +14,15 @@ const Card = props => {
 
     return (
         <div className={cardClass.join(' ')}>
-            <span className="rank">{props.value}</span>
-            <span className="suit">{String.fromCharCode(cardUnicode)}</span>
+            {/* <strong>
+                <span className={(props.value === '10') ? 'card' : ''}> */}
+                    <span className='rank'>{props.value}</span>
+                    <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
+                {/* </span>
+            </strong> */}
+
+            {/* <span className='rank'>{props.value}</span>
+            <span className='suit'>{String.fromCharCode(cardUnicode)}</span> */}
         </div>
     );
 }

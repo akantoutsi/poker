@@ -108,9 +108,10 @@ class Board extends Component {
     }     
 
     render() { 
-        let result     = [];
-        let winnerIds  = [];
-        const allCards = <div className="card back">*</div>;
+        let result      = [];
+        let winnerIds   = [];
+        let winnerCards = [];
+        const allCards  = <div className="card back">*</div>;
         
         let cards = [];
         cards = _.cloneDeep(this.props.brd.initCards);
@@ -193,9 +194,10 @@ class Board extends Component {
             console.log(winnerIds);
             console.log(result.map(elem => elem[0].typeOfCombination));
             if (result.length > 0) {
-                result.map(elem => console.log(elem[0].slice(0, elem[0].typeOfCombination)));
+                winnerCards = result.map(elem => elem[0].slice(0, elem[0].typeOfCombination));
             }
-
+            
+            console.log(winnerCards);
         } 
 
         return (

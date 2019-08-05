@@ -35,89 +35,14 @@ class Board extends Component {
         return rank;
     };
 
-    groupByProperty = (ourArray, property) => {
-        return ourArray.reduce(function (accumulator, object) {
-            const key = object[property];
-    
-            if (!accumulator[key]) {
-                accumulator[key] = [];
-            }
-    
-            accumulator[key].push(object);
-    
-            return accumulator;
-        }, {});
-    }
-
-    sortArray = (arr, property) => {
-        const res = arr.sort((a, b) => a.rank < b.rank ? 1 : -1);
-      
-        return res;
-    }
-
-    formatCards = (cardsToFormat) => {
-        let cards                  = this.sortArray(cardsToFormat, 'rank');  
-        let grpCardsBySuit         = this.groupByProperty(cards, 'suit');
-        let tmpGroupedCardsByValue = this.groupByProperty(cards, 'rank');
-
-        for (let elem in tmpGroupedCardsByValue) { 
-            tmpGroupedCardsByValue[elem].freq = tmpGroupedCardsByValue[elem].length; 
-        }
-
-        let grpCardsByValue = Object.entries(tmpGroupedCardsByValue);
-        this.sortArray(grpCardsByValue, grpCardsByValue[1]);
-
-        this.props.getWinner(grpCardsBySuit, grpCardsByValue);
-    }
-
-    printWinners = (arr) => {
-        let q = arr.map(elem => {
-            return elem.reduce((acc, el) => {
-                const key = el.typeOfCombination;
-            
-                if (!acc[key]) {
-                    acc[key] = [];
-                }
-        
-                acc[key].push(el);
-        
-                return acc;
-            }, {});
-        });
-          
-        let d = q.map(elem => Object.entries(elem));
-        
-        d.map(elem => elem[0][0] = parseInt(elem[0][0]));
-        
-        let res = d.reduce((acc, el) => { acc[0] = (acc[0] === undefined || el[0][0] < acc[0]) ? el[0][0] : acc[0]; return acc; }, []);
-    
-        let afro = d.filter(elem => elem[0].includes(res[0]));
-        
-        let nana = afro.map(elem => elem[0][1]);
-
-        return nana;
-    }
-
-    getWinnerIds = (arr) => {
-        return arr.map(elem => {
-            return elem[0].reduce((acc, el) => { 
-                acc = (el.belongsTo !== 'board') ? parseInt(el.belongsTo) : 'board';  
-                return acc; 
-            }, -1);
-        });
-    }     
-
     render() { 
-        let result      = [];
-        let winnerIds   = [];
-        let winnerCards = [];
-        const allCards  = <div className="card back">*</div>;
+        const allCards  = <div className='card back'>*</div>;
         
         let cards = [];
         cards = _.cloneDeep(this.props.brd.initCards);
         cards.map(elem => elem.rank = this.getRank(elem, 'value'));
         cards.map(elem => elem.isVisible = false);
-        cards = _.orderBy(cards, ['suit', 'rank'], ['asc', 'desc']);
+        // cards = _.orderBy(cards, ['suit', 'rank'], ['asc', 'desc']);
         this.shuffleCards(cards);
 
         let player        = [];
@@ -161,54 +86,16 @@ class Board extends Component {
         }
 
         boardCards = cards.slice(j*2, (j*2)+5);
-        
-        if (this.props.shouldOpenBoardCards) {
-            console.log('open next card');
-            this.props.openAllBoardCards(0);
-            this.props.areAllBoardCardsOpen();
-            this.props.resetOpenCardsFlags();
-        }
-
-        if (this.props.shouldOpenAllBoardCards) {
-            console.log('open all cards');
-            this.props.openAllBoardCards(1);
-            this.props.areAllBoardCardsOpen();
-            this.props.resetOpenCardsFlags();
-        }
-
-        if (this.props.brd.checkForWinner) {
-            alert('all cards open - check for winner');
-            let updatedBoardCards = this.props.brd.cards.slice();
-
-            let cardsToCheck = this.props.possibleWinnerCards.map(elem => {
-                return elem.cards.concat(updatedBoardCards.map(el => ({...el, belongsTo: elem.cards[0].belongsTo, isBoard: true})));
-            });
-
-            cardsToCheck.map(el => this.formatCards(el));
-        }
-
-        result = this.printWinners(this.props.brd.winCombinations);
-
-        if (result.length >= 1) {
-            winnerIds = this.getWinnerIds(result);
-            console.log(winnerIds);
-            console.log(result.map(elem => elem[0].typeOfCombination));
-            if (result.length > 0) {
-                winnerCards = result.map(elem => elem[0].slice(0, elem[0].typeOfCombination));
-            }
-            
-            console.log(winnerCards);
-        } 
 
         return (
             <div className='Board'> 
                 {
                     this.props.brd.cards.map((card, index) => {
                         return (
-                            <div className="playingCards" key={index}>
+                            <div className='playingCards' key={index}>
                                 {   
                                     (!card.isVisible)
-                                    ? <div className="card back">*</div>
+                                    ? <div className='card back'>*</div>
                                     : <Card value={card.value} suit={card.suit} />
                                 }
                             </div>
@@ -216,39 +103,32 @@ class Board extends Component {
                     })
                 }
 
-                <div className="playingCards all-cards" 
+                <div className='playingCards all-cards' 
                     onClick={() => this.props.brd.round === 0 ? (this.props.storeBoardCards(boardCards), 
                                                                  this.props.storePlayersCards(player),
                                                                  this.props.setFirstPlayer(firstPlayerId),
                                                                  this.props.updateCurrentPot()) : null}>
                     
                     {allCards}
-                    <div className="clear"></div>
+                    <div className='clear'></div>
                 </div>
-            </div>
+            </div> 
         );
     }
 }
 
 const mapStateToProps = state => {
     return {
-        brd                    : state.board,
-        shouldOpenBoardCards   : state.players.openBoardCards,
-        shouldOpenAllBoardCards: state.players.openAllBoardCards,
-        possibleWinnerCards    : state.players.possibleWinners
+        brd: state.board // isws kalitera brd.cards
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards     : (boardCards)                => dispatch({type: actionTypes.STORE_BOARD_CARDS,        payload: boardCards}),
-        storePlayersCards   : (playersCards)              => dispatch({type: actionTypes.STORE_PLAYERS_CARDS,      payload: playersCards}),
-        setFirstPlayer      : (firstPlayerId)             => dispatch({type: actionTypes.SET_FIRST_PLAYER,         payload: firstPlayerId}),
-        updateCurrentPot    : ()                          => dispatch({type: actionTypes.SET_CURRENT_POT}),
-        openAllBoardCards   : (openAll)                   => dispatch({type: actionTypes.OPEN_CARDS,               payload: openAll}),
-        resetOpenCardsFlags : ()                          => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
-        areAllBoardCardsOpen: ()                          => dispatch({type: actionTypes.ALL_BOARD_CARDS_OPEN}),
-        getWinner           : (cardsBySuit, cardsByValue) => dispatch({type: actionTypes.GET_WINNER,               payload: {cardsBySuit: cardsBySuit, cardsByValue: cardsByValue}}),
+        storeBoardCards     : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        storePlayersCards   : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
+        setFirstPlayer      : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
+        updateCurrentPot    : ()              => dispatch({type: actionTypes.SET_CURRENT_POT})
     };
 };
 

@@ -112,15 +112,17 @@ class Table extends Component {
         if (result.length >= 1) {
             winnerIds = this.getWinnerIds(result);
             console.log(winnerIds);
-            // alert(`Winner(s) are player(s): ${winnerIds}`);
-            console.log(result.map(elem => elem[0].typeOfCombination));
+            alert(`Winner(s) are player(s): ${winnerIds}`);
+            // console.log(result.map(elem => elem[0].typeOfCombination));
             if (result.length > 0) {
                 winnerCards = result.map(elem => elem[0].slice(0, elem[0].typeOfCombination));
             }
-
-            this.props.resetGame();
             
             console.log(winnerCards);
+
+            this.props.resetRound();
+            this.props.resetPlayers();
+            this.props.resetWinners();
         } 
 
         return (
@@ -136,6 +138,7 @@ class Table extends Component {
 
 const mapStateToProps = state => {
     return {
+        tbl: state.table,
         plr: state.players,
         brd: state.board
     };
@@ -147,7 +150,9 @@ const mapDispatchToProps = dispatch => {
         resetOpenCardsFlags : ()                          => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
         areAllBoardCardsOpen: ()                          => dispatch({type: actionTypes.ALL_BOARD_CARDS_OPEN}),
         getWinner           : (cardsBySuit, cardsByValue) => dispatch({type: actionTypes.GET_WINNER,               payload: {cardsBySuit: cardsBySuit, cardsByValue: cardsByValue}}),
-        resetGame           : ()                          => dispatch({type: actionTypes.RESET_GAME})
+        resetRound          : ()                          => dispatch({type: actionTypes.RESET_ROUND}),
+        resetPlayers        : ()                          => dispatch({type: actionTypes.RESET_PLAYERS}),
+        resetWinners        : ()                          => dispatch({type: actionTypes.RESET_WINNERS})
     };
 };
 

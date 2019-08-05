@@ -42,7 +42,6 @@ class Board extends Component {
         cards = _.cloneDeep(this.props.brd.initCards);
         cards.map(elem => elem.rank = this.getRank(elem, 'value'));
         cards.map(elem => elem.isVisible = false);
-        // cards = _.orderBy(cards, ['suit', 'rank'], ['asc', 'desc']);
         this.shuffleCards(cards);
 
         let player        = [];
@@ -80,7 +79,7 @@ class Board extends Component {
                 isSmallBlind    : smallBlindId === i,
                 isBigBlind      : bigBlindId === i,
                 previousPot     : (smallBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT : 
-                                    (bigBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT*2 : 0
+                                  (bigBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT*2 : 0
             });
             j += 1;
         }
@@ -90,17 +89,18 @@ class Board extends Component {
         return (
             <div className='Board'> 
                 {
-                    this.props.brd.cards.map((card, index) => {
-                        return (
-                            <div className='playingCards' key={index}>
-                                {   
-                                    (!card.isVisible)
-                                    ? <div className='card back'>*</div>
-                                    : <Card value={card.value} suit={card.suit} />
-                                }
-                            </div>
-                        );
-                    })
+                    (this.props.tbl.round === 1) ?
+                        this.props.brd.cards.map((card, index) => {
+                            return (
+                                <div className='playingCards' key={index}>
+                                    {   
+                                        (!card.isVisible)
+                                        ? <div className='card back'>*</div>
+                                        : <Card value={card.value} suit={card.suit} />
+                                    }
+                                </div>
+                            );
+                        }) : null
                 }
 
                 <div className='playingCards all-cards' 
@@ -120,8 +120,8 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        brd: state.board,
-        tbl: state.table
+        tbl: state.table,
+        brd: state.board
     };
 };
 

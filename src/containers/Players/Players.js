@@ -34,6 +34,7 @@ class Players extends Component {
 
 const mapStateToProps = state => {
     return {
+        round        : state.table.round,
         plr          : state.players,
         firstPlayerId: state.board.firstPlayerId
     };

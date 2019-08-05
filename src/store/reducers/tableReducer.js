@@ -12,7 +12,7 @@ const tableReducer = (state = initialState, action) => {
                 round: 1
             }
 
-        case actionTypes.RESET_GAME:
+        case actionTypes.RESET_ROUND:
             return {
                 ...state,
                 round: 0

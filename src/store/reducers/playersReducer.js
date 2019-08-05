@@ -25,6 +25,14 @@ const playersReducer = (state = initialState, action) => {
     let possibleWinners    = [];
 
     switch (action.type) {
+        case actionTypes.RESET_PLAYERS:
+            players = [];
+            
+            return {
+                ...state,
+                players: players
+            }
+    
         case actionTypes.STORE_PLAYERS_CARDS:
             players = action.payload;
 

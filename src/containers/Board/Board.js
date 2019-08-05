@@ -104,7 +104,8 @@ class Board extends Component {
                 }
 
                 <div className='playingCards all-cards' 
-                    onClick={() => this.props.brd.round === 0 ? (this.props.storeBoardCards(boardCards), 
+                    onClick={() => this.props.tbl.round === 0 ? (this.props.storeBoardCards(boardCards), 
+                                                                 this.props.startGame(), 
                                                                  this.props.storePlayersCards(player),
                                                                  this.props.setFirstPlayer(firstPlayerId),
                                                                  this.props.updateCurrentPot()) : null}>
@@ -119,16 +120,18 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        brd: state.board
+        brd: state.board,
+        tbl: state.table
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        storeBoardCards     : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
-        storePlayersCards   : (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
-        setFirstPlayer      : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
-        updateCurrentPot    : ()              => dispatch({type: actionTypes.SET_CURRENT_POT})
+        storeBoardCards  : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        startGame        : ()              => dispatch({type: actionTypes.START_GAME}),
+        storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
+        setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
+        updateCurrentPot : ()              => dispatch({type: actionTypes.SET_CURRENT_POT})
     };
 };
 

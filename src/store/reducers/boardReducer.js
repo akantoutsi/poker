@@ -57,7 +57,7 @@ const initialState = {
         { suit: 'diams',   value: '3'  },
         { suit: 'diams',   value: '2'  }
     ],
-    round: 0,
+    // round: 0,
     dealerId: actionTypes.DEALER_ID,
     numOfPlayers: actionTypes.NUM_OF_PLAYERS,
     firstPlayerId: null,
@@ -76,8 +76,7 @@ const boardReducer = (state = initialState, action) => {
         case actionTypes.STORE_BOARD_CARDS:
             return {
                 ...state,
-                cards: state.cards.concat(action.payload),
-                round: 1
+                cards: state.cards.concat(action.payload)
             }
 
         case actionTypes.SET_FIRST_PLAYER:

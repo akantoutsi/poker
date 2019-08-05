@@ -78,12 +78,6 @@ class Table extends Component {
     }     
 
     render() {
-        // kathe fora pou vgainei nikitis na kanw to round 0 - de xerw pou tha xreiastei afto
-        // if (this.props.tbl.round === 0) {
-        //     this.props.storeBoardCards(boardCards);
-        //     this.props.storePlayersCards(playerCards);
-        // }
-
         let result      = [];
         let winnerIds   = [];
         let winnerCards = [];
@@ -123,6 +117,8 @@ class Table extends Component {
             if (result.length > 0) {
                 winnerCards = result.map(elem => elem[0].slice(0, elem[0].typeOfCombination));
             }
+
+            this.props.resetGame();
             
             console.log(winnerCards);
         } 
@@ -151,6 +147,7 @@ const mapDispatchToProps = dispatch => {
         resetOpenCardsFlags : ()                          => dispatch({type: actionTypes.RESET_OPEN_CARDS_FLAGS}),
         areAllBoardCardsOpen: ()                          => dispatch({type: actionTypes.ALL_BOARD_CARDS_OPEN}),
         getWinner           : (cardsBySuit, cardsByValue) => dispatch({type: actionTypes.GET_WINNER,               payload: {cardsBySuit: cardsBySuit, cardsByValue: cardsByValue}}),
+        resetGame           : ()                          => dispatch({type: actionTypes.RESET_GAME})
     };
 };
 

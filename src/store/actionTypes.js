@@ -17,3 +17,5 @@ export const OPEN_CARDS             = 'OPEN_CARDS';
 export const RESET_OPEN_CARDS_FLAGS = 'RESET_OPEN_CARDS_FLAGS';
 export const ALL_BOARD_CARDS_OPEN   = 'ALL_BOARD_CARDS_OPEN';
 export const GET_WINNER             = 'GET_WINNER';
+export const RESET_GAME             = 'RESET_GAME';
+export const START_GAME             = 'START_GAME';

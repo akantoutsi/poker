@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect }          from 'react-redux'; 
+import _                    from 'lodash';
 import Board                from '../Board/Board';
 import Players              from '../Players/Players';
 import * as actionTypes     from '../../store/actionTypes';
@@ -112,9 +113,10 @@ class Table extends Component {
         if (result.length >= 1) {
             winnerIds = this.getWinnerIds(result);
             console.log(winnerIds);
-            // console.log(result.map(elem => elem[0].typeOfCombination));
+
             if (result.length > 0) {
-                alert(`Winner(s) are player(s): ${winnerIds}`);
+                let comb = this.props.tbl.cardCombinations.filter(elem => elem.code === (result[0][0].typeOfCombination));
+                alert(`The winning combination is ${_.get(comb[0], 'title')}. Winner(s) are player(s): ${winnerIds.map(elem => elem+1)}`);
                 winnerCards = result.map(elem => elem[0].slice(0, elem[0].typeOfCombination));
             }
             

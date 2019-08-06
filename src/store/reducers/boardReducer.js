@@ -57,7 +57,7 @@ const initialState = {
         { suit: 'diams',   value: '3'  },
         { suit: 'diams',   value: '2'  }
     ],
-    dealerId: actionTypes.DEALER_ID,
+    // dealerId: actionTypes.DEALER_ID,
     numOfPlayers: actionTypes.NUM_OF_PLAYERS,
     firstPlayerId: null,
     checkForWinner: 0,

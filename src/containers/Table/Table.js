@@ -128,8 +128,8 @@ class Table extends Component {
             <div className='window-class '>
                 <div className='Table-Wrapper'>
                     <div className='Table'>
-                    <Players />
-                    <Board />
+                        <Players />
+                        <Board />
                     </div>
                 </div>
             </div> 

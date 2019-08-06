@@ -1,4 +1,4 @@
-export const DEALER_ID              = Math.floor(Math.random() * 4);
+export const DEALER_ID              = 0;
 export const NUM_OF_PLAYERS         = 4;
 export const SMALL_BLIND_AMOUNT     = 2;
 export const SET_FIRST_PLAYER       = 'SET_FIRST_PLAYER';
@@ -22,3 +22,4 @@ export const RESET_PLAYERS          = 'RESET_PLAYERS';
 export const START_GAME             = 'START_GAME';
 export const RESET_WINNERS          = 'RESET_WINNERS';
 export const RESET_BOARD_CARDS      = 'RESET_BOARD_CARDS';
+export const SET_DEALER             = 'SET_DEALER';

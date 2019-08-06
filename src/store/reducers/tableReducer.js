@@ -1,7 +1,8 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
-    round: 0
+    round: 0,
+    dealerId: -1
 };
 
 const tableReducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ const tableReducer = (state = initialState, action) => {
             return {
                 ...state,
                 round: 0
+            }
+
+        case actionTypes.SET_DEALER:
+            return {
+                ...state,
+                dealerId: action.payload
             }
     }
 

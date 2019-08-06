@@ -43,6 +43,7 @@ class Board extends Component {
         let boardCards    = [];
         let firstPlayerId = null;
         let j             = 0;
+        let dealerId      = -1;
 
         cards = _.cloneDeep(this.props.brd.initCards);
         cards.map(elem => elem.rank = this.getRank(elem, 'value'));
@@ -50,17 +51,25 @@ class Board extends Component {
         this.shuffleCards(cards);
 
         for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
-            let smallBlindId  = (actionTypes.DEALER_ID + 1 >= actionTypes.NUM_OF_PLAYERS) 
-                              ?  actionTypes.DEALER_ID + 1 - actionTypes.NUM_OF_PLAYERS     
-                              :  actionTypes.DEALER_ID + 1;
+            dealerId          = (this.props.tbl.dealerId + 1 >= actionTypes.NUM_OF_PLAYERS) 
+                              ?  this.props.tbl.dealerId + 1 - actionTypes.NUM_OF_PLAYERS 
+                              :  this.props.tbl.dealerId + 1
 
-            let bigBlindId    = (actionTypes.DEALER_ID + 2 >= actionTypes.NUM_OF_PLAYERS) 
-                              ?  actionTypes.DEALER_ID + 2 - actionTypes.NUM_OF_PLAYERS 
-                              :  actionTypes.DEALER_ID + 2;
+            let smallBlindId  = (dealerId + 1 >= actionTypes.NUM_OF_PLAYERS) 
+                              ?  dealerId + 1 - actionTypes.NUM_OF_PLAYERS     
+                              :  dealerId + 1;
 
-            firstPlayerId     = (bigBlindId + 1 > actionTypes.NUM_OF_PLAYERS)
-                              ?  bigBlindId - actionTypes.NUM_OF_PLAYERS + 1 
+            let bigBlindId    = (dealerId + 2 >= actionTypes.NUM_OF_PLAYERS) 
+                              ?  dealerId + 2 - actionTypes.NUM_OF_PLAYERS 
+                              :  dealerId + 2;
+
+            firstPlayerId     = (bigBlindId + 1 >= actionTypes.NUM_OF_PLAYERS)
+                              ?  bigBlindId + 1 - actionTypes.NUM_OF_PLAYERS 
                               :  bigBlindId + 1;
+
+            let nextPlayerId  = (bigBlindId + 1 >= actionTypes.NUM_OF_PLAYERS) 
+                              ?  bigBlindId + 1 - actionTypes.NUM_OF_PLAYERS
+                              :  bigBlindId + 1
 
             let cash = Math.floor(Math.random() * (10 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
 
@@ -70,13 +79,13 @@ class Board extends Component {
                 cash            : (smallBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT : 
                                     (bigBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT*2 : cash,
                 isActive        : 1,
-                nextPlayer      : (i === bigBlindId + 1) ? 1 : 0, 
+                nextPlayer      : (i === nextPlayerId) ? 1 : 0,
                 pot             : 0,
                 potNotLessThan  : 0,
                 maxPot          : cash,
                 changedPot      : 0,
                 smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
-                isDealer        : actionTypes.DEALER_ID === i,
+                isDealer        : dealerId === i,
                 isSmallBlind    : smallBlindId === i,
                 isBigBlind      : bigBlindId === i,
                 previousPot     : (smallBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT : 
@@ -107,6 +116,7 @@ class Board extends Component {
                 <div className='playingCards all-cards' 
                     onClick={() => this.props.tbl.round === 0 ? (this.props.resetBoardCards(),
                                                                  this.props.resetPlayers(),
+                                                                 this.props.setDealer(dealerId),
                                                                  this.props.storeBoardCards(boardCards), 
                                                                  this.props.startGame(), 
                                                                  this.props.storePlayersCards(player),
@@ -130,6 +140,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        setDealer        : (dealerId)      => dispatch({type: actionTypes.SET_DEALER,          payload: dealerId}),
         storeBoardCards  : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
         startGame        : ()              => dispatch({type: actionTypes.START_GAME}),
         storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),

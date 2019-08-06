@@ -161,7 +161,7 @@ const playersReducer = (state = initialState, action) => {
                 possibleWinners: possibleWinners
             }
 
-        case actionTypes.SET_CURRENT_POT:
+        case actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT:
             players       = [...state.players];
             activePlayers = players.filter(elem => elem.isActive && elem.cash >= 0);
 

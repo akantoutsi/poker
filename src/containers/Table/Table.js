@@ -125,14 +125,18 @@ class Table extends Component {
         } 
 
         return (
-            <div className='window-class '>
-                <div className='Table-Wrapper'>
-                    <div className='Table'>
-                        <Players />
-                        <Board />
+            <div>
+                <div className='window-class'>
+                    <div className='Table-Wrapper'>
+                        <strong><div className='center'>{`Current Pot: `}</div></strong>
+                        
+                        <div className='Table'>
+                            <Players />
+                            <Board />
+                        </div>
                     </div>
-                </div>
-            </div> 
+                </div> 
+            </div>
         );
     }
 }

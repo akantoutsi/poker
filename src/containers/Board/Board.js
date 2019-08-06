@@ -145,7 +145,7 @@ const mapDispatchToProps = dispatch => {
         startGame        : ()              => dispatch({type: actionTypes.START_GAME}),
         storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
         setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
-        updateCurrentPot : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
+        updateCurrentPot : ()              => dispatch({type: actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT}),
         resetBoardCards  : ()              => dispatch({type: actionTypes.RESET_BOARD_CARDS}),
         resetPlayers     : ()              => dispatch({type: actionTypes.RESET_PLAYERS}),
     };

@@ -43,11 +43,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        incrementPot    : (playerId) => dispatch({type: actionTypes.INCREMENT_PLAYER_POT, payload: playerId}),
-        decrementPot    : (playerId) => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload: playerId}),
-        exitGame        : (playerId) => dispatch({type: actionTypes.EXIT_GAME,            payload: playerId}),
-        updateCurrentPot: ()         => dispatch({type: actionTypes.SET_CURRENT_POT}),
-        setNextPlayer   : (playerId) => dispatch({type: actionTypes.SET_NEXT_PLAYER,      payload: playerId}),
+        incrementPot    : (playerId) => dispatch({type: actionTypes.INCREMENT_PLAYER_POT, payload:    playerId}),
+        decrementPot    : (playerId) => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload:    playerId}),
+        exitGame        : (playerId) => dispatch({type: actionTypes.EXIT_GAME,                        payload: playerId}),
+        updateCurrentPot: ()         => dispatch({type: actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT}),
+        setNextPlayer   : (playerId) => dispatch({type: actionTypes.SET_NEXT_PLAYER,                  payload: playerId}),
         resetFirstPlayer: ()         => dispatch({type: actionTypes.RESET_FIRST_PLAYER})
     };
 };

@@ -16,13 +16,16 @@ const Player = props => {
             <div className='pot-btns'>
                 <button className='update-pot-btn' onClick={() => props.incrementPot(props.player.seq)}>+</button> 
                         
-                <NumericInput
+                {/* <NumericInput
                     value={props.player.pot}
                     style={false}
+                    style={{backgroundColor: '#fbfbf9'}}
                     className='input-pot'
                     readOnly
-                />
+                /> */}
                 
+                <div style={{margin: '18px'}}>{props.player.pot}</div>
+
                 <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>
                 
                 <button className='exit-btn' onClick={() => {props.resetFirstPlayer(); props.exitGame(props.player.seq)}}>

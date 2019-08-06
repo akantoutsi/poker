@@ -13,7 +13,6 @@ const tableReducer = (state = initialState, action) => {
             }
 
         case actionTypes.RESET_ROUND:
-            console.log('reseting round')
             return {
                 ...state,
                 round: 0

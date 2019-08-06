@@ -35,6 +35,7 @@ const Player = props => {
                 <button className='next-btn' onClick={() => {props.resetFirstPlayer(); 
                                                              props.setNextPlayer(props.player.seq);
                                                              props.updateCurrentPot(); 
+                                                             props.setTablePot();
                                                             }}>                                                         
                     <strong>{`Next`}</strong>
                 </button> 

@@ -128,7 +128,7 @@ class Table extends Component {
             <div>
                 <div className='window-class'>
                     <div className='Table-Wrapper'>
-                        <strong><div className='center'>{`Current Pot: `}</div></strong>
+                        <strong><div className='center'>{`Sum: ${this.props.plr.tablePot}`}</div></strong>
                         
                         <div className='Table'>
                             <Players />

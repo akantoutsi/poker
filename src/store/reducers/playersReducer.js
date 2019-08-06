@@ -7,7 +7,8 @@ const initialState = {
     openAllBoardCards: 0,
     alreadyOpenedCards: 0,
     players: [],
-    possibleWinners: []
+    possibleWinners: [],
+    tablePot: 0
 };
 
 const playersReducer = (state = initialState, action) => {
@@ -22,7 +23,8 @@ const playersReducer = (state = initialState, action) => {
     let alreadyOpenedCards = 0;
     let maxPot             = 0;
     let activePlayers      = [];
-    let possibleWinners    = [];
+    let  possibleWinners   = [];
+    let tablePot           = 0;
 
     switch (action.type) {
         case actionTypes.RESET_PLAYERS:
@@ -176,6 +178,24 @@ const playersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 players: players
+            }
+
+        case actionTypes.RESET_TABLE_POT:
+            tablePot = 0;
+
+            return {
+                ...state,
+                tablePot: tablePot
+            }
+
+        case actionTypes.SET_TABLE_POT:
+            players       = [...state.players];
+            activePlayers = players.filter(elem => elem.isActive && elem.cash >= 0);
+            tablePot      = activePlayers.reduce((acc, elem) => { acc += elem.pot ; return acc; }, 0);
+
+            return {
+                ...state,
+                tablePot: tablePot
             }
 
         case actionTypes.SET_NEXT_PLAYER:

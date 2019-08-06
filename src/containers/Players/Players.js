@@ -23,6 +23,7 @@ class Players extends Component {
                                     exitGame        ={(playerId) => this.props.exitGame(playerId)} 
                                     setNextPlayer   ={(playerId) => this.props.setNextPlayer(playerId)}
                                     updateCurrentPot={()         => this.props.updateCurrentPot()}
+                                    setTablePot     ={()         => this.props.setTablePot()}
                                     resetFirstPlayer={()         => this.props.resetFirstPlayer()} />
                         </div>
                     );
@@ -47,6 +48,7 @@ const mapDispatchToProps = dispatch => {
         decrementPot    : (playerId) => dispatch({type: actionTypes.DECREMENT_PLAYER_POT, payload:    playerId}),
         exitGame        : (playerId) => dispatch({type: actionTypes.EXIT_GAME,                        payload: playerId}),
         updateCurrentPot: ()         => dispatch({type: actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT}),
+        setTablePot     : ()         => dispatch({type: actionTypes.SET_TABLE_POT}),
         setNextPlayer   : (playerId) => dispatch({type: actionTypes.SET_NEXT_PLAYER,                  payload: playerId}),
         resetFirstPlayer: ()         => dispatch({type: actionTypes.RESET_FIRST_PLAYER})
     };

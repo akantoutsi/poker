@@ -23,3 +23,5 @@ export const START_GAME                     = 'START_GAME';
 export const RESET_WINNERS                  = 'RESET_WINNERS';
 export const RESET_BOARD_CARDS              = 'RESET_BOARD_CARDS';
 export const SET_DEALER                     = 'SET_DEALER';
+export const SET_TABLE_POT                  = 'SET_TABLE_POT';
+export const RESET_TABLE_POT                = 'RESET_TABLE_POT';

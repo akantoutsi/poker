@@ -121,7 +121,9 @@ class Board extends Component {
                                                                  this.props.startGame(), 
                                                                  this.props.storePlayersCards(player),
                                                                  this.props.setFirstPlayer(firstPlayerId),
-                                                                 this.props.updateCurrentPot()) : null}>
+                                                                 this.props.updateCurrentPot(),
+                                                                 this.props.resetTablePot(),
+                                                                 this.props.setTablePot()) : null}>
                    
                     {allCards}
                     <div className='clear'></div>
@@ -146,6 +148,8 @@ const mapDispatchToProps = dispatch => {
         storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
         setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
         updateCurrentPot : ()              => dispatch({type: actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT}),
+        resetTablePot    : ()              => dispatch({type: actionTypes.RESET_TABLE_POT}),
+        setTablePot      : ()              => dispatch({type: actionTypes.SET_TABLE_POT}),
         resetBoardCards  : ()              => dispatch({type: actionTypes.RESET_BOARD_CARDS}),
         resetPlayers     : ()              => dispatch({type: actionTypes.RESET_PLAYERS}),
     };

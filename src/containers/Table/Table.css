@@ -4,10 +4,20 @@
 
 .Table {
     height: 350px;
-    background-color: #006400;
+    background: linear-gradient(#006400, #003c00);
     border-radius: 250px;
-    margin-left: 15%;
-    margin-right: 15%;
-    border: 20px solid;
-    position: relative;
+    border: 1px solid black;
+
+    margin: auto;
+}
+
+.Table-Wrapper {
+    border-radius: 250px;
+    margin-left: 20%; 
+    margin-right: 20%; 
+    position: relative; 
+    border: 15px solid transparent;
+    background: linear-gradient(#202020, #2c2c2c);
+    border-image-slice: 1;
+    padding: 0;
 }

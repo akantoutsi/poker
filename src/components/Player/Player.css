@@ -92,20 +92,20 @@ hr {
 
 #player-1 { 
     top: calc(100%);
-    left: calc(100% - 150px);
+    left: calc(100% - 80px);
 }
 
 #player-2 { 
     top: calc(100%);
-    right: calc(100% - 150px);
+    right: calc(100% - 80px);
 }
 
 #player-3 { 
-    bottom: calc(100% - 10%);
-    right: calc(100% - 110px);
+    bottom: calc(100% - 14%);
+    right: calc(100% - 70px);
 }
 
 #player-4 { 
-    bottom: calc(100% - 10%);
-    left: calc(100% - 110px);
+    bottom: calc(100% - 14%);
+    left: calc(100% - 70px);
 }

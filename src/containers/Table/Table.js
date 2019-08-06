@@ -125,10 +125,12 @@ class Table extends Component {
         } 
 
         return (
-            <div className='window-class'>
-                <div className='Table'>
+            <div className='window-class '>
+                <div className='Table-Wrapper'>
+                    <div className='Table'>
                     <Players />
                     <Board />
+                    </div>
                 </div>
             </div> 
         );

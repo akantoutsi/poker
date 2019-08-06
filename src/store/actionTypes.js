@@ -21,3 +21,4 @@ export const RESET_ROUND            = 'RESET_ROUND';
 export const RESET_PLAYERS          = 'RESET_PLAYERS';
 export const START_GAME             = 'START_GAME';
 export const RESET_WINNERS          = 'RESET_WINNERS';
+export const RESET_BOARD_CARDS      = 'RESET_BOARD_CARDS';

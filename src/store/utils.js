@@ -27,7 +27,7 @@ export const allHaveSamePot = (arr, property, currentPot) => {
     }, 0);
 }
 
-export const checkIfCardsLeftToToOpen = (arr, property) => {
+const checkIfCardsLeftToToOpen = (arr, property) => {
     return arr.reduce((acc, elem) => {
         acc += (elem[property] === false ? 1 : 0);
         return acc;
@@ -92,27 +92,7 @@ export const shouldCheckForWinner = (arr, property) => {
     }, 0);
 }
 
-export const groupByProperty = (ourArray, property) => {
-    return ourArray.reduce(function (accumulator, object) {
-        const key = object[property];
-
-        if (!accumulator[key]) {
-            accumulator[key] = [];
-        }
-
-        accumulator[key].push(object);
-
-        return accumulator;
-    }, {});
-}
-
-export const sortArray = (arr, property) => {
-    const res = arr.sort((a, b) => a.rank < b.rank ? 1 : -1);
-  
-    return res;
-}
-
-export const continuousCards = (arr) => {
+const continuousCards = (arr) => {
     let res = [];
     let ind = 0;
                 
@@ -131,7 +111,7 @@ export const continuousCards = (arr) => {
     return res;
 }
 
-export const sameCardExistsNtimes = (arr, freq) => {
+const sameCardExistsNtimes = (arr, freq) => {
     let res = arr.find(e => e[1].freq === freq);
     return (res) ? res : [];
 }
@@ -160,7 +140,7 @@ const containsStraight = (arr) => {
     return res;
 }
 
-export const findCombination = (groupedCardsBySuit, groupedCardsByValue) => { 
+const findCombination = (groupedCardsBySuit, groupedCardsByValue) => { 
     let winCombination    = [];
     let typeOfCombination = 0;
 

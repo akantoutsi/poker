@@ -74,12 +74,18 @@ const boardReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.RESET_WINNERS:
             winCombinations = [];
-            cards           = [];
             
             return {
                 ...state,
                 winCombinations: winCombinations,
-                cards: cards
+            }
+
+        case actionTypes.RESET_BOARD_CARDS:
+            cards = [];
+            
+            return {
+                ...state,
+                cards: cards,
             }
 
         case actionTypes.STORE_BOARD_CARDS:
@@ -124,7 +130,6 @@ const boardReducer = (state = initialState, action) => {
 
             let a = findWinner(action.payload.cardsBySuit, action.payload.cardsByValue);
             winCombinations.push(a);
-
               
             return {
                 ...state,

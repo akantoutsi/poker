@@ -1,7 +1,7 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
-    round: 0,
+    round: 0
 };
 
 const tableReducer = (state = initialState, action) => {
@@ -13,6 +13,7 @@ const tableReducer = (state = initialState, action) => {
             }
 
         case actionTypes.RESET_ROUND:
+            console.log('reseting round')
             return {
                 ...state,
                 round: 0

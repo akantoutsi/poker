@@ -38,16 +38,16 @@ class Board extends Component {
     render() { 
         const allCards  = <div className='card back'>*</div>;
         
-        let cards = [];
+        let cards         = [];
+        let player        = [];
+        let boardCards    = [];
+        let firstPlayerId = null;
+        let j             = 0;
+
         cards = _.cloneDeep(this.props.brd.initCards);
         cards.map(elem => elem.rank = this.getRank(elem, 'value'));
         cards.map(elem => elem.isVisible = false);
         this.shuffleCards(cards);
-
-        let player        = [];
-        let boardCards    = [];
-        let firstPlayerId = null;
-        let j = 0;
 
         for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
             let smallBlindId  = (actionTypes.DEALER_ID + 1 > actionTypes.NUM_OF_PLAYERS.length) 
@@ -79,7 +79,7 @@ class Board extends Component {
                 isSmallBlind    : smallBlindId === i,
                 isBigBlind      : bigBlindId === i,
                 previousPot     : (smallBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT : 
-                                  (bigBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT*2 : 0
+                                    (bigBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT*2 : 0
             });
             j += 1;
         }
@@ -89,31 +89,33 @@ class Board extends Component {
         return (
             <div className='Board'> 
                 {
-                    (this.props.tbl.round === 1) ?
-                        this.props.brd.cards.map((card, index) => {
-                            return (
-                                <div className='playingCards' key={index}>
-                                    {   
-                                        (!card.isVisible)
-                                        ? <div className='card back'>*</div>
-                                        : <Card value={card.value} suit={card.suit} />
-                                    }
-                                </div>
-                            );
-                        }) : null
+                    this.props.brd.cards.map((card, index) => {
+                        return (
+                            <div className='playingCards' key={index}>
+                                {   
+                                    (!card.isVisible)
+                                    ? <div className='card back'>*</div>
+                                    : <Card value={card.value} suit={card.suit} />
+                                    
+                                }
+                            </div>
+                        );
+                    })
                 }
 
                 <div className='playingCards all-cards' 
-                    onClick={() => this.props.tbl.round === 0 ? (this.props.storeBoardCards(boardCards), 
+                    onClick={() => this.props.tbl.round === 0 ? (this.props.resetBoardCards(),
+                                                                 this.props.resetPlayers(),
+                                                                 this.props.storeBoardCards(boardCards), 
                                                                  this.props.startGame(), 
                                                                  this.props.storePlayersCards(player),
                                                                  this.props.setFirstPlayer(firstPlayerId),
                                                                  this.props.updateCurrentPot()) : null}>
-                    
+                   
                     {allCards}
                     <div className='clear'></div>
                 </div>
-            </div> 
+            </div>
         );
     }
 }
@@ -131,7 +133,9 @@ const mapDispatchToProps = dispatch => {
         startGame        : ()              => dispatch({type: actionTypes.START_GAME}),
         storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
         setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
-        updateCurrentPot : ()              => dispatch({type: actionTypes.SET_CURRENT_POT})
+        updateCurrentPot : ()              => dispatch({type: actionTypes.SET_CURRENT_POT}),
+        resetBoardCards  : ()              => dispatch({type: actionTypes.RESET_BOARD_CARDS}),
+        resetPlayers     : ()              => dispatch({type: actionTypes.RESET_PLAYERS}),
     };
 };
 

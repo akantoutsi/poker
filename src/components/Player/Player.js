@@ -47,7 +47,7 @@ const Player = props => {
                 <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1}`}</strong>
                 <hr />
                 <div className={classes.join(' ')}>
-                    {`Cash: € ${props.player.cash} - Pot: € ${props.player.pot}`}
+                    {`Cash: €${props.player.cash} - Pot: €${props.player.pot}`}
                 </div>
             </div>
 

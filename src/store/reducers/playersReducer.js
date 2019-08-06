@@ -191,7 +191,7 @@ const playersReducer = (state = initialState, action) => {
         case actionTypes.SET_TABLE_POT:
             players       = [...state.players];
             activePlayers = players.filter(elem => elem.isActive && elem.cash >= 0);
-            tablePot      = activePlayers.reduce((acc, elem) => { acc += elem.pot ; return acc; }, 0);
+            tablePot      = activePlayers.reduce((acc, elem) => { acc += elem.pot; return acc; }, 0);
 
             return {
                 ...state,

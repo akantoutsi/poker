@@ -50,16 +50,16 @@ class Board extends Component {
         this.shuffleCards(cards);
 
         for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
-            let smallBlindId  = (actionTypes.DEALER_ID + 1 > actionTypes.NUM_OF_PLAYERS.length) 
-                              ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length     
+            let smallBlindId  = (actionTypes.DEALER_ID + 1 >= actionTypes.NUM_OF_PLAYERS) 
+                              ?  actionTypes.DEALER_ID + 1 - actionTypes.NUM_OF_PLAYERS     
                               :  actionTypes.DEALER_ID + 1;
 
-            let bigBlindId    = (actionTypes.DEALER_ID + 2 > actionTypes.NUM_OF_PLAYERS.length) 
-                              ?  actionTypes.DEALER_ID - actionTypes.NUM_OF_PLAYERS.length + 1 
+            let bigBlindId    = (actionTypes.DEALER_ID + 2 >= actionTypes.NUM_OF_PLAYERS) 
+                              ?  actionTypes.DEALER_ID + 2 - actionTypes.NUM_OF_PLAYERS 
                               :  actionTypes.DEALER_ID + 2;
 
-            firstPlayerId     = (bigBlindId + 1 > actionTypes.NUM_OF_PLAYERS.length)
-                              ?  bigBlindId - actionTypes.NUM_OF_PLAYERS.length + 1 
+            firstPlayerId     = (bigBlindId + 1 > actionTypes.NUM_OF_PLAYERS)
+                              ?  bigBlindId - actionTypes.NUM_OF_PLAYERS + 1 
                               :  bigBlindId + 1;
 
             let cash = Math.floor(Math.random() * (10 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
@@ -76,6 +76,7 @@ class Board extends Component {
                 maxPot          : cash,
                 changedPot      : 0,
                 smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
+                isDealer        : actionTypes.DEALER_ID === i,
                 isSmallBlind    : smallBlindId === i,
                 isBigBlind      : bigBlindId === i,
                 previousPot     : (smallBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT : 

@@ -40,8 +40,10 @@ const Player = props => {
     }
     
     return ( 
-        <div id={'player-' + playerId} className='player-info'>   
+        <div id={'player-' + playerId} className='player-info'>  
+            <strong style={{color: 'red'}}>{`${props.player.isDealer ? 'D' : ''}`}</strong>
             <div className='center-player-info'> 
+                {/* <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1} ${props.player.isDealer ? '(Dealer)' : ''}`}</strong> */}
                 <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1}`}</strong>
                 <hr />
                 <div className={classes.join(' ')}>

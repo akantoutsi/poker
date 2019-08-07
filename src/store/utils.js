@@ -57,18 +57,24 @@ export const cardsToOpen = (arr, property, openAllFlag) => {
                 howManyToOpen = 1;
                 fromIndex     = 4;
                 break;
+
+            default:
+                howManyToOpen = 0;
+                break;
         }
 
-        slicedArr = arr.slice(fromIndex, fromIndex + howManyToOpen);
-        retArr    = slicedArr.map(e => ({...e, isVisible: true}));
-    
-        if (howManyToOpen === 3) {
-            const [first, second, third] = retArr; 
-            arr.splice(fromIndex, howManyToOpen, first, second, third);
-    
-        } else {
-            const [first] = retArr; 
-            arr.splice(fromIndex, howManyToOpen, first);
+        if (howManyToOpen > 0) {
+            slicedArr = arr.slice(fromIndex, fromIndex + howManyToOpen);
+            retArr    = slicedArr.map(e => ({...e, isVisible: true}));
+        
+            if (howManyToOpen === 3) {
+                const [first, second, third] = retArr; 
+                arr.splice(fromIndex, howManyToOpen, first, second, third);
+        
+            } else {
+                const [first] = retArr; 
+                arr.splice(fromIndex, howManyToOpen, first);
+            }
         }
 
     } else {

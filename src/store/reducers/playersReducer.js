@@ -30,7 +30,17 @@ const playersReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case actionTypes.UPDATE_POTS_COUNT:
-                potsCount += 1;
+            potsCount = state.potsCount;
+            potsCount += 1;
+
+            return {
+                ...state,
+                potsCount: potsCount
+            }
+
+        case actionTypes.RESET_POTS_COUNT:
+            potsCount = state.potsCount;
+            potsCount = 0;
 
             return {
                 ...state,
@@ -220,6 +230,7 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.previousPot = currentPlayer.pot;
             currentPlayer.maxPot      = currentPlayer.cash;
             canUpdateTablePot         = state.canUpdateTablePot;
+            potsCount                 = state.potsCount;
 
             if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
                 if (restPlayers.length >= 2) {
@@ -244,7 +255,7 @@ const playersReducer = (state = initialState, action) => {
                     alert('next - vres nikiti');
                     possibleWinners = players.filter(elem => elem.isActive);
                     openAllBoardCards = 1;
-                }
+                } 
 
                 if (restPlayers.length === 1 && currentPlayer.cash >= 0) {
                     if (restPlayers[0].changedPot === 0) {
@@ -258,10 +269,11 @@ const playersReducer = (state = initialState, action) => {
                         possibleWinners = players.filter(elem => elem.isActive);
                         openAllBoardCards = 1;
                     }
-                }
+                } 
+                
+                possibleWinners   = players.filter(elem => elem.isActive);
                 canUpdateTablePot = 1;
             } 
-
             return {
                 ...state,
                 players: players,
@@ -277,6 +289,15 @@ const playersReducer = (state = initialState, action) => {
                 ...state,
                 openBoardCards: 0,
                 openAllBoardCards: 0
+            }
+
+        case actionTypes.NONE_NEXT_PLAYER:
+            let tmpPlayers = [...state.players];
+            players        = tmpPlayers.map(elem => ({...elem, nextPlayer: 0}));
+
+            return {
+                ...state,
+                players: players
             }
     }
     

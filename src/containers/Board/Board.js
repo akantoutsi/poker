@@ -71,7 +71,7 @@ class Board extends Component {
                               ?  bigBlindId + 1 - actionTypes.NUM_OF_PLAYERS
                               :  bigBlindId + 1
 
-            let cash = Math.floor(Math.random() * (10 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
+            let cash = Math.floor(Math.random() * (20 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
 
             player.push({
                 cards           : cards.slice(i+j, i+j+2).map(elem => ({...elem, belongsTo: i})),

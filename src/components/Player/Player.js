@@ -1,6 +1,6 @@
 import React        from 'react';
 import Card         from '../Card/Card';
-import NumericInput from 'react-numeric-input';
+// import NumericInput from 'react-numeric-input';
 
 import './Player.css';
 

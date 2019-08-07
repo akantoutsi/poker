@@ -73,10 +73,12 @@ const boardReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.RESET_WINNERS:
             winCombinations = [];
+            checkForWinner  = 0;
             
             return {
                 ...state,
-                winCombinations: winCombinations
+                winCombinations: winCombinations,
+                checkForWinner: checkForWinner
             }
 
         case actionTypes.RESET_BOARD_CARDS:

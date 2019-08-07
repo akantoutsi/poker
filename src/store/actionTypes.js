@@ -26,3 +26,6 @@ export const SET_DEALER                     = 'SET_DEALER';
 export const SET_TABLE_POT                  = 'SET_TABLE_POT';
 export const RESET_TABLE_POT                = 'RESET_TABLE_POT';
 export const UPDATE_POTS_COUNT              = 'UPDATE_POTS_COUNT'; 
+export const OPEN_BOARD_CARDS               = 'OPEN_BOARD_CARDS';
+export const RESET_POTS_COUNT               = 'RESET_POTS_COUNT';
+export const NONE_NEXT_PLAYER               = 'NONE_NEXT_PLAYER';

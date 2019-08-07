@@ -8,7 +8,8 @@ const initialState = {
     alreadyOpenedCards: 0,
     players: [],
     possibleWinners: [],
-    tablePot: 0
+    tablePot: 0,
+    numOfPots: 0
 };
 
 const playersReducer = (state = initialState, action) => {
@@ -25,8 +26,17 @@ const playersReducer = (state = initialState, action) => {
     let activePlayers      = [];
     let possibleWinners    = [];
     let tablePot           = 0;
+    let numOfPots          = 0;
 
     switch (action.type) {
+        case actionTypes.UPDATE_POTS_NUMBER:
+            numOfPots += 1;
+
+            return {
+                ...state,
+                numOfPots: numOfPots
+            }
+
         case actionTypes.RESET_PLAYERS:
             players = [];
             

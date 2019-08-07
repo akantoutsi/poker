@@ -76,7 +76,7 @@ const boardReducer = (state = initialState, action) => {
             
             return {
                 ...state,
-                winCombinations: winCombinations,
+                winCombinations: winCombinations
             }
 
         case actionTypes.RESET_BOARD_CARDS:

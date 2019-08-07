@@ -23,7 +23,7 @@ const playersReducer = (state = initialState, action) => {
     let alreadyOpenedCards = 0;
     let maxPot             = 0;
     let activePlayers      = [];
-    let  possibleWinners   = [];
+    let possibleWinners    = [];
     let tablePot           = 0;
 
     switch (action.type) {
@@ -249,7 +249,6 @@ const playersReducer = (state = initialState, action) => {
                         openAllBoardCards = 1;
                     }
                 }
-
                 canUpdateTablePot = 1;
             } 
 

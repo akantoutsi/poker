@@ -142,11 +142,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setDealer        : (dealerId)      => dispatch({type: actionTypes.SET_DEALER,          payload: dealerId}),
-        storeBoardCards  : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,   payload: boardCards}),
+        setDealer        : (dealerId)      => dispatch({type: actionTypes.SET_DEALER,                       payload: dealerId}),
+        storeBoardCards  : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,                payload: boardCards}),
         startGame        : ()              => dispatch({type: actionTypes.START_GAME}),
-        storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS, payload: playersCards}),
-        setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,    payload: firstPlayerId}),
+        storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS,              payload: playersCards}),
+        setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,                 payload: firstPlayerId}),
         updateCurrentPot : ()              => dispatch({type: actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT}),
         resetTablePot    : ()              => dispatch({type: actionTypes.RESET_TABLE_POT}),
         setTablePot      : ()              => dispatch({type: actionTypes.SET_TABLE_POT}),

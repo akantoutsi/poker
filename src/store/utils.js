@@ -92,25 +92,6 @@ export const shouldCheckForWinner = (arr, property) => {
     }, 0);
 }
 
-const continuousCards = (arr) => {
-    let res = [];
-    let ind = 0;
-                
-    arr.filter((elem, index) => { 
-        if (index < arr.length - 1) { 
-            if (elem.rank === arr[index + 1].rank + 1) {
-                res.push(arr[index]); ind = index;
-            } 
-        }   
-    }); 	
-
-    if (arr[ind].rank === arr[ind+1].rank + 1) {
-        res.push(arr[ind+1]);
-    }
-
-    return res;
-}
-
 const sameCardExistsNtimes = (arr, freq) => {
     let res = arr.find(e => e[1].freq === freq);
     return (res) ? res : [];

@@ -1,6 +1,5 @@
-import React        from 'react';
-import Card         from '../Card/Card';
-// import NumericInput from 'react-numeric-input';
+import React from 'react';
+import Card  from '../Card/Card';
 
 import './Player.css';
 
@@ -15,15 +14,7 @@ const Player = props => {
         nextPlayerBtns = (
             <div className='pot-btns'>
                 <button className='update-pot-btn' onClick={() => props.incrementPot(props.player.seq)}>+</button> 
-                        
-                {/* <NumericInput
-                    value={props.player.pot}
-                    style={false}
-                    style={{backgroundColor: '#fbfbf9'}}
-                    className='input-pot'
-                    readOnly
-                /> */}
-                
+
                 <div style={{margin: '18px'}}>{props.player.pot}</div>
 
                 <button className='update-pot-btn' onClick={() => props.decrementPot(props.player.seq)}>-</button>

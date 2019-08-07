@@ -1,5 +1,18 @@
 import _ from 'lodash';
 
+export const createCards = () => {
+    let suits     = ['hearts', 'clubs', 'spades', 'diams'];
+    let values    = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
+    let tmpSuits  = [...suits];
+    let tmpValues = [...values];
+
+    var res = tmpSuits.reduce((acc, s) =>
+        acc.concat(tmpValues.map(v => ({'suit': s, 'value': v}))), []
+    );
+
+    return res;
+}
+
 export const updateObjectInArray = (array, obj) => {
     return array.map((item, index) => {
         if (index !== obj.index) {

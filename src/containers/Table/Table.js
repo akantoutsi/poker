@@ -112,7 +112,7 @@ const mapDispatchToProps = dispatch => {
         getWinner           : (cardsBySuit, cardsByValue) => dispatch({type: actionTypes.GET_WINNER,               payload: {cardsBySuit: cardsBySuit, cardsByValue: cardsByValue}}),
         resetWinners        : ()                          => dispatch({type: actionTypes.RESET_WINNERS}),
         resetRound          : ()                          => dispatch({type: actionTypes.RESET_ROUND}),
-        updatePotsNumber    : ()                          => dispatch({type: actionTypes.UPDATE_POTS_NUMBER})
+        updatePotsNumber    : ()                          => dispatch({type: actionTypes.UPDATE_POTS_COUNT})
     };
 };
 

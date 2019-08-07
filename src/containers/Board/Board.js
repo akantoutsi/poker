@@ -146,7 +146,7 @@ const mapDispatchToProps = dispatch => {
         setDealer        : (dealerId)      => dispatch({type: actionTypes.SET_DEALER,                       payload: dealerId}),
         storeBoardCards  : (boardCards)    => dispatch({type: actionTypes.STORE_BOARD_CARDS,                payload: boardCards}),
         startGame        : ()              => dispatch({type: actionTypes.START_GAME}),
-        updatePotsNumber : ()              => dispatch({type: actionTypes.UPDATE_POTS_NUMBER}),
+        updatePotsNumber : ()              => dispatch({type: actionTypes.UPDATE_POTS_COUNT}),
         storePlayersCards: (playersCards)  => dispatch({type: actionTypes.STORE_PLAYERS_CARDS,              payload: playersCards}),
         setFirstPlayer   : (firstPlayerId) => dispatch({type: actionTypes.SET_FIRST_PLAYER,                 payload: firstPlayerId}),
         updateCurrentPot : ()              => dispatch({type: actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT}),

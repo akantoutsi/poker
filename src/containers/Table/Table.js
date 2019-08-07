@@ -45,7 +45,7 @@ class Table extends Component {
     }
 
     printWinners = (arr) => {
-        let q = arr.map(elem => {
+        let grouped = arr.map(elem => {
             return elem.reduce((acc, el) => {
                 const key = el.typeOfCombination;
             
@@ -59,14 +59,14 @@ class Table extends Component {
             }, {});
         });
           
-        let d = q.map(elem => Object.entries(elem));
-        d.map(elem => elem[0][0] = parseInt(elem[0][0]));
+        let groupedArr = grouped.map(elem => Object.entries(elem));
+        groupedArr.map(elem => elem[0][0] = parseInt(elem[0][0]));
         
-        let res  = d.reduce((acc, el) => { acc[0] = (acc[0] === undefined || el[0][0] < acc[0]) ? el[0][0] : acc[0]; return acc; }, []);
-        let afro = d.filter(elem => elem[0].includes(res[0]));
-        let nana = afro.map(elem => elem[0][1]);
+        let sortedGroupedArr   = groupedArr.reduce((acc, el) => { acc[0] = (acc[0] === undefined || el[0][0] < acc[0]) ? el[0][0] : acc[0]; return acc; }, []);
+        let groupedArrFiltered = groupedArr.filter(elem => elem[0].includes(sortedGroupedArr[0]));
+        let res                = groupedArrFiltered.map(elem => elem[0][1]);
 
-        return nana;
+        return res;
     }
 
     getWinnerIds = (arr) => {

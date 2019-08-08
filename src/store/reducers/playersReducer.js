@@ -157,6 +157,21 @@ const playersReducer = (state = initialState, action) => {
             openAllBoardCards         = state.openAllBoardCards;
             currentPlayer.previousPot = currentPlayer.previousPot;
             currentPlayer.maxPot      = currentPlayer.maxPot;
+            howManyPlayersChecked     = state.howManyPlayersChecked;
+
+            let hasAnyonePot = restPlayers.reduce((acc, elem) => { acc += (elem.changedPot === 0) ? 0 : 1; return acc; }, 0);
+        
+            if (hasAnyonePot === 0) {
+                if (howManyPlayersChecked === restPlayers.length) {
+                    openBoardCards        = 1;
+                    howManyPlayersChecked = 0;
+                }
+
+                playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                player            = restPlayers[playerId];
+                player.nextPlayer = 1;
+                player.changedPot = 0;
+            }
 
             if (restPlayers.length >= 2) {
                 playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
@@ -186,7 +201,8 @@ const playersReducer = (state = initialState, action) => {
                 openBoardCards: openBoardCards,
                 openAllBoardCards: openAllBoardCards,
                 alreadyOpenedCards: alreadyOpenedCards,
-                possibleWinners: possibleWinners
+                possibleWinners: possibleWinners,
+                howManyPlayersChecked: howManyPlayersChecked
             }
 
         case actionTypes.UPDATE_ALL_PLAYERS_CURRENT_POT:
@@ -282,11 +298,12 @@ const playersReducer = (state = initialState, action) => {
                 
                 possibleWinners   = players.filter(elem => elem.isActive);
                 canUpdateTablePot = 1;
+
             
             } else {
-                let atLeastOneHasChecked = restPlayers.reduce((acc, elem) => { acc += (elem.changedPot === 0) ? 0 : 1; return acc; }, 0);
+                let hasAnyonePot = restPlayers.reduce((acc, elem) => { acc += (elem.changedPot === 0) ? 0 : 1; return acc; }, 0);
                 
-                if (atLeastOneHasChecked === 0) {
+                if (hasAnyonePot === 0) {
                     howManyPlayersChecked += 1;
 
                     if (howManyPlayersChecked === restPlayers.length) {

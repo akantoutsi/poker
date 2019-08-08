@@ -9,7 +9,8 @@ const initialState = {
     players: [],
     possibleWinners: [],
     tablePot: 0,
-    potsCount: 0
+    potsCount: 0,
+    howManyPlayersChecked: 0
 };
 
 const playersReducer = (state = initialState, action) => {
@@ -19,22 +20,27 @@ const playersReducer = (state = initialState, action) => {
     let currentPlayer;
     let playerId;
     let canUpdateTablePot;
-    let openBoardCards     = 0;
-    let openAllBoardCards  = 0;
-    let alreadyOpenedCards = 0;
-    let maxPot             = 0;
-    let activePlayers      = [];
-    let possibleWinners    = [];
-    let tablePot           = 0;
-    let potsCount          = 0;
+    let openBoardCards        = 0;
+    let openAllBoardCards     = 0;
+    let alreadyOpenedCards    = 0;
+    let maxPot                = 0;
+    let activePlayers         = [];
+    let possibleWinners       = [];
+    let tablePot              = 0;
+    let potsCount             = 0;
+    let howManyPlayersChecked = 0;
 
     switch (action.type) {
         case actionTypes.UPDATE_POTS_COUNT:
+            players   = [...state.players];
             potsCount = state.potsCount;
             potsCount += 1;
 
+            let tmp = players.map(elem => ({...elem, changedPot: 0}));
+
             return {
                 ...state,
+                players: tmp,
                 potsCount: potsCount
             }
 
@@ -231,14 +237,17 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.maxPot      = currentPlayer.cash;
             canUpdateTablePot         = state.canUpdateTablePot;
             potsCount                 = state.potsCount;
+            howManyPlayersChecked     = state.howManyPlayersChecked;
 
             if ((currentPlayer.pot >= currentPlayer.potNotLessThan || currentPlayer.cash === 0) && currentPlayer.changedPot === 1) { 
+                howManyPlayersChecked = 0;
+
                 if (restPlayers.length >= 2) {
                     playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
                     player                   = restPlayers[playerId];
                     player.nextPlayer        = 1;
                     currentPlayer.nextPlayer = 0;
-                    currentPlayer.changedPot = 0;
+                    currentPlayer.changedPot = 1;
 
                     updateObjectInArray(players, player);
                     activePlayers = players.filter(elem => elem.isActive);
@@ -251,10 +260,10 @@ const playersReducer = (state = initialState, action) => {
                 } 
                 
                 if (restPlayers.length === 0) {
-                    currentPlayer.nextPlayer = 0;
                     alert('next - vres nikiti');
-                    possibleWinners = players.filter(elem => elem.isActive);
-                    openAllBoardCards = 1;
+                    currentPlayer.nextPlayer = 0;
+                    possibleWinners          = players.filter(elem => elem.isActive);
+                    openAllBoardCards        = 1;
                 } 
 
                 if (restPlayers.length === 1 && currentPlayer.cash >= 0) {
@@ -266,14 +275,33 @@ const playersReducer = (state = initialState, action) => {
                     } else {
                         currentPlayer.nextPlayer = 0;
                         alert('next - vres nikiti');
-                        possibleWinners = players.filter(elem => elem.isActive);
+                        possibleWinners   = players.filter(elem => elem.isActive);
                         openAllBoardCards = 1;
                     }
                 } 
                 
                 possibleWinners   = players.filter(elem => elem.isActive);
                 canUpdateTablePot = 1;
-            } 
+            
+            } else {
+                let atLeastOneHasChecked = restPlayers.reduce((acc, elem) => { acc += (elem.changedPot === 0) ? 0 : 1; return acc; }, 0);
+                
+                if (atLeastOneHasChecked === 0) {
+                    howManyPlayersChecked += 1;
+
+                    if (howManyPlayersChecked === restPlayers.length) {
+                        openBoardCards        = 1;
+                        howManyPlayersChecked = 0;
+                    }
+
+                    playerId                 = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                    player                   = restPlayers[playerId];
+                    player.nextPlayer        = 1;
+                    currentPlayer.nextPlayer = 0;
+                    currentPlayer.changedPot = 0;
+                }
+            }
+
             return {
                 ...state,
                 players: players,
@@ -281,7 +309,8 @@ const playersReducer = (state = initialState, action) => {
                 openAllBoardCards: openAllBoardCards,
                 alreadyOpenedCards: alreadyOpenedCards,
                 canUpdateTablePot: canUpdateTablePot,
-                possibleWinners: possibleWinners
+                possibleWinners: possibleWinners,
+                howManyPlayersChecked: howManyPlayersChecked
             }
 
         case actionTypes.RESET_OPEN_CARDS_FLAGS:

@@ -158,33 +158,12 @@ const playersReducer = (state = initialState, action) => {
             currentPlayer.previousPot = currentPlayer.previousPot;
             currentPlayer.maxPot      = currentPlayer.maxPot;
             howManyPlayersChecked     = state.howManyPlayersChecked;
-            // console.log(howManyPlayersChecked)
-
-            // let hasAnyonePot = restPlayers.reduce((acc, elem) => { acc += (elem.changedPot === 0) ? 0 : 1; return acc; }, 0);
-        
-            // if (hasAnyonePot === 0) {
-            //     console.log(restPlayers)
-            //     if (howManyPlayersChecked === restPlayers.length) {
-            //         console.log('afro')
-            //         openBoardCards        = 1;
-            //         howManyPlayersChecked = 0;
-            //     }
-
-            //     playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
-            //     player            = restPlayers[playerId];
-            //     player.nextPlayer = 1;
-            //     player.changedPot = 0;
-            // }
 
             if (restPlayers.length >= 2) {
-
-
                 let hasAnyonePot = restPlayers.reduce((acc, elem) => { acc += (elem.changedPot === 0) ? 0 : 1; return acc; }, 0);
         
                 if (hasAnyonePot === 0) {
-                    console.log(restPlayers)
                     if (howManyPlayersChecked === restPlayers.length) {
-                        console.log('afro')
                         openBoardCards        = 1;
                         howManyPlayersChecked = 0;
                     }
@@ -193,27 +172,23 @@ const playersReducer = (state = initialState, action) => {
                     player            = restPlayers[playerId];
                     player.nextPlayer = 1;
                     player.changedPot = 0;
-                } else {
-
-
-
-
-                playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
-                player            = restPlayers[playerId];
-                player.nextPlayer = 1;
-                player.changedPot = 0;
                 
-                updateObjectInArray(players, player);
+                } else {
+                    playerId          = restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) !== -1 ? restPlayers.findIndex(elem => elem.seq > currentPlayer.seq) : 0;
+                    player            = restPlayers[playerId];
+                    player.nextPlayer = 1;
+                    player.changedPot = 0;
+                    
+                    updateObjectInArray(players, player);
 
-                activePlayers = players.filter(elem => elem.isActive);
-                maxPot        = findMaxPot(activePlayers, 'pot');
+                    activePlayers = players.filter(elem => elem.isActive);
+                    maxPot        = findMaxPot(activePlayers, 'pot');
 
-                if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
-                    console.log('aaaaaaaaaaaaaaaaaa')
-                    openBoardCards     = 1;
-                    alreadyOpenedCards = 1;
+                    if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
+                        openBoardCards     = 1;
+                        alreadyOpenedCards = 1;
+                    }
                 }
-            }
             } 
 
             if (restPlayers.length <= 1) {

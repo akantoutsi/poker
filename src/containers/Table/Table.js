@@ -145,7 +145,12 @@ class Table extends Component {
         return (
             <div>
                 <div className='window-class'>
-                    <div className='Table-Wrapper'>
+                    <div className='table-wrapper'>
+                        <div id='seat-1' className='seat'></div>
+                        <div id='seat-2' className='seat'></div> 
+                        <div id='seat-3' className='seat'></div> 
+                        <div id='seat-4' className='seat'></div> 
+
                         <strong><div className='center'>{`Sum: ${this.props.plr.tablePot}`}</div></strong>
                         
                         <div className='Table'>

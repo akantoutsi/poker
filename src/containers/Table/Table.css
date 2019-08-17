@@ -7,11 +7,10 @@
     background: linear-gradient(#006400, #003c00);
     border-radius: 250px;
     border: 1px solid black;
-
     margin: auto;
 }
 
-.Table-Wrapper {
+.table-wrapper {
     border-radius: 250px;
     margin-left: 20%; 
     margin-right: 20%; 
@@ -31,3 +30,31 @@
     transform: translate(-50%, -50%);
 }
 
+.seat {
+    border: 2px solid #433737; 
+    background: linear-gradient(#584949, #826c6c);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    position: absolute;
+}
+
+#seat-1 {
+    top: calc(85%);
+    left: calc(85%);
+}
+
+#seat-2 {
+    top: calc(85%);
+    right: calc(85%);
+}
+
+#seat-3 {
+    bottom: calc(85%);
+    right: calc(85%);
+}
+
+#seat-4 {
+    bottom: calc(85%);
+    left: calc(85%);
+}

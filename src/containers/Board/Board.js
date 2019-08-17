@@ -105,8 +105,7 @@ class Board extends Component {
                                 {   
                                     (!card.isVisible)
                                     ? <div className='card back'>*</div>
-                                    : <Card value={card.value} suit={card.suit} />
-                                    
+                                    : <Card value={card.value} suit={card.suit} openedCards={1} />
                                 }
                             </div>
                         );

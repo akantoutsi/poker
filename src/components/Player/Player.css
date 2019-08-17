@@ -39,11 +39,6 @@ hr {
     border: 1px solid grey;
 }
 
-/* .input-pot {
-    width: 85px;
-    margin: 8px;
-} */
-
 .center {
     margin: 0;
     position: absolute;
@@ -74,7 +69,7 @@ hr {
 
 .player-info {
     padding: 3px;
-    border: 5px solid black;
+    border: 5px solid transparent;
     border-radius: 40%;
     width: 30%;
     height: 85%;

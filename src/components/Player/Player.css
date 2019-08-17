@@ -9,7 +9,7 @@
 .pot-btns {
     display: flex;
     align-items: center;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .next-btn {
@@ -55,6 +55,13 @@ hr {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
+}
+
+.pl-info {
+    border-radius: 10px;
+    border: 2px solid #9A9A9A; 
+    padding: 2px; 
+    width: 70%;
 }
 
 .center-player-info-cards {

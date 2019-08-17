@@ -317,6 +317,7 @@ const playersReducer = (state = initialState, action) => {
                     player.nextPlayer        = 1;
                     currentPlayer.nextPlayer = 0;
                     currentPlayer.changedPot = 0;
+                    possibleWinners          = players.filter(elem => elem.isActive);
                 }
             }
 

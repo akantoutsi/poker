@@ -38,7 +38,7 @@ const Player = props => {
         <div id={'player-' + playerId} className='player-info'>  
             {/* <strong style={{color: 'red'}}>{`${props.player.isDealer ? 'D' : ''}`}</strong> */}
             
-            <div className='center-player-info' style={{borderRadius: '10px', border: '2px solid #9A9A9A', padding: '2px', width: '50%'}}> 
+            <div className='center-player-info pl-info'> 
                 {/* <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1} ${props.player.isDealer ? '(Dealer)' : ''}`}</strong> */}
                 {/* <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1}`}</strong> */}
                 <strong className={classes.join(' ')}>

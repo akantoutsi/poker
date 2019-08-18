@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect }          from 'react-redux'; 
-import Player               from '../../components/Player/Player';
-import * as actionTypes     from '../../store/actionTypes';
+import Player               from './Player/Player';
+import * as actionTypes     from '../../../store/actionTypes';
 
 import './Players.css';
 

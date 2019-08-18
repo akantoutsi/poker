@@ -32,11 +32,26 @@
 
 .seat {
     border: 2px solid #433737; 
-    background: linear-gradient(#584949, #826c6c);
+    /* background: linear-gradient(#584949, #826c6c); */
+    /* background: linear-gradient(#785B5B, #745858); */
+    /* background: linear-gradient(#8B908C, #8D8E8E); */
+
+    /* background: linear-gradient(#776111, #773f11); */
+    background-color:#773f11;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
     position: absolute;
+}
+
+.seat-lbl {
+    left: 50%;
+    top: 50%;
+    margin-right: -60%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    position: absolute;
+    color: #2f2424;
 }
 
 #seat-1 {

@@ -35,20 +35,8 @@ const Player = props => {
     }
     
     return ( 
-        <div id={'player-' + playerId} className='player-info'>  
-            {/* <strong style={{color: 'red'}}>{`${props.player.isDealer ? 'D' : ''}`}</strong> */}
-            
+        <div id={'player-' + playerId} className='player-info'>              
             <div className='center-player-info pl-info'> 
-                {/* <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1} ${props.player.isDealer ? '(Dealer)' : ''}`}</strong> */}
-                {/* <strong className={classes.join(' ')}>{`Player ${props.player.seq + 1}`}</strong> */}
-                <strong className={classes.join(' ')}>
-                    {props.player.isDealer ? `Player ${props.player.seq + 1} (Dealer)` : 
-                                            props.player.isSmallBlind ? `Player ${props.player.seq + 1} (Small Blind)` : 
-                                            props.player.isBigBlind ? `Player ${props.player.seq + 1} (Big Blind)` : 
-                                            `Player ${props.player.seq + 1}`}
-                </strong>
-                
-                <hr />
                 <div className={classes.join(' ')}>
                     {`Cash: €${props.player.cash} - Pot: €${props.player.pot}`}
                 </div>

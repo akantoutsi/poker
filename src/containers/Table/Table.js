@@ -146,10 +146,28 @@ class Table extends Component {
             <div>
                 <div className='window-class'>
                     <div className='table-wrapper'>
-                        <div id='seat-1' className='seat'></div>
-                        <div id='seat-2' className='seat'></div> 
-                        <div id='seat-3' className='seat'></div> 
-                        <div id='seat-4' className='seat'></div> 
+                        {
+                            this.props.plr.players.map((player, index) => {
+                                return (
+                                    <div key={index}>
+                                        <div id={`seat-${player.seq + 1}`} className='seat'>
+                                            <strong>
+                                                <div className='seat-lbl'>
+                                                    {
+                                                        player.isDealer 
+                                                        ? `Player ${player.seq + 1} (Dealer)`
+                                                            : player.isSmallBlind 
+                                                                ? `Player ${player.seq + 1} (Small Blind)` 
+                                                                : player.isBigBlind ? `Player ${player.seq + 1} (Big Blind)` 
+                                                        : `Player ${player.seq + 1}`
+                                                    }
+                                                </div>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        }
 
                         <strong><div className='center'>{`Sum: ${this.props.plr.tablePot}`}</div></strong>
                         

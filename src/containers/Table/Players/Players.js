@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect }          from 'react-redux'; 
-import Player               from './Player/Player';
+import Player               from 'player';
 import * as actionTypes     from '../../../store/actionTypes';
 
 import './Players.css';

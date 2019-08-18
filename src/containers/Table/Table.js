@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect }          from 'react-redux'; 
 import _                    from 'lodash';
-import Board                from './Board/Board';
-import Players              from './Players/Players';
+import Board                from 'board';
+import Players              from 'players';
 import * as actionTypes     from '../../store/actionTypes';
   
 import './Table.css';

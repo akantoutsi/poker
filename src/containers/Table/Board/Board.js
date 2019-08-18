@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect }          from 'react-redux';
-import Card                 from '../../../components/Card/Card';
+import Card                 from 'card';
 import _                    from 'lodash';
 import * as actionTypes     from '../../../store/actionTypes';
 

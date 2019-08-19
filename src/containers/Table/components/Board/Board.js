@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect }          from 'react-redux';
 import Card                 from 'card';
 import _                    from 'lodash';
-import * as actionTypes     from '../../../store/actionTypes';
+import * as actionTypes     from '../../../../store/actionTypes';
 
 import './Board.css';
 

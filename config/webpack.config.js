@@ -274,9 +274,9 @@ module.exports = function(webpackEnv) {
         'react-native': 'react-native-web',
         card: path.resolve('src/components/Card/Card.js'),
         table: path.resolve('src/containers/Table/Table.js'),
-        board: path.resolve('src/containers/Table/Board/Board.js'),
-        players: path.resolve('src/containers/Table/Players/Players.js'),
-        player: path.resolve('src/containers/Table/Players/Player/Player.js')
+        board: path.resolve('src/containers/Table/components/Board/Board.js'),
+        players: path.resolve('src/containers/Table/components/Players/Players.js'),
+        player: path.resolve('src/containers/Table/components/Players/components/Player/Player.js')
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

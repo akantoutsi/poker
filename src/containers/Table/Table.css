@@ -32,12 +32,7 @@
 
 .seat {
     border: 2px solid #433737; 
-    /* background: linear-gradient(#584949, #826c6c); */
-    /* background: linear-gradient(#785B5B, #745858); */
-    /* background: linear-gradient(#8B908C, #8D8E8E); */
-
-    /* background: linear-gradient(#776111, #773f11); */
-    background-color:#773f11;
+    background-color:#515151;
     border-radius: 50%;
     width: 160px;
     height: 160px;

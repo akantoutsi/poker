@@ -47,12 +47,13 @@ const Player = props => {
             </div>
 
             <div className='center-player-info-cards'>
+                {console.log(props.player)}
                 {
                     props.player.cards.map((card, index) => {
                         return (
                             <div key={index}>
                                 <div className='playingCards'>
-                                    <Card value={card.value} suit={card.suit} openedCards={props.player.nextPlayer === 1} />
+                                    <Card value={card.value} suit={card.suit} openedCards={props.player.nextPlayer === 1 || card.selected} selected={card.selected} />
                                 </div>
                             </div>
                         );

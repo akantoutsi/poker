@@ -1,5 +1,78 @@
 import _ from 'lodash';
 
+export const groupByProperty = (ourArray, property) => {
+    return ourArray.reduce(function (accumulator, object) {
+        const key = object[property];
+
+        if (!accumulator[key]) {
+            accumulator[key] = [];
+        }
+
+        accumulator[key].push(object);
+
+        return accumulator;
+    }, {});
+}
+
+export const sortArray = (arr, property) => {
+    const res = arr.sort((a, b) => a.rank < b.rank ? 1 : -1);
+  
+    return res;
+}
+
+export const formatCards = (cardsToFormat) => {
+    let cards                  = sortArray(cardsToFormat, 'rank');  
+    let grpCardsBySuit         = groupByProperty(cards, 'suit');
+    let tmpGroupedCardsByValue = groupByProperty(cards, 'rank');
+
+    for (let elem in tmpGroupedCardsByValue) { 
+        tmpGroupedCardsByValue[elem].freq = tmpGroupedCardsByValue[elem].length; 
+    }
+
+    let grpCardsByValue = Object.entries(tmpGroupedCardsByValue);
+    sortArray(grpCardsByValue, grpCardsByValue[1]);
+
+    let a        = findWinner(grpCardsBySuit, grpCardsByValue);
+    let winCombs = [];
+    winCombs.push(a);
+
+    return winCombs;
+}
+
+export const printWinners = (arr) => {
+    let grouped = arr.map(elem => {
+        return elem.reduce((acc, el) => {
+            const key = el.typeOfCombination;
+        
+            if (!acc[key]) {
+                acc[key] = [];
+            }
+    
+            acc[key].push(el);
+    
+            return acc;
+        }, {});
+    });
+      
+    let groupedArr = grouped.map(elem => Object.entries(elem));
+    groupedArr.map(elem => elem[0][0] = parseInt(elem[0][0]));
+    
+    let sortedGroupedArr   = groupedArr.reduce((acc, el) => { acc[0] = (acc[0] === undefined || el[0][0] < acc[0]) ? el[0][0] : acc[0]; return acc; }, []);
+    let groupedArrFiltered = groupedArr.filter(elem => elem[0].includes(sortedGroupedArr[0]));
+    let res                = groupedArrFiltered.map(elem => elem[0][1]);
+
+    return res;
+}
+
+export const getWinnerIds = (arr) => {
+    return arr.map(elem => {
+        return elem.reduce((acc, el) => { 
+            acc = (el.belongsTo !== 'board') ? parseInt(el.belongsTo) : 'board';  
+            return acc; 
+        }, -1);
+    });
+}     
+
 export const createCards = () => {
     let suits     = ['hearts', 'clubs', 'spades', 'diams'];
     let values    = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
@@ -149,6 +222,7 @@ const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
         let cardToCheck = groupedCardsBySuit[elem];
         let res         = containsStraight(cardToCheck);
 
+        // to royal flush to thewrei straight
         if (res.length === 5) {
             if (res[0].rank === 14) {
                 typeOfCombination = 1;

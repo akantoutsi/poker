@@ -5,16 +5,12 @@ import * as serviceWorker               from './serviceWorker';
 import { createStore, combineReducers } from 'redux';
 import { Provider }                     from 'react-redux';
 import tableReducer                     from './store/reducers/tableReducer';
-import playersReducer                   from './store/reducers/playersReducer';
-import boardReducer                     from './store/reducers/boardReducer';
 
 import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './index.css';
 
 const rootReducer = combineReducers({
-    table  : tableReducer,
-    board  : boardReducer, 
-    players: playersReducer
+    table: tableReducer
 });
 
 const store = createStore(rootReducer);

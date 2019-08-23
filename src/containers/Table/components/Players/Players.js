@@ -10,12 +10,12 @@ class Players extends Component {
         return (
             <div> 
                 {
-                    this.props.plr.players.map((player, index) => {
+                    this.props.tbl.players.map((player, index) => {
                         return (
                             <div key={index}>
                                 <Player player={player} 
-                                        nextPlayer      ={(this.props.firstPlayerId !== null) 
-                                                        ? this.props.firstPlayerId 
+                                        nextPlayer      ={(this.props.tbl.firstPlayerId !== null) 
+                                                        ? this.props.tbl.firstPlayerId 
                                                         : ( (player.nextPlayer === 1) ? player.seq : null )}
                                         incrementPot    ={(playerId) => this.props.incrementPot(playerId)} 
                                         decrementPot    ={(playerId) => this.props.decrementPot(playerId)} 
@@ -23,7 +23,10 @@ class Players extends Component {
                                         setNextPlayer   ={(playerId) => this.props.setNextPlayer(playerId)}
                                         updateCurrentPot={()         => this.props.updateCurrentPot()}
                                         setTablePot     ={()         => this.props.setTablePot()}
-                                        resetFirstPlayer={()         => this.props.resetFirstPlayer()} />
+                                        resetFirstPlayer={()         => this.props.resetFirstPlayer()}
+                                        selected        ={this.props.selected} 
+                                        begin={this.props.tbl.round}
+                                        />
                             </div>
                         );
                     })
@@ -35,9 +38,7 @@ class Players extends Component {
 
 const mapStateToProps = state => {
     return {
-        round        : state.table.round,
-        plr          : state.players,
-        firstPlayerId: state.board.firstPlayerId
+        tbl: state.table
     };
 };
 

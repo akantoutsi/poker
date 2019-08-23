@@ -1,4 +1,5 @@
-import React from 'react';
+import React       from 'react';
+import { connect } from 'react-redux'; 
 
 import './Card.css';
 
@@ -12,37 +13,37 @@ const Card = props => {
                       (props.suit === 'clubs')  ? 'U+2663' : 
                       (props.suit === 'hearts') ? 'U+2665' : 'U+2666';
 
-    // if (!props.afro) {
-    //     return (
-            // <div className={cardClass.join(' ')}>
-            //     <span className='rank'>{props.value}</span>
-            //     <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
-            // </div>
-    //     );
-    
-    // } else {
-    //     return (
-    //         <div className={cardClass.join(' ')}>
-    //             <strong>
-    //                 <span className={`card rank-${props.value.toLowerCase()} ${props.suit}`}>    
-    //                     <span className='rank'>{props.value}</span>
-    //                     <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
-    //                 </span>
-    //             </strong>
-    //         </div>
-    //     );
-    // }
-    
-    return (
-        props.openedCards
-        ? 
-        <div className={cardClass.join(' ')}>
-            <span className='rank'>{props.value}</span>
-            <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
-        </div>
-        :
-        <div className='card back'>*</div>
-    );
+    if (!props.openedCards) {
+        return (
+            <div className='card back'>*</div>
+        );
+
+    } else {
+        if (!props.selected) {
+            return (
+                <div className={cardClass.join(' ')}>
+                    <span className='rank'>{props.value}</span>
+                    <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
+                </div>
+            );
+        
+        } else {
+            return (
+                <strong>
+                    <span className={`card rank-${props.value.toLowerCase()} ${props.suit}`}>    
+                        <span className='rank'>{props.value}</span>
+                        <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
+                    </span>
+                </strong>
+            );
+        } 
+    }
 }
 
-export default Card;
+const mapStateToProps = state => {
+    return {
+        checkForWinner: state.table.checkForWinner
+    };
+};
+
+export default connect(mapStateToProps)(Card);

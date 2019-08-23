@@ -45,7 +45,7 @@ class Board extends Component {
         let j             = 0;
         let dealerId      = -1;
 
-        cards = _.cloneDeep(this.props.brd.initCards);
+        cards = _.cloneDeep(this.props.tbl.initCards);
         cards.map(elem => elem.rank = this.getRank(elem, 'value'));
         cards.map(elem => elem.isVisible = false);
         this.shuffleCards(cards);
@@ -74,7 +74,7 @@ class Board extends Component {
             let cash = Math.floor(Math.random() * (20 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
 
             player.push({
-                cards           : cards.slice(i+j, i+j+2).map(elem => ({...elem, belongsTo: i})),
+                cards           : cards.slice(i+j, i+j+2).map(elem => ({...elem, belongsTo: i, selected: false})),
                 seq             : i,
                 cash            : (smallBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT : 
                                     (bigBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT*2 : cash,
@@ -99,13 +99,13 @@ class Board extends Component {
         return (
             <div className='Board'> 
                 {
-                    this.props.brd.cards.map((card, index) => {
+                    this.props.tbl.cards.map((card, index) => {
                         return (
                             <div className='playingCards' key={index}>
                                 {   
                                     (!card.isVisible)
                                     ? <div className='card back'>*</div>
-                                    : <Card value={card.value} suit={card.suit} openedCards={1} />
+                                    : <Card value={card.value} suit={card.suit} openedCards={1} selected={card.selected} />
                                 }
                             </div>
                         );
@@ -124,7 +124,6 @@ class Board extends Component {
                                                                  this.props.updateCurrentPot(),
                                                                  this.props.resetTablePot(),
                                                                  this.props.setTablePot()) : null}>
-                   
                     {allCards}
                     <div className='clear'></div>
                 </div>
@@ -135,8 +134,7 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        tbl: state.table,
-        brd: state.board
+        tbl: state.table
     };
 };
 
@@ -153,6 +151,7 @@ const mapDispatchToProps = dispatch => {
         setTablePot      : ()              => dispatch({type: actionTypes.SET_TABLE_POT}),
         resetBoardCards  : ()              => dispatch({type: actionTypes.RESET_BOARD_CARDS}),
         resetPlayers     : ()              => dispatch({type: actionTypes.RESET_PLAYERS}),
+        resetWinners     : ()              => dispatch({type: actionTypes.RESET_WINNERS}),
     };
 };
 

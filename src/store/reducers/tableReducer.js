@@ -411,7 +411,7 @@ const tableReducer = (state = initialState, action) => {
                     } 
                     
                     if (restPlayers.length === 0) {
-                        alert('next - vres nikiti');
+                        // alert('next - vres nikiti');
                         currentPlayer.nextPlayer = 0;
                         possibleWinners          = players.filter(elem => elem.isActive);
                         openAllBoardCards        = 1;
@@ -425,7 +425,7 @@ const tableReducer = (state = initialState, action) => {
                         
                         } else {
                             currentPlayer.nextPlayer = 0;
-                            alert('next - vres nikiti');
+                            // alert('next - vres nikiti');
                             possibleWinners   = players.filter(elem => elem.isActive);
                             openAllBoardCards = 1;
                         }

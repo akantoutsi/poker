@@ -35,7 +35,6 @@ const Card = props => {
                     <span className={`card rank-${props.value.toLowerCase()} ${props.suit}`}>    
                         <span className='rank'>{props.value}</span>
                         <span className='suit'>{String.fromCharCode(`0x${tmp[tmp.length-1]}`)}</span>
-                        {/* <span className='suit'>{String.fromCharCode(cardUnicode)}</span> */}
                     </span>
                 </strong>
             );

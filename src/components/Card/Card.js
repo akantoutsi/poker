@@ -19,11 +19,13 @@ const Card = props => {
         );
 
     } else {
+        let tmp = cardUnicode.split('+');
+
         if (!props.selected) {
             return (
                 <div className={cardClass.join(' ')}>
                     <span className='rank'>{props.value}</span>
-                    <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
+                    <span className='suit'>{String.fromCharCode(`0x${tmp[tmp.length-1]}`)}</span>
                 </div>
             );
         
@@ -32,7 +34,8 @@ const Card = props => {
                 <strong>
                     <span className={`card rank-${props.value.toLowerCase()} ${props.suit}`}>    
                         <span className='rank'>{props.value}</span>
-                        <span className='suit'>{String.fromCharCode(cardUnicode)}</span>
+                        <span className='suit'>{String.fromCharCode(`0x${tmp[tmp.length-1]}`)}</span>
+                        {/* <span className='suit'>{String.fromCharCode(cardUnicode)}</span> */}
                     </span>
                 </strong>
             );

@@ -1,5 +1,4 @@
 import React       from 'react';
-import { connect } from 'react-redux'; 
 
 import './Card.css';
 
@@ -42,10 +41,4 @@ const Card = props => {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        checkForWinner: state.table.checkForWinner
-    };
-};
-
-export default connect(mapStateToProps)(Card);
+export default Card;

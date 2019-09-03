@@ -140,7 +140,7 @@ const tableReducer = (state = initialState, action) => {
         
                     let updatedWinnerCards = winnerCards.map(elem => elem.map(el => ({...el, selected: true})));
         
-                    console.log(updatedWinnerCards);
+                    // console.log(updatedWinnerCards);
 
                     updatedWinnerCards.map(elem => elem.map(el => el.isBoard ? (boardCards.filter(e => e.value === el.value && e.suit === el.suit ? e.selected = true : null)) : null));
                     updatedWinnerCards.map(elem => elem.map(el => !el.isBoard ? players.map(pl => pl.cards.filter(e => e.value === el.value && e.suit === el.suit ? e.selected = true : null)) : null));

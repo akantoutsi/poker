@@ -25,8 +25,7 @@ class Players extends Component {
                                         setTablePot     ={()         => this.props.setTablePot()}
                                         resetFirstPlayer={()         => this.props.resetFirstPlayer()}
                                         selected        ={this.props.selected} 
-                                        begin={this.props.tbl.round}
-                                        />
+                                />
                             </div>
                         );
                     })

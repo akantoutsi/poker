@@ -47,7 +47,6 @@ const Player = props => {
             </div>
 
             <div className='center-player-info-cards'>
-                {console.log(props.player)}
                 {
                     props.player.cards.map((card, index) => {
                         return (

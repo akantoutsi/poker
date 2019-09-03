@@ -106,22 +106,52 @@ export const findMaxPot = (arr, property) => {
     }, 0);
 }
 
-export const allHaveSamePot = (arr, property, currentPot) => {
+
+
+
+
+
+
+export const checkIfAll = (arr, property, value) => {
     return arr.reduce((acc, elem) => {
-        acc += (elem[property] === currentPot) ? 1 : 0;
+        acc += (elem[property] === value) ? 1 : 0;
         return acc;
     }, 0);
 }
 
-const checkIfCardsLeftToToOpen = (arr, property) => {
-    return arr.reduce((acc, elem) => {
-        acc += (elem[property] === false ? 1 : 0);
-        return acc;
-    }, 0);
-}
+
+
+
+// export const allHaveSamePot = (arr, property, currentPot) => {
+//     return arr.reduce((acc, elem) => {
+//         acc += (elem[property] === currentPot) ? 1 : 0;
+//         return acc;
+//     }, 0);
+// }
+
+// const checkIfCardsLeftToToOpen = (arr, property) => {
+//     return arr.reduce((acc, elem) => {
+//         acc += (elem[property] === false ? 1 : 0);
+//         return acc;
+//     }, 0);
+// }
+
+// export const shouldCheckForWinner = (arr, property) => {
+//     return arr.reduce((acc, elem) => {
+//         acc += (elem[property] === true) ? 1 : 0;
+//         return acc;
+//     }, 0);
+// }
+
+
+
+
+
+
 
 export const cardsToOpen = (arr, property, openAllFlag) => {
-    const cardsClosed   = checkIfCardsLeftToToOpen(arr, property);
+    // const cardsClosed   = checkIfCardsLeftToToOpen(arr, property);
+    const cardsClosed   = checkIfAll(arr, property, false);
     let   howManyToOpen = 0;
     let   fromIndex     = 0;
     let   slicedArr     = [];
@@ -177,13 +207,6 @@ export const cardsToOpen = (arr, property, openAllFlag) => {
     return arr;
 }
 
-export const shouldCheckForWinner = (arr, property) => {
-    return arr.reduce((acc, elem) => {
-        acc += (elem[property] === true) ? 1 : 0;
-        return acc;
-    }, 0);
-}
-
 const sameCardExistsNtimes = (arr, freq) => {
     let res = arr.find(e => e[1].freq === freq);
     return (res) ? res : [];
@@ -199,7 +222,6 @@ const containsStraight = (arr) => {
         if (res.length < 5) {
             if (parseInt(firstElem.rank) === parseInt(arr[i].rank) + 1) { 
                 res.push(arr[i]); 
-              
                 firstElem = arr[i];
             
             } else { 
@@ -209,7 +231,6 @@ const containsStraight = (arr) => {
             } 
         }
     }
-
     return res;
 }
 
@@ -222,7 +243,6 @@ const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
         let cardToCheck = groupedCardsBySuit[elem];
         let res         = containsStraight(cardToCheck);
 
-        // to royal flush to thewrei straight
         if (res.length === 5) {
             if (res[0].rank === 14) {
                 typeOfCombination = 1;

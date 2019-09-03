@@ -319,7 +319,6 @@ const tableReducer = (state = initialState, action) => {
                         activePlayers = players.filter(elem => elem.isActive);
                         maxPot        = findMaxPot(activePlayers, 'pot');
     
-                        // if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
                         if (checkIfAll(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
                             openBoardCards     = 1;
                             alreadyOpenedCards = 1;
@@ -406,7 +405,6 @@ const tableReducer = (state = initialState, action) => {
                         activePlayers = players.filter(elem => elem.isActive);
                         maxPot        = findMaxPot(activePlayers, 'pot');
     
-                        // if (allHaveSamePot(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
                         if (checkIfAll(restPlayers, 'pot', maxPot) === restPlayers.length && !alreadyOpenedCards) {
                             openBoardCards     = 1;
                             alreadyOpenedCards = 1;

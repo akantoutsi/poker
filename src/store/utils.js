@@ -106,12 +106,6 @@ export const findMaxPot = (arr, property) => {
     }, 0);
 }
 
-
-
-
-
-
-
 export const checkIfAll = (arr, property, value) => {
     return arr.reduce((acc, elem) => {
         acc += (elem[property] === value) ? 1 : 0;
@@ -119,38 +113,7 @@ export const checkIfAll = (arr, property, value) => {
     }, 0);
 }
 
-
-
-
-// export const allHaveSamePot = (arr, property, currentPot) => {
-//     return arr.reduce((acc, elem) => {
-//         acc += (elem[property] === currentPot) ? 1 : 0;
-//         return acc;
-//     }, 0);
-// }
-
-// const checkIfCardsLeftToToOpen = (arr, property) => {
-//     return arr.reduce((acc, elem) => {
-//         acc += (elem[property] === false ? 1 : 0);
-//         return acc;
-//     }, 0);
-// }
-
-// export const shouldCheckForWinner = (arr, property) => {
-//     return arr.reduce((acc, elem) => {
-//         acc += (elem[property] === true) ? 1 : 0;
-//         return acc;
-//     }, 0);
-// }
-
-
-
-
-
-
-
 export const cardsToOpen = (arr, property, openAllFlag) => {
-    // const cardsClosed   = checkIfCardsLeftToToOpen(arr, property);
     const cardsClosed   = checkIfAll(arr, property, false);
     let   howManyToOpen = 0;
     let   fromIndex     = 0;

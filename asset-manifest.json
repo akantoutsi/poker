@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/poker/static/css/main.84c017da.chunk.css",
-    "main.js": "/poker/static/js/main.2c5b89b1.chunk.js",
-    "main.js.map": "/poker/static/js/main.2c5b89b1.chunk.js.map",
+    "main.css": "/poker/static/css/main.8fea6f51.chunk.css",
+    "main.js": "/poker/static/js/main.56130e15.chunk.js",
+    "main.js.map": "/poker/static/js/main.56130e15.chunk.js.map",
     "runtime~main.js": "/poker/static/js/runtime~main.f601251a.js",
     "runtime~main.js.map": "/poker/static/js/runtime~main.f601251a.js.map",
     "static/css/2.7293e41b.chunk.css": "/poker/static/css/2.7293e41b.chunk.css",
-    "static/js/2.694ef6a9.chunk.js": "/poker/static/js/2.694ef6a9.chunk.js",
-    "static/js/2.694ef6a9.chunk.js.map": "/poker/static/js/2.694ef6a9.chunk.js.map",
+    "static/js/2.f6b2b6a2.chunk.js": "/poker/static/js/2.f6b2b6a2.chunk.js",
+    "static/js/2.f6b2b6a2.chunk.js.map": "/poker/static/js/2.f6b2b6a2.chunk.js.map",
     "index.html": "/poker/index.html",
-    "precache-manifest.e272a574bcfd49f79bc472014e781082.js": "/poker/precache-manifest.e272a574bcfd49f79bc472014e781082.js",
+    "precache-manifest.ed1689fd2ff66a87ce4cc4c8151b5481.js": "/poker/precache-manifest.ed1689fd2ff66a87ce4cc4c8151b5481.js",
     "service-worker.js": "/poker/service-worker.js",
     "static/css/2.7293e41b.chunk.css.map": "/poker/static/css/2.7293e41b.chunk.css.map",
-    "static/css/main.84c017da.chunk.css.map": "/poker/static/css/main.84c017da.chunk.css.map",
+    "static/css/main.8fea6f51.chunk.css.map": "/poker/static/css/main.8fea6f51.chunk.css.map",
     "static/media/Card.css": "/poker/static/media/QS.8bcef36a.gif",
     "static/media/font-awesome.min.css": "/poker/static/media/fontawesome-webfont.fee66e71.woff"
   }

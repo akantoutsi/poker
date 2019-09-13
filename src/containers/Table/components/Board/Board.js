@@ -1,12 +1,28 @@
-import React, { Component } from 'react';
-import { connect }          from 'react-redux';
-import Card                 from 'card';
-import _                    from 'lodash';
-import * as actionTypes     from '../../../../store/actionTypes';
+import React            from 'react';
+import { connect }      from 'react-redux';
+import Card             from 'card';
+import _                from 'lodash';
+import * as actionTypes from '../../../../store/actionTypes';
 
 import './Board.css';
 
-class Board extends Component {
+const Board = ({
+    tbl,
+    shuffleCards,
+    getRank,
+    resetBoardCards,
+    resetPlayers,
+    setDealer,
+    storeBoardCards, 
+    startGame, 
+    updatePotsNumber,
+    storePlayersCards,
+    setFirstPlayer,
+    updateCurrentPot,
+    resetTablePot,
+    setTablePot
+}) => {
+
     shuffleCards = arr => {
         for (let i = 0; i < arr.length; i++) {
           const rnd = Math.random() * i | 0;
@@ -35,101 +51,99 @@ class Board extends Component {
         return rank;
     };
 
-    render() { 
-        const allCards  = <div className='card back'>*</div>;
-        
-        let cards         = [];
-        let player        = [];
-        let boardCards    = [];
-        let firstPlayerId = null;
-        let j             = 0;
-        let dealerId      = -1;
+    const allCards = <div className='card back'>*</div>;
+    
+    let cards         = [];
+    let player        = [];
+    let boardCards    = [];
+    let firstPlayerId = null;
+    let j             = 0;
+    let dealerId      = -1;
 
-        cards = _.cloneDeep(this.props.tbl.initCards);
-        cards.map(elem => elem.rank = this.getRank(elem, 'value'));
-        cards.map(elem => elem.isVisible = false);
-        this.shuffleCards(cards);
+    cards = _.cloneDeep(tbl.initCards);
+    cards.map(elem => elem.rank = getRank(elem, 'value'));
+    cards.map(elem => elem.isVisible = false);
+    shuffleCards(cards);
 
-        for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
-            dealerId          = (this.props.tbl.dealerId + 1 >= actionTypes.NUM_OF_PLAYERS) 
-                              ?  this.props.tbl.dealerId + 1 - actionTypes.NUM_OF_PLAYERS 
-                              :  this.props.tbl.dealerId + 1
+    for (let i=0; i<actionTypes.NUM_OF_PLAYERS; i++) {
+        dealerId          = (tbl.dealerId + 1 >= actionTypes.NUM_OF_PLAYERS) 
+                            ?  tbl.dealerId + 1 - actionTypes.NUM_OF_PLAYERS 
+                            :  tbl.dealerId + 1
 
-            let smallBlindId  = (dealerId + 1 >= actionTypes.NUM_OF_PLAYERS) 
-                              ?  dealerId + 1 - actionTypes.NUM_OF_PLAYERS     
-                              :  dealerId + 1;
+        let smallBlindId  = (dealerId + 1 >= actionTypes.NUM_OF_PLAYERS) 
+                            ?  dealerId + 1 - actionTypes.NUM_OF_PLAYERS     
+                            :  dealerId + 1;
 
-            let bigBlindId    = (dealerId + 2 >= actionTypes.NUM_OF_PLAYERS) 
-                              ?  dealerId + 2 - actionTypes.NUM_OF_PLAYERS 
-                              :  dealerId + 2;
+        let bigBlindId    = (dealerId + 2 >= actionTypes.NUM_OF_PLAYERS) 
+                            ?  dealerId + 2 - actionTypes.NUM_OF_PLAYERS 
+                            :  dealerId + 2;
 
-            firstPlayerId     = (bigBlindId + 1 >= actionTypes.NUM_OF_PLAYERS)
-                              ?  bigBlindId + 1 - actionTypes.NUM_OF_PLAYERS 
-                              :  bigBlindId + 1;
+        firstPlayerId     = (bigBlindId + 1 >= actionTypes.NUM_OF_PLAYERS)
+                            ?  bigBlindId + 1 - actionTypes.NUM_OF_PLAYERS 
+                            :  bigBlindId + 1;
 
-            let nextPlayerId  = (bigBlindId + 1 >= actionTypes.NUM_OF_PLAYERS) 
-                              ?  bigBlindId + 1 - actionTypes.NUM_OF_PLAYERS
-                              :  bigBlindId + 1
+        let nextPlayerId  = (bigBlindId + 1 >= actionTypes.NUM_OF_PLAYERS) 
+                            ?  bigBlindId + 1 - actionTypes.NUM_OF_PLAYERS
+                            :  bigBlindId + 1
 
-            let cash = Math.floor(Math.random() * (20 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
+        let cash = Math.floor(Math.random() * (20 - actionTypes.SMALL_BLIND_AMOUNT*2)) + (actionTypes.SMALL_BLIND_AMOUNT*2);                    
 
-            player.push({
-                cards           : cards.slice(i+j, i+j+2).map(elem => ({...elem, belongsTo: i, selected: false})),
-                seq             : i,
-                cash            : (smallBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT : 
-                                    (bigBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT*2 : cash,
-                isActive        : 1,
-                nextPlayer      : (i === nextPlayerId) ? 1 : 0,
-                pot             : 0,
-                potNotLessThan  : 0,
-                maxPot          : cash,
-                changedPot      : 0,
-                smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
-                isDealer        : dealerId === i,
-                isSmallBlind    : smallBlindId === i,
-                isBigBlind      : bigBlindId === i,
-                previousPot     : (smallBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT : 
-                                    (bigBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT*2 : 0
-            });
-            j += 1;
-        }
-
-        boardCards = cards.slice(j*2, (j*2)+5);
-
-        return (
-            <div className='Board'> 
-                {
-                    this.props.tbl.cards.map((card, index) => {
-                        return (
-                            <div className='playingCards' key={index}>
-                                {   
-                                    (!card.isVisible)
-                                    ? <div className='card back'>*</div>
-                                    : <Card value={card.value} suit={card.suit} openedCards={1} selected={card.selected} />
-                                }
-                            </div>
-                        );
-                    })
-                }
-
-                <div className='playingCards all-cards' 
-                    onClick={() => this.props.tbl.round === 0 ? (this.props.resetBoardCards(),
-                                                                 this.props.resetPlayers(),
-                                                                 this.props.setDealer(dealerId),
-                                                                 this.props.storeBoardCards(boardCards), 
-                                                                 this.props.startGame(), 
-                                                                 this.props.updatePotsNumber(),
-                                                                 this.props.storePlayersCards(player),
-                                                                 this.props.setFirstPlayer(firstPlayerId),
-                                                                 this.props.updateCurrentPot(),
-                                                                 this.props.resetTablePot(),
-                                                                 this.props.setTablePot()) : null}>
-                    {allCards}
-                    <div className='clear'></div>
-                </div>
-            </div>
-        );
+        player.push({
+            cards           : cards.slice(i+j, i+j+2).map(elem => ({...elem, belongsTo: i, selected: false})),
+            seq             : i,
+            cash            : (smallBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT : 
+                                (bigBlindId === i) ? cash - actionTypes.SMALL_BLIND_AMOUNT*2 : cash,
+            isActive        : 1,
+            nextPlayer      : (i === nextPlayerId) ? 1 : 0,
+            pot             : 0,
+            potNotLessThan  : 0,
+            maxPot          : cash,
+            changedPot      : 0,
+            smallBlindAmount: actionTypes.SMALL_BLIND_AMOUNT,
+            isDealer        : dealerId === i,
+            isSmallBlind    : smallBlindId === i,
+            isBigBlind      : bigBlindId === i,
+            previousPot     : (smallBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT : 
+                                (bigBlindId === i) ? actionTypes.SMALL_BLIND_AMOUNT*2 : 0
+        });
+        j += 1;
     }
+
+    boardCards = cards.slice(j*2, (j*2)+5);
+
+    return (
+        <div className='Board'> 
+            {
+                tbl.cards.map((card, index) => {
+                    return (
+                        <div className='playingCards' key={index}>
+                            {   
+                                (!card.isVisible)
+                                ? <div className='card back'>*</div>
+                                : <Card value={card.value} suit={card.suit} openedCards={1} selected={card.selected} />
+                            }
+                        </div>
+                    );
+                })
+            }
+
+            <div className='playingCards all-cards' 
+                onClick={() => tbl.round === 0 ? (resetBoardCards(),
+                                                  resetPlayers(),
+                                                  setDealer(dealerId),
+                                                  storeBoardCards(boardCards), 
+                                                  startGame(), 
+                                                  updatePotsNumber(),
+                                                  storePlayersCards(player),
+                                                  setFirstPlayer(firstPlayerId),
+                                                  updateCurrentPot(),
+                                                  resetTablePot(),
+                                                  setTablePot()) : null}>
+                {allCards}
+                <div className='clear'></div>
+            </div>
+        </div>
+    );
 }
 
 const mapStateToProps = state => {

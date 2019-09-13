@@ -1,81 +1,88 @@
-import React, { Component } from 'react';
-import { connect }          from 'react-redux'; 
-import _                    from 'lodash';
-import Board                from 'board';
-import Players              from 'players';
-import * as actionTypes     from '../../store/actionTypes';
+import React            from 'react';
+import { connect }      from 'react-redux'; 
+import _                from 'lodash';
+import Board            from 'board';
+import Players          from 'players';
+import * as actionTypes from '../../store/actionTypes';
   
 import './Table.css';
 
-class Table extends Component {
-    render() {
-        if (this.props.tbl.openBoardCards) {
-            // console.log('open next card');
-            this.props.updatePotsNumber();
-            this.props.openAllBoardCards(0);
-            
-            if (this.props.tbl.potsCount >= 5) {
-                this.props.areAllBoardCardsOpen();
-            }
+const Table = ({
+    tbl,
+    updatePotsNumber,
+    openAllBoardCards,
+    areAllBoardCardsOpen,
+    resetOpenCardsFlags,
+    resetPotsNumber,
+    setNoneAsNextPlayer
+ }) => {
 
-            this.props.resetOpenCardsFlags();
+    if (tbl.openBoardCards) {
+        // console.log('open next card');
+        updatePotsNumber();
+        openAllBoardCards(0);
+        
+        if (tbl.potsCount >= 5) {
+            areAllBoardCardsOpen();
         }
 
-        if (this.props.tbl.openAllBoardCards) {
-            // console.log('open all cards');
-            this.props.updatePotsNumber();
-            this.props.openAllBoardCards(1);
-            this.props.areAllBoardCardsOpen();
-            this.props.resetOpenCardsFlags();
-        }
-
-        if (this.props.tbl.potsCount >= 5) {
-            // console.log('check for winner no matter what');
-            this.props.resetPotsNumber();
-            this.props.openAllBoardCards(1);
-            this.props.areAllBoardCardsOpen();
-            this.props.resetOpenCardsFlags();
-            this.props.setNoneAsNextPlayer();
-        }
-
-        return (
-            <div>
-                <div className='window-class'>
-                    <div className='table-wrapper'>
-                        {
-                            this.props.tbl.players.map((player, index) => {
-                                return (
-                                    <div key={index}>
-                                        <div id={`seat-${player.seq + 1}`} className='seat'>
-                                            <strong>
-                                                <div className='seat-lbl'>
-                                                    {
-                                                        player.isDealer 
-                                                        ? `Player ${player.seq + 1} (Dealer)`
-                                                            : player.isSmallBlind 
-                                                                ? `Player ${player.seq + 1} (Small Blind)` 
-                                                                : player.isBigBlind ? `Player ${player.seq + 1} (Big Blind)` 
-                                                        : `Player ${player.seq + 1}`
-                                                    }
-                                                </div>
-                                            </strong>
-                                        </div>
-                                    </div>
-                                );
-                            })
-                        }
-
-                        <strong><div className='center'>{`Sum: ${this.props.tbl.tablePot}`}</div></strong>
-                        
-                        <div className='Table'>
-                            <Players />
-                            <Board />
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        );
+        resetOpenCardsFlags();
     }
+
+    if (tbl.openAllBoardCards) {
+        // console.log('open all cards');
+        updatePotsNumber();
+        openAllBoardCards(1);
+        areAllBoardCardsOpen();
+        resetOpenCardsFlags();
+    }
+
+    if (tbl.potsCount >= 5) {
+        // console.log('check for winner no matter what');
+        resetPotsNumber();
+        openAllBoardCards(1);
+        areAllBoardCardsOpen();
+        resetOpenCardsFlags();
+        setNoneAsNextPlayer();
+    }
+
+    return (
+        <div>
+            <div className='window-class'>
+                <div className='table-wrapper'>
+                    {
+                        tbl.players.map((player, index) => {
+                            return (
+                                <div key={index}>
+                                    <div id={`seat-${player.seq + 1}`} className='seat'>
+                                        <strong>
+                                            <div className='seat-lbl'>
+                                                {
+                                                    player.isDealer 
+                                                    ? `Player ${player.seq + 1} (Dealer)`
+                                                        : player.isSmallBlind 
+                                                            ? `Player ${player.seq + 1} (Small Blind)` 
+                                                            : player.isBigBlind ? `Player ${player.seq + 1} (Big Blind)` 
+                                                    : `Player ${player.seq + 1}`
+                                                }
+                                            </div>
+                                        </strong>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
+
+                    <strong><div className='center'>{`Sum: ${tbl.tablePot}`}</div></strong>
+                    
+                    <div className='Table'>
+                        <Players />
+                        <Board />
+                    </div>
+                </div>
+            </div> 
+        </div>
+    );
 }
 
 const mapStateToProps = state => {

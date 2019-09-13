@@ -276,7 +276,8 @@ module.exports = function(webpackEnv) {
         table: path.resolve('src/containers/Table/Table.js'),
         board: path.resolve('src/containers/Table/components/Board/Board.js'),
         players: path.resolve('src/containers/Table/components/Players/Players.js'),
-        player: path.resolve('src/containers/Table/components/Players/components/Player/Player.js')
+        player: path.resolve('src/containers/Table/components/Players/components/Player/Player.js'),
+        action: path.resolve('src/containers/Table/components/Players/components/Player/components/Action/Action.js')
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding

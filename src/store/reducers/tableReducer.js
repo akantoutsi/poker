@@ -329,6 +329,10 @@ const tableReducer = (state = initialState, action) => {
                 if (restPlayers.length <= 1) {
                     possibleWinners   = players.filter(elem => elem.isActive);
                     openAllBoardCards = 1;
+                    // nea function opou tha parei olo to state pou kanw return pio katw wste na mi xreiastei na kalw stin render tou Board to if ()
+                    // i function afti tha epistrefei to ananewmeno state to opoio tha epistrefw en telei
+                    // dld tha peirazw me ti mia olo to state kai oxi stadiaka opws twra
+                    // function()
                 }
     
                 return {

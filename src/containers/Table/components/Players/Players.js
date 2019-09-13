@@ -5,34 +5,43 @@ import * as actionTypes     from '../../../../store/actionTypes';
 
 import './Players.css';
 
-class Players extends Component {
-    render() { 
-        return (
-            <div> 
-                {
-                    this.props.tbl.players.map((player, index) => {
-                        return (
-                            <div key={index}>
-                                <Player player={player} 
-                                        nextPlayer      ={(this.props.tbl.firstPlayerId !== null) 
-                                                        ? this.props.tbl.firstPlayerId 
-                                                        : ( (player.nextPlayer === 1) ? player.seq : null )}
-                                        incrementPot    ={(playerId) => this.props.incrementPot(playerId)} 
-                                        decrementPot    ={(playerId) => this.props.decrementPot(playerId)} 
-                                        exitGame        ={(playerId) => this.props.exitGame(playerId)} 
-                                        setNextPlayer   ={(playerId) => this.props.setNextPlayer(playerId)}
-                                        updateCurrentPot={()         => this.props.updateCurrentPot()}
-                                        setTablePot     ={()         => this.props.setTablePot()}
-                                        resetFirstPlayer={()         => this.props.resetFirstPlayer()}
-                                        selected        ={this.props.selected} 
-                                />
-                            </div>
-                        );
-                    })
-                }
-            </div>
-        );
-    }
+const Players = ({ 
+    tbl,  
+    incrementPot,
+    decrementPot, 
+    exitGame,
+    setNextPlayer,
+    updateCurrentPot,
+    setTablePot,
+    resetFirstPlayer,
+    selected
+}) => {
+    
+    return (
+        <div> 
+            {
+                tbl.players.map((player, index) => {
+                    return (
+                        <div key={index}>
+                            <Player player={player} 
+                                    nextPlayer      ={(tbl.firstPlayerId !== null) 
+                                                    ? tbl.firstPlayerId 
+                                                    : ( (player.nextPlayer === 1) ? player.seq : null )}
+                                    incrementPot    ={incrementPot} 
+                                    decrementPot    ={decrementPot} 
+                                    exitGame        ={exitGame} 
+                                    setNextPlayer   ={setNextPlayer}
+                                    updateCurrentPot={updateCurrentPot}
+                                    setTablePot     ={setTablePot}
+                                    resetFirstPlayer={resetFirstPlayer}
+                                    selected        ={selected} 
+                            />
+                        </div>
+                    );
+                })
+            }
+        </div>
+    );
 }
 
 const mapStateToProps = state => {

@@ -1,30 +1,28 @@
-.update-pot-btn {
+/* .update-pot-btn {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     border: 0 solid transparent;
     cursor: pointer;
-}
+} */
 
-.pot-btns {
+/* .pot-btns {
     display: flex;
     align-items: center;
     margin-top: 20px;
-}
+} */
 
-.next-btn {
+/* .next-btn {
     width: auto;
     height: 35px;
-    /* font-size: 2.5rem; */
     border-radius: 35%;
     border: 0 solid transparent;
-    /* color: #6B8E23; */
     background-color: #6B8E23;
     cursor: pointer;
     margin-left: 15px;
-}
+} */
 
-.exit-btn {
+/* .exit-btn {
     width: auto;
     font-size: 2.5rem;
     border-radius: 20%;
@@ -33,7 +31,7 @@
     background-color: transparent;
     cursor: pointer;
     margin-left: 15px;
-}
+} */
 
 hr {
     border: 1px solid grey;

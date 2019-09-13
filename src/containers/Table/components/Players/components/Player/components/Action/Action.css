@@ -1,0 +1,38 @@
+.pot-btns {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.update-pot-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 0 solid transparent;
+    cursor: pointer;
+}
+
+.exit-btn {
+    width: auto;
+    font-size: 2.5rem;
+    border-radius: 20%;
+    border: 0 solid transparent;
+    color: #7F0000;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.next-btn {
+    width: auto;
+    height: 35px;
+    /* font-size: 2.5rem; */
+    border-radius: 35%;
+    border: 0 solid transparent;
+    /* color: #6B8E23; */
+    background-color: #6B8E23;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+

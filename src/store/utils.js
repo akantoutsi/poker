@@ -277,7 +277,6 @@ const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
         _.set(winCombination, 'typeOfCombination', typeOfCombination);
 
         return winCombination;
-    
     }
 
     if (possibleStraight.length === 4) {
@@ -291,6 +290,7 @@ const findCombination = (groupedCardsBySuit, groupedCardsByValue) => {
                 return acc; 
             }, 0);
 
+            // ean exw dio aces ti tha girisei???
             if (aceExists === 1) {
                 let toCheck = copiedGrpCardsByValue.map(elem => (elem.rank === 14) ? {...elem, rank: 1} : elem);
 

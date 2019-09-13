@@ -1,6 +1,6 @@
-import React from 'react';
-import Card  from 'card';
-import Action  from 'action';
+import React  from 'react';
+import Card   from 'card';
+import Action from 'action';
 
 import './Player.css';
 
